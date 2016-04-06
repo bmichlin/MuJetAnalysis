@@ -53,7 +53,7 @@ class MuJetProducer : public edm::EDProducer {
   virtual void produce(edm::Event&, const edm::EventSetup&);
   virtual void endJob() ;
   
-  bool muonOkay(const pat::Muon &muon);
+  int muonOkay(const pat::Muon &muon);
 
   enum {
     kGroupByDeltaR,
@@ -186,6 +186,7 @@ MuJetProducer::MuJetProducer(const edm::ParameterSet& iConfig)
   produces<pat::MuonCollection>("Orphans");
   produces<pat::MultiMuonCollection>();
 
+
   //now do what ever other initialization is needed
   if       (m_groupingMode_string == "GroupByDeltaR"                  ) m_groupingMode = kGroupByDeltaR;
   else if (m_groupingMode_string == "GroupByMass"                     ) m_groupingMode = kGroupByMass;
@@ -251,83 +252,83 @@ MuJetProducer::~MuJetProducer()
 // member functions
 //
 
-bool MuJetProducer::muonOkay(const pat::Muon &muon) {
-  if (muon.pt() < m_minPt  ||  muon.p() < m_minPmag  ||  fabs(muon.eta()) > m_maxAbsEta) return false;
+int MuJetProducer::muonOkay(const pat::Muon &muon) {
+  if (muon.pt() < m_minPt  ||  muon.p() < m_minPmag  ||  fabs(muon.eta()) > m_maxAbsEta) return 1;
 
-  if (m_selectTrackerMuons  &&  !muon.isTrackerMuon() ) return false;
-  if (m_selectGlobalMuons   &&  !muon.isGlobalMuon()  ) return false;
+  if (m_selectTrackerMuons  &&  !muon.isTrackerMuon() ) return 2;
+  if (m_selectGlobalMuons   &&  !muon.isGlobalMuon()  ) return 3;
 
   if (m_minTrackerHits > 0) {
-    if (muon.innerTrack().isNull()) return false;
-    if (muon.innerTrack()->numberOfValidHits() < m_minTrackerHits) return false;
+    if (muon.innerTrack().isNull()) return 4;
+    if (muon.innerTrack()->numberOfValidHits() < m_minTrackerHits) return 5;
   }
 
   if (m_maxTrackerNormChi2 > 0.) {
-    if (muon.innerTrack().isNull()) return false;
-    if (muon.innerTrack()->normalizedChi2() > m_maxTrackerNormChi2) return false;
+    if (muon.innerTrack().isNull()) return 6;
+    if (muon.innerTrack()->normalizedChi2() > m_maxTrackerNormChi2) return 7;
   }
 
   if (m_maxTrackerDxy > 0.) {
-    if (muon.innerTrack().isNull()) return false;
-    if (fabs(muon.innerTrack()->dxy()) > m_maxTrackerDxy) return false;
+    if (muon.innerTrack().isNull()) return 8;
+    if (fabs(muon.innerTrack()->dxy()) > m_maxTrackerDxy) return 9;
   }
 
   if (m_maxTrackerDz > 0.) {
-    if (muon.innerTrack().isNull()) return false;
-    if (fabs(muon.innerTrack()->dsz()) > m_maxTrackerDz) return false;
+    if (muon.innerTrack().isNull()) return 10;
+    if (fabs(muon.innerTrack()->dsz()) > m_maxTrackerDz) return 11;
   }
 
   if (m_maxQoverpError > 0.) {
-    if (muon.innerTrack().isNull()) return false;
-    if (muon.innerTrack()->qoverpError() > m_maxQoverpError) return false;
+    if (muon.innerTrack().isNull()) return 12;
+    if (muon.innerTrack()->qoverpError() > m_maxQoverpError) return 13;
   }
 
   if (m_maxPhiError > 0.) {
-    if (muon.innerTrack().isNull()) return false;
-    if (muon.innerTrack()->phiError() > m_maxPhiError) return false;
+    if (muon.innerTrack().isNull()) return 14;
+    if (muon.innerTrack()->phiError() > m_maxPhiError) return 15;
   }
 
   if (m_maxEtaError > 0.) {
-    if (muon.innerTrack().isNull()) return false;
-    if (muon.innerTrack()->etaError() > m_maxEtaError) return false;
+    if (muon.innerTrack().isNull()) return 16;
+    if (muon.innerTrack()->etaError() > m_maxEtaError) return 17;
   }
 
   if (m_maxDxyError > 0.) {
-    if (muon.innerTrack().isNull()) return false;
-    if (muon.innerTrack()->dxyError() > m_maxDxyError) return false;
+    if (muon.innerTrack().isNull()) return 18;
+    if (muon.innerTrack()->dxyError() > m_maxDxyError) return 19;
   }
 
   if (m_maxDzError > 0.) {
-    if (muon.innerTrack().isNull()) return false;
-    if (muon.innerTrack()->dzError() > m_maxDzError) return false;
+    if (muon.innerTrack().isNull()) return 20;
+    if (muon.innerTrack()->dzError() > m_maxDzError) return 21;
   }
 
   if (m_minOuterHits > 0) {
-    if (muon.outerTrack().isNull()) return false;
-    if (muon.outerTrack()->numberOfValidHits() < m_minOuterHits) return false;
+    if (muon.outerTrack().isNull()) return 22;
+    if (muon.outerTrack()->numberOfValidHits() < m_minOuterHits) return 23;
   }
 
   if (m_maxOuterNormChi2 > 0.) {
-    if (muon.outerTrack().isNull()) return false;
-    if (muon.outerTrack()->normalizedChi2() > m_maxOuterNormChi2) return false;
+    if (muon.outerTrack().isNull()) return 24;
+    if (muon.outerTrack()->normalizedChi2() > m_maxOuterNormChi2) return 25;
   }
 
   if (m_maxGlobalNormChi2 > 0.) {
-    if (muon.globalTrack().isNull()) return false;
-    if (muon.globalTrack()->normalizedChi2() > m_maxGlobalNormChi2) return false;
+    if (muon.globalTrack().isNull()) return 26;
+    if (muon.globalTrack()->normalizedChi2() > m_maxGlobalNormChi2) return 27;
   }
 
   if (m_maxStaRelChi2 > 0.) {
-    if (!muon.isQualityValid()) return false;
-    if (muon.combinedQuality().staRelChi2 > m_maxStaRelChi2) return false;
+    if (!muon.isQualityValid()) return 28;
+    if (muon.combinedQuality().staRelChi2 > m_maxStaRelChi2) return 29;
   }
 
   if (m_minSegmentMatches > 0) {
-    if (muon.numberOfMatches(reco::Muon::SegmentAndTrackArbitration) < m_minSegmentMatches) return false;
+    if (muon.numberOfMatches(reco::Muon::SegmentAndTrackArbitration) < m_minSegmentMatches) return 30;
   }
 
   for (std::vector<muon::SelectionType>::const_iterator muonSelector = m_muonSelectors.begin();  muonSelector != m_muonSelectors.end();  ++muonSelector) {
-    if (!muon::isGoodMuon(muon, *muonSelector)) return false;
+    if (!muon::isGoodMuon(muon, *muonSelector)) return 31;
   }
 
   std::vector<muon::AlgorithmType>::const_iterator algorithmType = m_detailed_algorithmType.begin();
@@ -341,10 +342,10 @@ bool MuJetProducer::muonOkay(const pat::Muon &muon) {
   std::vector<reco::Muon::ArbitrationType>::const_iterator arbitrationType    = m_detailed_arbitrationType.begin();
   
   for (;  algorithmType != m_detailed_algorithmType.end();  ++algorithmType, ++minNumberOfMatches, ++maxAbsDx, ++maxAbsPullX, ++maxAbsDy, ++maxAbsPullY, ++maxChamberDist, ++maxChamberDistPull, ++arbitrationType) {
-    if (!muon::isGoodMuon(muon, *algorithmType, *minNumberOfMatches, *maxAbsDx, *maxAbsPullX, *maxAbsDy, *maxAbsPullY, *maxChamberDist, *maxChamberDistPull, *arbitrationType)) return false;
+    if (!muon::isGoodMuon(muon, *algorithmType, *minNumberOfMatches, *maxAbsDx, *maxAbsPullX, *maxAbsDy, *maxAbsPullY, *maxChamberDist, *maxChamberDistPull, *arbitrationType)) return 32;
   }
 
-  return true;
+  return 0;
 }
 
 // ------------ method called to produce the data  ------------
@@ -386,9 +387,9 @@ void MuJetProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
 
   std::map<const pat::Muon*,bool> used;
   for (pat::MuonCollection::const_iterator one = muons->begin();  one != muons->end();  ++one) {
-    if (muonOkay(*one)) {
+    if (muonOkay(*one) == 0) {
 	    for (pat::MuonCollection::const_iterator two = one;  two != muons->end();  ++two) {
-	      if (one != two  &&  muonOkay(*two)) {
+	      if (one != two  &&  muonOkay(*two) == 0) {
 
           std::vector<const pat::Muon*> pairOfMuons;
           pairOfMuons.push_back(&*one);
@@ -449,7 +450,7 @@ void MuJetProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   // output #2: a collection of muons not belonging to any surviving pair
   std::auto_ptr<pat::MuonCollection> Orphans(new pat::MuonCollection);
   for (pat::MuonCollection::const_iterator muon = muons->begin();  muon != muons->end();  ++muon) {
-    if (muonOkay(*muon)) {
+    if (muonOkay(*muon) == 0) {
       bool isUsed = false;
       for (std::map<const pat::Muon*,bool>::const_iterator iter = used.begin();  iter != used.end();  ++iter) {
         if (&*muon == iter->first) isUsed = true;
@@ -514,6 +515,15 @@ void MuJetProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   iEvent.put(Pairs, "Pairs"); 
   iEvent.put(Orphans, "Orphans");
   iEvent.put(EquivalenceClasses); 
+
+///---JPSI BAM 3/16
+
+for (pat::MuonCollection::const_iterator muon = muons->begin();  muon != muons->end();  ++muon) {
+int muJetFailure = 0;
+muJetFailure =  muonOkay(*muon);
+std::cout << "MuJet Creation Failure Code: " << muJetFailure << std::endl;
+}
+
 }
 
 // ------------ method called once each job just before starting event loop  ------------

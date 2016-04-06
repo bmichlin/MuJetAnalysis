@@ -1,5 +1,8 @@
 #include "MuJetAnalysis/AnalysisTools/interface/PixelHitRecovery.h"
 
+#include "DataFormats/HepMCCandidate/interface/GenParticleFwd.h"
+#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
+
 #include "DataFormats/GeometrySurface/interface/Plane.h"
 #include "DataFormats/GeometryVector/interface/Point2DBase.h"
 #include <DataFormats/SiPixelDetId/interface/PXBDetId.h>
@@ -63,6 +66,7 @@
 #include "MagneticField/Records/interface/IdealMagneticFieldRecord.h" 
 #include "RecoMuon/Navigation/interface/MuonNavigableLayer.h"
 #include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "FWCore/Framework/interface/EDAnalyzer.h"
 #include "Geometry/Records/interface/TrackerDigiGeometryRecord.h"
 #include "Geometry/TrackerGeometryBuilder/interface/TrackerGeometry.h"
 #include "MagneticField/Engine/interface/MagneticField.h"

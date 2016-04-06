@@ -45,7 +45,9 @@ selectedPatPFMuons = selectedPatMuons.clone(
     src = cms.InputTag("patMuons"),
     #"Loose Muon" requirement on PF muons as recommended by Muon POG:
     #https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideMuonId#Loose_Muon
-    cut = cms.string("pt > 5.0 && isPFMuon() && ( isTrackerMuon() || isGlobalMuon() ) && -2.4 < eta() && eta() < 2.4")
+    #cut = cms.string("pt > 5.0 && isPFMuon() && ( isTrackerMuon() || isGlobalMuon() ) && -2.4 < eta() && eta() < 2.4")
+#Changed for Jpsi estimation
+    cut = cms.string("pt > 3.5 && isPFMuon() && ( isTrackerMuon() || isGlobalMuon() ) && -2.4 < eta() && eta() < 2.4")
 )
 cleanPatPFMuons = cleanPatMuons.clone(
 

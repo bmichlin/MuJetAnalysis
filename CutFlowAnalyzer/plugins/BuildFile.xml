@@ -18,6 +18,5 @@
 <use   name="TrackingTools/Records"/>
 <use   name="MuJetAnalysis/DataFormats"/>
 <use   name="MuJetAnalysis/AnalysisTools"/>
-<use   name="PhysicsTools/RecoUtils"/>
 <use   name="root"/>
 </library>
