@@ -51,6 +51,7 @@
 #include "MuJetAnalysis/AnalysisTools/interface/ConsistentVertexesCalculator.h"
 #include "MuJetAnalysis/AnalysisTools/interface/DisplacedVertexFinder.h"
 #include "MuJetAnalysis/AnalysisTools/interface/Helpers.h"
+#include "FWCore/Framework/interface/ConsumesCollector.h"
 
 // user include files
 #include "TTree.h"
@@ -272,13 +273,26 @@ class CutFlowAnalyzer : public edm::EDAnalyzer {
 		//****************************************************************************
 
 		// Labels to access
-		edm::InputTag m_muons;        // reconstructed muons
-		edm::InputTag m_JpsiMuons;        // reconstructed jpsi muons
-		edm::InputTag m_JpsiMuonsRECO;        // reconstructed jpsi muons
-		edm::InputTag m_JpsiMuonsPAT;        // reconstructed jpsi muons
-		edm::InputTag m_muJets;       // muon jets built from reconstructed muons
-		edm::InputTag m_muJetOrphans; // muon orphan, not found in any group
+		edm::EDGetTokenT<pat::MuonCollection> m_muons;        // reconstructed muons
+		edm::EDGetTokenT<pat::MultiMuonCollection> m_muJets;       // muon jets built from reconstructed muons
+		edm::EDGetTokenT<reco::BeamSpot> m_beamSpot;
+		edm::EDGetTokenT<pat::MuonCollection> m_muJetOrphans; // muon orphan, not found in any group
+		edm::EDGetTokenT<pat::TriggerEvent> m_triggerEvent;
+		edm::EDGetTokenT<reco::TrackCollection> m_tracks;
+		edm::EDGetTokenT<reco::GenParticleCollection> m_genParticles;
+		edm::EDGetTokenT<reco::VertexCollection> m_primaryVertices;
+
+		  edm::EDGetTokenT<pat::MuonCollection>  m_JpsiMuons;
+		  edm::EDGetTokenT<reco::MuonCollection> m_JpsiMuonsRECO;
+		  edm::EDGetTokenT<pat::MuonCollection>  m_JpsiMuonsPAT;
+
+		  //edm::InputTag m_JpsiMuons;        // reconstructed jpsi muons
+		  //edm::InputTag m_JpsiMuonsRECO;        // reconstructed jpsi muons
+		  //edm::InputTag m_JpsiMuonsPAT;        // reconstructed jpsi muons
+
+
 		Int_t         m_nThrowsConsistentVertexesCalculator;
+
 
 		unsigned int m_randomSeed;
 		TRandom3       m_trandom3;
@@ -502,7 +516,6 @@ class CutFlowAnalyzer : public edm::EDAnalyzer {
 		bool runPixelHitRecovery_;
 
 		//BB estimation
-		Bool_t runBBestimation_;
 		Float_t m_orphan_dimu_mass;
 		Float_t m_orphan_mass;
 		Int_t m_dimuorphan_containstrig;
@@ -586,15 +599,21 @@ CutFlowAnalyzer::CutFlowAnalyzer(const edm::ParameterSet& iConfig)
 	//****************************************************************************
 	//                 SET RECO LEVEL VARIABLES AND COUNTERS                       
 	//****************************************************************************
+	
+	  m_muons           = consumes<pat::MuonCollection>(iConfig.getParameter<edm::InputTag>("muons"));
+	  m_muJets          = consumes<pat::MultiMuonCollection>(iConfig.getParameter<edm::InputTag>("muJets"));
+	  m_beamSpot        = consumes<reco::BeamSpot>(iConfig.getParameter<edm::InputTag>("beamSpot"));
+	  m_muJetOrphans    = consumes<pat::MuonCollection>(iConfig.getParameter<edm::InputTag>("muJetOrphans"));
+	  m_triggerEvent    = consumes<pat::TriggerEvent>(iConfig.getParameter<edm::InputTag>("triggerEvent"));
+	  m_tracks          = consumes<reco::TrackCollection>(iConfig.getParameter<edm::InputTag>("tracks"));
+	  m_genParticles    = consumes<reco::GenParticleCollection>(iConfig.getParameter<edm::InputTag>("genParticles"));
+	  m_primaryVertices = consumes<reco::VertexCollection>(iConfig.getParameter<edm::InputTag>("primaryVertices"));
 
-	m_muons = iConfig.getParameter<edm::InputTag>("muons");
-	m_JpsiMuons = iConfig.getParameter<edm::InputTag>("jpsiMuonCands");
-	m_JpsiMuonsRECO = iConfig.getParameter<edm::InputTag>("jpsiMuonCandsRECO");
-	m_JpsiMuonsPAT = iConfig.getParameter<edm::InputTag>("jpsiMuonCandsPAT");
-	m_muJets = iConfig.getParameter<edm::InputTag>("muJets");
-	m_muJetOrphans = iConfig.getParameter<edm::InputTag>("muJetOrphans");
+	  m_JpsiMuons     = consumes<pat::MuonCollection>(iConfig.getParameter<edm::InputTag>("jpsiMuonCands"));
+	  m_JpsiMuonsRECO = consumes<reco::MuonCollection>(iConfig.getParameter<edm::InputTag>("jpsiMuonCandsRECO"));
+	  m_JpsiMuonsPAT  = consumes<pat::MuonCollection>(iConfig.getParameter<edm::InputTag>("jpsiMuonCandsPAT"));
+
 	m_nThrowsConsistentVertexesCalculator = iConfig.getParameter<int>("nThrowsConsistentVertexesCalculator");
-	runBBestimation_ = iConfig.getUntrackedParameter<bool>("runBBestimation",false);
 	runPromptJpsiEstimation_ = iConfig.getUntrackedParameter<bool>("runPromptJpsiEstimation","true");
 
 	//m_randomSeed = 1234; //So, this is not a random number!
@@ -672,7 +691,7 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 
 	// Beam spot info
 	edm::Handle<reco::BeamSpot> beamSpot;
-	iEvent.getByLabel("offlineBeamSpot", beamSpot);
+	iEvent.getByToken(m_beamSpot, beamSpot);	
 	b_beamSpot_x = beamSpot->position().x();
 	b_beamSpot_y = beamSpot->position().y();
 	b_beamSpot_z = beamSpot->position().z();
@@ -695,7 +714,7 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 		if ( m_debug > 10 ) std::cout << m_events << " Start GEN Level" << std::endl;
 
 		edm::Handle<reco::GenParticleCollection> genParticles;
-		iEvent.getByLabel("genParticles", genParticles);
+iEvent.getByToken(m_genParticles, genParticles);
 
 		// Loop over all genParticles and save prompt muons from particles with codes 36 (a1) or 3000022 (gammaD) in vector genMuons
 		std::vector<const reco::GenParticle*> genH;
@@ -1056,7 +1075,7 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 	if ( m_debug > 10 ) std::cout << m_events << " Start RECO Level" << std::endl;
 
 	edm::Handle<pat::MuonCollection> muons;
-	iEvent.getByLabel(m_muons, muons);
+	iEvent.getByToken(m_muons, muons);
 
 	std::vector<const reco::Muon*> selMuons;
 	std::vector<const reco::Muon*> selMuons8;
@@ -1154,8 +1173,9 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 	if ( m_debug > 10 ) std::cout << m_events << " Build RECO muon jets" << std::endl;
 
 	edm::Handle<pat::MultiMuonCollection> muJets;
-	iEvent.getByLabel(m_muJets, muJets);
-	const pat::MultiMuon *muJetC = NULL;
+iEvent.getByToken(m_muJets, muJets);
+	
+const pat::MultiMuon *muJetC = NULL;
 	const pat::MultiMuon *muJetF = NULL;
 	int   nMuJetsContainMu17     = 0;
 	unsigned int nMuJets = muJets->size();
@@ -1387,7 +1407,7 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 	b_isDiMuonHLTFired = false;
 	////
 	edm::Handle<pat::TriggerEvent> triggerEvent;
-	iEvent.getByLabel("patTriggerEvent", triggerEvent);
+iEvent.getByToken(m_triggerEvent, triggerEvent);
 
 	b_isDiMuonHLTFired = false;
 	b_hltPaths.clear();
@@ -1429,7 +1449,7 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 
 	// Cut on isolation
 	edm::Handle<reco::TrackCollection> tracks;
-	iEvent.getByLabel("generalTracks", tracks);
+iEvent.getByToken(m_tracks, tracks);
 
 	//  edm::Handle<reco::PFCandidateCollection> pfCandidates;
 	//  iEvent.getByLabel("particleFlow", pfCandidates);
@@ -1556,7 +1576,7 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 
 	// Cut on primary vertex in event
 	edm::Handle<reco::VertexCollection> primaryVertices;
-	iEvent.getByLabel("offlinePrimaryVertices", primaryVertices);
+iEvent.getByToken(m_primaryVertices, primaryVertices);
 
 	b_isVertexOK = false;
 	for (reco::VertexCollection::const_iterator vertex = primaryVertices->begin();  vertex != primaryVertices->end();  ++vertex) {
@@ -1579,96 +1599,6 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 	//                          BBAR ESTIMATION START                         
 	//****************************************************************************
 	//{{{
-	if(runBBestimation_){
-		m_orphan_passOffLineSel = false;
-		m_orphan_passOffLineSelPt = false;
-		m_orphan_FiredTrig = false;
-		m_orphan_FiredTrig_pt = false;
-		m_orphan_FiredTrig_ptColl = false;
-		// Trimuons
-		double m_trigpt = 17.;
-		std::vector<pat::MuonCollection::const_iterator> hightrigmuons;
-		for (pat::MuonCollection::const_iterator muon = muons->begin();  muon != muons->end();  ++muon) {
-			if (muon->pt() > m_trigpt  &&  fabs(muon->eta()) < 0.9) {
-				const pat::TriggerObjectStandAlone *mu01  = muon->triggerObjectMatchByPath("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx_v1");
-				const pat::TriggerObjectStandAlone *mu02  = muon->triggerObjectMatchByPath("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx_v2");
-				const pat::TriggerObjectStandAlone *mu03  = muon->triggerObjectMatchByPath("HLT_TrkMu17_DoubleTrkMu5NoFiltersNoVtx_v2");
-				if( mu01 != NULL || mu02 != NULL || mu03 != NULL ) m_orphan_FiredTrig = true;
-				if((mu01 != NULL && mu01->pt() > m_trigpt ) || (mu02 != NULL && mu02->pt() > m_trigpt ) || (mu03 != NULL && mu03->pt() > m_trigpt ) ) m_orphan_FiredTrig_pt = true;
-				if((mu01 != NULL && mu01->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu01->pt() > m_trigpt)  ||
-						(mu02 != NULL && mu02->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu02->pt() > m_trigpt)  ||
-						(mu03 != NULL && mu03->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu03->pt() > m_trigpt)){
-					hightrigmuons.push_back(muon);
-					m_orphan_FiredTrig_ptColl = true;
-				}
-			}
-		}
-		//Orphan branches
-		m_orphan_dimu_mass = -999.;
-		m_orphan_mass = -999.;
-		m_orphan_isoTk = -1;
-		m_orphan_dimu_isoTk = -1;
-		m_orphan_z = -999.;
-		m_orphan_dimu_z = -999.;
-		m_dimuorphan_containstrig = 0;
-		m_dimuorphan_containstrig2 = 0;
-		edm::Handle<pat::MuonCollection> orphans;
-		iEvent.getByLabel(m_muJetOrphans, orphans);
-		if (muJets->size() == 1  &&  (*muJets)[0].numberOfDaughters() == 2  &&  orphans->size() == 1 ) {
-			m_orphan_passOffLineSel = true;
-			pat::MultiMuonCollection::const_iterator muJet = muJets->begin();
-			pat::MuonCollection::const_iterator orphan = orphans->begin();
-			if( muJet->muon(0)->pt() > m_trigpt || muJet->muon(1)->pt() > m_trigpt || orphan->pt() > m_trigpt ) m_orphan_passOffLineSelPt = true;
-			m_orphan_z = orphan->innerTrack()->dz(beamSpot->position());
-			m_orphan_dimu_z = muJet->vertexDz(beamSpot->position());
-			for (std::vector<pat::MuonCollection::const_iterator>::const_iterator iter = hightrigmuons.begin();  iter != hightrigmuons.end();  ++iter) {
-				if( orphan->innerTrack().isAvailable() && (*iter)->innerTrack().isAvailable() &&  tamu::helpers::sameTrack(&*(orphan->innerTrack()), &*((*iter)->innerTrack()))){
-					m_dimuorphan_containstrig++;
-				}
-			}
-			for (std::vector<pat::MuonCollection::const_iterator>::const_iterator iter = hightrigmuons.begin();  iter != hightrigmuons.end();  ++iter) {
-				if( muJet->muon(0)->innerTrack().isAvailable() && (*iter)->innerTrack().isAvailable() && tamu::helpers::sameTrack(&*(muJet->muon(0)->innerTrack()), &*((*iter)->innerTrack()))) {
-					m_dimuorphan_containstrig2++;
-				}
-				if( muJet->muon(1)->innerTrack().isAvailable() && (*iter)->innerTrack().isAvailable() && tamu::helpers::sameTrack(&*(muJet->muon(1)->innerTrack()), &*((*iter)->innerTrack()))) {
-					m_dimuorphan_containstrig2++;
-				}
-			}
-			m_orphan_dimu_mass = muJet->mass();
-			m_orphan_mass = orphan->mass();
-			//iso orphan
-			double iso_track_pt_treshold = 0.5;
-			for (reco::TrackCollection::const_iterator track = tracks->begin(); track != tracks->end(); ++track) {
-				if (!muJet->sameTrack(&*track,&*(orphan->innerTrack()))) {
-					double dphi = orphan->innerTrack()->phi() - track->phi();
-					if (dphi > M_PI) dphi -= 2.*M_PI;
-					if (dphi < -M_PI) dphi += 2.*M_PI;
-					double deta = orphan->innerTrack()->eta() - track->eta();
-					double dR = sqrt(pow(dphi, 2) + pow(deta, 2));
-					if (dR < 0.4 && track->pt() > iso_track_pt_treshold) {
-						double dz = fabs(track->dz(beamSpot->position())-orphan->innerTrack()->dz(beamSpot->position()));
-						if (dz < 0.1) m_orphan_isoTk += track->pt();
-					}
-				}
-			}
-			//iso dimuon-orphan
-			for (reco::TrackCollection::const_iterator track = tracks->begin(); track != tracks->end(); ++track) {
-				bool track_is_muon = false;
-				if (muJet->sameTrack(&*track,&*(muJet->muon(0)->innerTrack())) || muJet->sameTrack(&*track,&*(muJet->muon(1)->innerTrack()))) track_is_muon = true;
-				if (!track_is_muon) {
-					double dphi = muJet->phi() - track->phi();
-					if (dphi > M_PI) dphi -= 2.*M_PI;
-					if (dphi < -M_PI) dphi += 2.*M_PI;
-					double deta = muJet->eta() - track->eta();
-					double dR = sqrt(pow(dphi, 2) + pow(deta, 2)); 
-					if (dR < 0.4 && track->pt() > iso_track_pt_treshold) {
-						double dz = fabs(track->dz(beamSpot->position())-muJet->vertexDz(beamSpot->position()));
-						if (dz < 0.1) m_orphan_dimu_isoTk += track->pt();
-					}
-				}    
-			}
-		}
-	}
 	//}}}
 	//****************************************************************************
 	//                          BBAR ESTIMATION END                         
@@ -1682,20 +1612,23 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 		if ( m_debug > 10 ) std::cout << m_events << " Start Prompt Jpsi estimation" << std::endl;
 
 		edm::Handle<pat::MuonCollection> jpsiMuonCands;
-		iEvent.getByLabel(m_JpsiMuons, jpsiMuonCands);
-
+		//iEvent.getByLabel(m_JpsiMuons, jpsiMuonCands);
+iEvent.getByToken(m_JpsiMuons, jpsiMuonCands);
 std::cout << "Checkpoint 1" << std::endl;
 
 		edm::Handle<reco::MuonCollection> jpsiMuonCandsRECO;
-		iEvent.getByLabel(m_JpsiMuonsRECO, jpsiMuonCandsRECO);
+		//iEvent.getByLabel(m_JpsiMuonsRECO, jpsiMuonCandsRECO);
+		 iEvent.getByToken(m_JpsiMuonsRECO, jpsiMuonCandsRECO);
 std::cout << "Checkpoint 2" << std::endl;
 
 		edm::Handle<pat::MuonCollection> jpsiMuonCandsPAT;
-		iEvent.getByLabel(m_JpsiMuonsPAT, jpsiMuonCandsPAT);
+		//iEvent.getByLabel(m_JpsiMuonsPAT, jpsiMuonCandsPAT);
+		  iEvent.getByToken(m_JpsiMuonsPAT, jpsiMuonCandsPAT);
 std::cout << "Checkpoint 3" << std::endl;
 
 		edm::Handle<pat::TriggerEvent> triggerEvent;
-		iEvent.getByLabel("patTriggerEvent", triggerEvent);
+		//iEvent.getByLabel("patTriggerEvent", triggerEvent);
+		  iEvent.getByToken(m_triggerEvent, triggerEvent);
 std::cout << "Checkpoint 4" << std::endl;
 
 		std::vector<const reco::Muon*> jpsi_selMuons;
@@ -1719,7 +1652,7 @@ std::cout << "Checkpoint 4.5" << std::endl;
 
 		jpsi_trigger = 0;
 		std::cout << "Checkpoint 5.01" << std::endl;
-bool is_jpsi_mc = false;
+bool is_jpsi_mc = true;
 
 if(is_jpsi_mc == false){
 	if( triggerEvent->path("HLT_Dimuon0_Jpsi_Muon_v2")->wasAccept() && trigger == 0 ){
@@ -1837,7 +1770,8 @@ if(is_jpsi_mc == false){
 			if ( m_debug > 10 ) std::cout << m_events << " Build Jpsi muon jets" << std::endl;
 
 			edm::Handle<pat::MultiMuonCollection> JpsiMuJets;
-			iEvent.getByLabel(m_muJets, JpsiMuJets);
+			//iEvent.getByLabel(m_muJets, JpsiMuJets);
+			  iEvent.getByToken(m_muJets, JpsiMuJets);
 			const pat::MultiMuon *muJetCjpsi = NULL;
 			const pat::MultiMuon *muJetFjpsi = NULL;
 			unsigned int nMuJetsjpsi = JpsiMuJets->size();
@@ -1977,7 +1911,8 @@ if(is_jpsi_mc == false){
 				std::cout << "Run Jpsi isolation" << std::endl;
 				// Cut on isolation
 				edm::Handle<reco::TrackCollection> tracksjpsi;
-				iEvent.getByLabel("generalTracks", tracksjpsi);
+				//iEvent.getByLabel("generalTracks", tracksjpsi);
+				  iEvent.getByToken(m_tracks, tracksjpsi);
 
 				//  edm::Handle<reco::PFCandidateCollection> pfCandidates;
 				//  iEvent.getByLabel("particleFlow", pfCandidates);
@@ -2084,7 +2019,6 @@ if(is_jpsi_mc == false){
 	//****************************************************************************
 
 	m_ttree->Fill();
-	if(runBBestimation_) m_ttree_orphan->Fill();
 	if(runPromptJpsiEstimation_){
 		std::cout << "Filling nTuple" << std::endl;
 		std::cout << "jpsi_isoTk_dimuon1: " << jpsi_isoTk_dimuon1 << std::endl;
@@ -2376,23 +2310,6 @@ void CutFlowAnalyzer::beginJob() {
 	m_ttree->Branch("hltPaths",  &b_hltPaths);  
 
 	// Orpahn Muon
-	if(runBBestimation_){
-		m_ttree_orphan = tFileService->make<TTree>("Events_orphan", "Events_orphan");
-		m_ttree_orphan->Branch("run", &b_run, "run/I");
-		m_ttree_orphan->Branch("lumi", &b_lumi, "lumi/I");
-		m_ttree_orphan->Branch("event", &b_event, "event/I");
-		m_ttree_orphan->Branch("orph_mass", &m_orphan_mass, "orph_mass/F");
-		m_ttree_orphan->Branch("orph_dimu_mass", &m_orphan_dimu_mass, "orph_dimu_mass/F");
-		m_ttree_orphan->Branch("containstrig", &m_dimuorphan_containstrig, "containstrig/I");
-		m_ttree_orphan->Branch("orph_dimu_z", &m_orphan_dimu_z, "orph_dimu_z/F");
-		m_ttree_orphan->Branch("orph_isoTk", &m_orphan_isoTk, "orph_isoTk/F");
-		m_ttree_orphan->Branch("orph_dimu_isoTk", &m_orphan_dimu_isoTk, "orph_dimu_isoTk/F");
-		m_ttree_orphan->Branch("orph_passOffLineSel", &m_orphan_passOffLineSel, "orph_passOffLineSel/O");
-		m_ttree_orphan->Branch("orph_passOffLineSelPt", &m_orphan_passOffLineSelPt, "orph_passOffLineSelPt/O");
-		m_ttree_orphan->Branch("orph_FiredTrig", &m_orphan_FiredTrig, "orph_FiredTrig/O");
-		m_ttree_orphan->Branch("orph_FiredTrig_pt", &m_orphan_FiredTrig_pt, "orph_FiredTrig_pt/O");
-		m_ttree_orphan->Branch("orph_FiredTrig_ptColl", &m_orphan_FiredTrig_ptColl, "orph_FiredTrig_ptColl/O");
-	}
 	if(runPromptJpsiEstimation_){
 		m_ttree_jpsi = tFileService->make<TTree>("Jpsi_Events", "Jpsi_Events");
 		m_ttree_jpsi->Branch("jpsi_event_failure_type", &jpsi_event_failure_type, "jpsi_event_failure_type/F");
