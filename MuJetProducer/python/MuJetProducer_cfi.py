@@ -32,7 +32,7 @@ MuJetProducer = cms.EDProducer(
     calculateIsolation = cms.bool(False),
 
     # how to group muons into jets
-    groupingMode = cms.string("GroupByMassAndVertexProbOrDeltaR"),
+    groupingMode = cms.string("GroupByDeltaRAndMass"),
     maxDeltaR = cms.double(0.01),
     maxMass = cms.double(9.),
     minVertexProb = cms.double(0.01),
