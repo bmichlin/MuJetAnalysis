@@ -85,7 +85,7 @@ void readTextFileWithSamples(const std::string fileName, std::vector< std::vecto
     else {
       if (line.back() != '/') 
 	line += '/';
-	vv.push_back(line);
+      vv.push_back(line);
     }
   }
   v.push_back(vv);
@@ -100,4 +100,18 @@ void printFileNames(const std::vector< std::vector<string> >& vec)
     }
     cout <<endl;
   }
+}
+
+double My_dPhi(double phi1, double phi2) {
+  double dPhi = phi1 - phi2;
+  if (dPhi >  M_PI) dPhi -= 2.*M_PI;
+  if (dPhi < -M_PI) dPhi += 2.*M_PI;
+  return dPhi;
+}
+
+double deltaR(double eta1, double phi1, double eta2, double phi2)
+{
+  double dEta = eta1 - eta2;
+  double dPhi = My_dPhi(phi1,phi2);
+  return sqrt(dEta*dEta+dPhi*dPhi);
 }
