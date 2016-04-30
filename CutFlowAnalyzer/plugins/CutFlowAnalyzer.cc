@@ -78,10 +78,6 @@
 #include "DataFormats/Candidate/interface/Candidate.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 
-//Added for Vertex Finding sanity checks
-//#include <TrackingRecHit.h>
-#include "PhysicsTools/RecoUtils/interface/CheckHitPattern.h"
-
 double cotan(double i) { return(1 / tan(i)); }
 
 bool PtOrderGen (const reco::GenParticle* p1, const reco::GenParticle* p2) { return (p1->pt() > p2->pt() ); }
