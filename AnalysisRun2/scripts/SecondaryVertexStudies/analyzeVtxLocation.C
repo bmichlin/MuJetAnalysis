@@ -100,6 +100,24 @@ double calc_eff(double num, double denom)
   return eff_uncert;
 }
 
+void make_basic_plot(TH1* h, TString title)
+{
+  TCanvas *c = new TCanvas("c", "c", 800, 600);
+  c->cd();
+  h->Draw();
+  c->SaveAs(title);
+  c->Close();
+}
+
+void make_basic_plot(TH2* h, TString title)
+{
+  TCanvas *c = new TCanvas("c", "c", 800, 600);
+  c->cd();
+  h->Draw();
+  c->SaveAs(title);
+  c->Close();
+}
+
 void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1)
 {
   bool verbose(false);
@@ -273,12 +291,12 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
     t->SetBranchAddress("is2MuJets",                      &is2MuJets);
     t->SetBranchAddress("is2DiMuons",                     &is2DiMuons);
     t->SetBranchAddress("is2DiMuonsFittedVtxOK",          &is2DiMuonsFittedVtxOK);
-    t->SetBranchAddress("is2DiMuonsDzOK_FittedVtx",       &is2DiMuonsDzOK_FittedVtx);
-    t->SetBranchAddress("isDiMuonHLTFired",               &isDiMuonHLTFired);
-    t->SetBranchAddress("is2DiMuonsMassOK_FittedVtx",     &is2DiMuonsMassOK_FittedVtx);
-    t->SetBranchAddress("is2DiMuonsIsoTkOK_FittedVtx",    &is2DiMuonsIsoTkOK_FittedVtx);
-    t->SetBranchAddress("isVertexOK",                     &isVertexOK);
-    t->SetBranchAddress("isDiMuonHLTFired",              &isDiMuonHLTFired);
+    // t->SetBranchAddress("is2DiMuonsDzOK_FittedVtx",       &is2DiMuonsDzOK_FittedVtx);
+    // t->SetBranchAddress("isDiMuonHLTFired",               &isDiMuonHLTFired);
+    // t->SetBranchAddress("is2DiMuonsMassOK_FittedVtx",     &is2DiMuonsMassOK_FittedVtx);
+    // t->SetBranchAddress("is2DiMuonsIsoTkOK_FittedVtx",    &is2DiMuonsIsoTkOK_FittedVtx);
+    // t->SetBranchAddress("isVertexOK",                     &isVertexOK);
+    // t->SetBranchAddress("isDiMuonHLTFired",              &isDiMuonHLTFired);
 
     t->SetBranchAddress("genA0_Lxy", &genA0_Lxy);
     t->SetBranchAddress("genA0_Lz",  &genA0_Lz);
@@ -293,6 +311,9 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
 
     t->SetBranchAddress("genA0Mu0_vz", &genA0Mu0_vz);
     t->SetBranchAddress("genA1Mu0_vz", &genA1Mu0_vz);
+
+    cout << "genA0Mu0_vx " << genA0Mu0_vx << "genA0Mu0_vy " << genA0Mu0_vy <<"genA0Mu0_vz " << genA0Mu0_vz <<endl;
+    cout << "genA1Mu0_vx " << genA1Mu0_vx << "genA1Mu0_vy " << genA1Mu0_vy <<"genA1Mu0_vz " << genA1Mu0_vz <<endl;
 
     float genA0Mu0_veta = xyzToEta(genA0Mu0_vx, genA0Mu0_vy, genA0Mu0_vz);
     float genA1Mu0_veta = xyzToEta(genA1Mu0_vx, genA1Mu0_vy, genA1Mu0_vz);
@@ -1033,29 +1054,46 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   // cout << "quantiles dy "<< q[0] <<" "<<q[1] <<" "<<q[2] <<" "<<q[3] <<" "<<q[4] <<" "<<endl;
   // cout << "quantiles dz "<< q[0] <<" "<<q[1] <<" "<<q[2] <<" "<<q[3] <<" "<<q[4] <<" "<<endl;
 
-  TCanvas *dx_c = new TCanvas("dx_c", "dx_c", 800, 600);
-  dx_c->cd();
-  h_dx->Draw();
-  dx_c->SaveAs(fileName + "dx_c.pdf");
-  dx_c->Close();
+  make_basic_plot(h_dx, fileName + "dx.pdf");
+  make_basic_plot(h_dy, fileName + "dy.pdf");
+  make_basic_plot(h_dz, fileName + "dz.pdf");
+  make_basic_plot(h_dT, fileName + "dT.pdf");
 
-  TCanvas *dy_c = new TCanvas("dy_c", "dy_c", 800, 600);
-  dy_c->cd();
-  h_dy->Draw();
-  dy_c->SaveAs(fileName + "dy_c.pdf");
-  dy_c->Close();
+  make_basic_plot(h_dxdy, fileName + "dxdy.pdf");
+  make_basic_plot(h_dydz, fileName + "dydz.pdf");
+  make_basic_plot(h_dxdz, fileName + "dxdz.pdf");
+  make_basic_plot(h_dTdz, fileName + "dTdz.pdf");
 
-  TCanvas *dz_c = new TCanvas("dz_c", "dz_c", 800, 600);
-  dz_c->cd();
-  h_dz->Draw();
-  dz_c->SaveAs(fileName + "dz_c.pdf");
-  dz_c->Close();
+  make_basic_plot(h_dx_barrel, fileName + "dx_barrel.pdf");
+  make_basic_plot(h_dy_barrel, fileName + "dy_barrel.pdf");
+  make_basic_plot(h_dz_barrel, fileName + "dz_barrel.pdf");
+  make_basic_plot(h_dT_barrel, fileName + "dT_barrel.pdf");
 
-  TCanvas *dT_c = new TCanvas("dT_c", "dT_c", 800, 600);
-  dT_c->cd();
-  h_dT->Draw();
-  dT_c->SaveAs(fileName + "dT_c.pdf");
-  dT_c->Close();
+  make_basic_plot(h_dxdy_barrel, fileName + "dxdy_barrel.pdf");
+  make_basic_plot(h_dydz_barrel, fileName + "dydz_barrel.pdf");
+  make_basic_plot(h_dxdz_barrel, fileName + "dxdz_barrel.pdf");
+  make_basic_plot(h_dTdz_barrel, fileName + "dTdz_barrel.pdf");
+
+  make_basic_plot(h_dx_overlap, fileName + "dx_overlap.pdf");
+  make_basic_plot(h_dy_overlap, fileName + "dy_overlap.pdf");
+  make_basic_plot(h_dz_overlap, fileName + "dz_overlap.pdf");
+  make_basic_plot(h_dT_overlap, fileName + "dT_overlap.pdf");
+
+  make_basic_plot(h_dxdy_overlap, fileName + "dxdy_overlap.pdf");
+  make_basic_plot(h_dydz_overlap, fileName + "dydz_overlap.pdf");
+  make_basic_plot(h_dxdz_overlap, fileName + "dxdz_overlap.pdf");
+  make_basic_plot(h_dTdz_overlap, fileName + "dTdz_overlap.pdf");
+
+  make_basic_plot(h_dx_endcap, fileName + "dx_endcap.pdf");
+  make_basic_plot(h_dy_endcap, fileName + "dy_endcap.pdf");
+  make_basic_plot(h_dz_endcap, fileName + "dz_endcap.pdf");
+  make_basic_plot(h_dT_endcap, fileName + "dT_endcap.pdf");
+
+  make_basic_plot(h_dxdy_endcap, fileName + "dxdy_endcap.pdf");
+  make_basic_plot(h_dydz_endcap, fileName + "dydz_endcap.pdf");
+  make_basic_plot(h_dxdz_endcap, fileName + "dxdz_endcap.pdf");
+  make_basic_plot(h_dTdz_endcap, fileName + "dTdz_endcap.pdf");
+
 
   TCanvas *dxdy_c = new TCanvas("dxdy_c", "dxdy_c", 800, 600);
   dxdy_c->cd();
