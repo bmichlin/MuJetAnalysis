@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 
+const std::string fileWithAnaDirs(std::getenv("CMSSW_BASE") + "/src/MuJetAnalysis/AnalysisRun2/scripts/ExtFidCut_UnHardCodeCuts_SampleList.txt");
+
 void addfiles(TChain *ch, const TString dirname=".", const TString ext=".root")
 {
   bool verbose(false);
@@ -95,6 +97,11 @@ void readTextFileWithSamples(const std::string fileName, std::vector< std::vecto
   }
   v.push_back(vv);
   infile.close();
+}
+
+void readTextFileWithSamples(std::vector< std::vector<string> >& v)
+{
+  readTextFileWithSamples(fileWithAnaDirs, v);
 }
 
 void printFileNames(const std::vector< std::vector<string> >& vec)
