@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 
-const std::string fileWithAnaDirs(std::getenv("CMSSW_BASE") + "/src/MuJetAnalysis/AnalysisRun2/scripts/ExtFidCut_UnHardCodeCuts_SampleList.txt");
+const std::string cmssw_base(std::getenv("CMSSW_BASE"));
+const std::string fileWithAnaDirs(cmssw_base + "/src/MuJetAnalysis/AnalysisRun2/scripts/ExtFidCut_UnHardCodeCuts_SampleList.txt");
 
 void addfiles(TChain *ch, const TString dirname=".", const TString ext=".root")
 {
