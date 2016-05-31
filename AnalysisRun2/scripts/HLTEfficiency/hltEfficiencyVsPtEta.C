@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 #include <algorithm>    // std::max
-#include <stdlib.h>
 #include "../Helpers.h"
+#include <cstdlib>
 
 TString mass_string;
 TString cT_string;
@@ -128,6 +128,8 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   Int_t diMuonF_m1_FittedVtx_hitpix_l3inc;
   Int_t diMuonF_m2_FittedVtx_hitpix_l3inc;
 
+  std::vector<std::string> *hltPaths = 0;
+  
   //============= Counters ===========================//
 
   Int_t ev_all = 0;
@@ -220,13 +222,13 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
 
     t->SetBranchAddress("is2MuJets",                      &is2MuJets);
     t->SetBranchAddress("is2DiMuons",                     &is2DiMuons);
-    t->SetBranchAddress("is2DiMuonsFittedVtxOK",          &is2DiMuonsFittedVtxOK);
-    t->SetBranchAddress("is2DiMuonsDzOK_FittedVtx",       &is2DiMuonsDzOK_FittedVtx);
+    // t->SetBranchAddress("is2DiMuonsFittedVtxOK",          &is2DiMuonsFittedVtxOK);
+    // t->SetBranchAddress("is2DiMuonsDzOK_FittedVtx",       &is2DiMuonsDzOK_FittedVtx);
     t->SetBranchAddress("isDiMuonHLTFired",               &isDiMuonHLTFired);
-    t->SetBranchAddress("is2DiMuonsMassOK_FittedVtx",     &is2DiMuonsMassOK_FittedVtx);
-    t->SetBranchAddress("is2DiMuonsIsoTkOK_FittedVtx",    &is2DiMuonsIsoTkOK_FittedVtx);
-    t->SetBranchAddress("isVertexOK",                     &isVertexOK);
-    t->SetBranchAddress("isDiMuonHLTFired",              &isDiMuonHLTFired);
+    // t->SetBranchAddress("is2DiMuonsMassOK_FittedVtx",     &is2DiMuonsMassOK_FittedVtx);
+    // t->SetBranchAddress("is2DiMuonsIsoTkOK_FittedVtx",    &is2DiMuonsIsoTkOK_FittedVtx);
+    // t->SetBranchAddress("isVertexOK",                     &isVertexOK);
+    // t->SetBranchAddress("isDiMuonHLTFired",              &isDiMuonHLTFired);
 
     t->SetBranchAddress("genA0_Lxy", &genA0_Lxy);
     t->SetBranchAddress("genA0_Lz",  &genA0_Lz);
@@ -248,9 +250,15 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
     t->SetBranchAddress("diMuonF_m1_FittedVtx_hitpix_l3inc", &diMuonF_m1_FittedVtx_hitpix_l3inc);
     t->SetBranchAddress("diMuonF_m2_FittedVtx_hitpix_l3inc", &diMuonF_m2_FittedVtx_hitpix_l3inc);
     
+    t->SetBranchAddress("hltPaths", &hltPaths);
+    
     for(int k=0; k<t->GetEntries(); k++) {
       t->GetEntry(k);
-      
+
+      // cout << "number of paths " << hltPaths->size() << endl;
+      // for (auto i: *hltPaths)
+      // 	std::cout << i << ' ';
+
       const bool firstPixelLayer((diMuonC_m1_FittedVtx_hitpix==1 || 
 				  diMuonC_m2_FittedVtx_hitpix==1) && 
 				 (diMuonF_m1_FittedVtx_hitpix==1 || 
@@ -324,6 +332,8 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
 	
 	Int_t nMuPt8 = 0;
 	Int_t nMuPt17 = 0;
+	Int_t nGenMuPt8 = 0;
+	Int_t nGenMuPt17 = 0;
 	
 	if (selMu0_pT>=8) nMuPt8++;
 	if (selMu1_pT>=8) nMuPt8++;
@@ -335,16 +345,39 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
 	if (selMu2_pT>=17) nMuPt17++;
 	if (selMu3_pT>=17) nMuPt17++;
 
-	if (nMuPt8>=4 and nMuPt17>=1){
-	  RECO_leading_pt_fid->Fill(selMu0_pT);
-	  RECO_leading_eta_fid->Fill(selMu0_eta);
+	if (genMu0_pT>=8 and std::abs(genMu0_eta)<=2.4) nGenMuPt8++;
+	if (genMu1_pT>=8 and std::abs(genMu1_eta)<=2.4) nGenMuPt8++;
+	if (genMu2_pT>=8 and std::abs(genMu2_eta)<=2.4) nGenMuPt8++;
+	if (genMu3_pT>=8 and std::abs(genMu3_eta)<=2.4) nGenMuPt8++;
+	
+	if (genMu0_pT>=17 and std::abs(genMu0_eta)<=0.9) nGenMuPt17++;
+	if (genMu1_pT>=17 and std::abs(genMu1_eta)<=0.9) nGenMuPt17++;
+	if (genMu2_pT>=17 and std::abs(genMu2_eta)<=0.9) nGenMuPt17++;
+	if (genMu3_pT>=17 and std::abs(genMu3_eta)<=0.9) nGenMuPt17++;
+
+	if (nGenMuPt8>=4 and nGenMuPt17>=1){
+	  RECO_leading_pt_fid->Fill(genMu0_pT);
+	  RECO_leading_eta_fid->Fill(genMu0_eta);
 	  //	RECO_leading_phi_fid->Fill(selMu0_phi);
 	  if (isDiMuonHLTFired){
-	    hlt_RECO_leading_pt_fid->Fill(selMu0_pT);
-	    hlt_RECO_leading_eta_fid->Fill(selMu0_eta);
+	    hlt_RECO_leading_pt_fid->Fill(genMu0_pT);
+	    hlt_RECO_leading_eta_fid->Fill(genMu0_eta);
 	    //	  hlt_RECO_leading_phi_fid->Fill(selMu0_phi);
 	  }
 	}
+
+	/*
+	if (nGenMuPt8>=4 and nGenMuPt17>=1){
+	  RECO_leading_pt_fid->Fill(genMu0_pT);
+	  RECO_leading_eta_fid->Fill(genMu0_eta);
+	  //	RECO_leading_phi_fid->Fill(selMu0_phi);
+	  if (isDiMuonHLTFired){
+	    hlt_RECO_leading_pt_fid->Fill(genMu0_pT);
+	    hlt_RECO_leading_eta_fid->Fill(genMu0_eta);
+	    //	  hlt_RECO_leading_phi_fid->Fill(selMu0_phi);
+	  }
+	}
+	*/
       }
     } // closing for loop
     myfile->Close();
@@ -422,7 +455,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   // MyEfficiencyPlot::plot(Variable::Pt,  eff_hlt_leading_pt_fid, "eff_hlt_vs_leading_pT_L" + std::to_string(layers));
   // MyEfficiencyPlot::plot(Variable::Eta, eff_hlt_leading_eta_fid, "eff_hlt_vs_leading_eta_L" + std::to_string(layers));
   // MyEfficiencyPlot::plot(Variable::Phi, eff_hlt_leading_phi_fid, "eff_hlt_vs_leading_phi_L" + std::to_string(layers));
-  // MyEfficiencyPlot::plot(Variable::Pt,  eff_hlt_RECO_leading_pt_fid, "eff_hlt_RECO_vs_leading_pT_L" + std::to_string(layers));
+  MyEfficiencyPlot::plot(Variable::Pt,  eff_hlt_RECO_leading_pt_fid, "eff_hlt_RECO_vs_leading_pT");
   MyEfficiencyPlot::plot(Variable::Eta, eff_hlt_RECO_leading_eta_fid, "eff_hlt_RECO_vs_leading_eta");
   // MyEfficiencyPlot::plot(Variable::Phi, eff_hlt_RECO_leading_phi_fid, "eff_hlt_RECO_vs_leading_phi_L" + std::to_string(layers));
 }
@@ -430,8 +463,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
 void hltEfficiencyVsPtEta()
 {
   std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;
-  readTextFileWithSamples("ANASamplesSven2.txt", DarkSUSY_mH_125_mGammaD_v);
-  // printFileNames(DarkSUSY_mH_125_mGammaD_v);
+  readTextFileWithSamples(DarkSUSY_mH_125_mGammaD_v);
 
   for(auto v: DarkSUSY_mH_125_mGammaD_v) efficiency_trigger(v);
   // for(auto v: DarkSUSY_mH_125_mGammaD_v) efficiency_trigger(v, 2);

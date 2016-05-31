@@ -4,6 +4,55 @@ using namespace std;
 #include <stdlib.h>
 #include "../Helpers.h"
 
+TH1F *h_dx = new TH1F("h_dx","h_dx", 400, -20., 20.);
+TH1F *h_dy = new TH1F("h_dy","h_dy", 400, -20., 20.);
+TH1F *h_dz = new TH1F("h_dz","h_dz", 400, -20., 20.);
+TH1F *h_dT = new TH1F("h_dT","h_dT", 400, -20., 20.);
+
+TH2F *h_dxdy = new TH2F("h_dxdy","h_dxdy", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dydz = new TH2F("h_dydz","h_dydz", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dxdz = new TH2F("h_dxdz","h_dxdz", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dTdz = new TH2F("h_dTdz","h_dTdz", 400, -20., 20., 400, -20., 20.);
+
+TH2F *h_dxdy_true = new TH2F("h_dxdy_true","h_dxdy_true", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dydz_true = new TH2F("h_dydz_true","h_dydz_true", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dxdz_true = new TH2F("h_dxdz_true","h_dxdz_true", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dTdz_true = new TH2F("h_dTdz_true","h_dTdz_true", 400, -20., 20., 400, -20., 20.);
+
+
+TH1F *h_dx_barrel = new TH1F("h_dx_barrel","h_dx_barrel", 400, -20., 20.);
+TH1F *h_dy_barrel = new TH1F("h_dy_barrel","h_dy_barrel", 400, -20., 20.);
+TH1F *h_dz_barrel = new TH1F("h_dz_barrel","h_dz_barrel", 400, -20., 20.);
+TH1F *h_dT_barrel = new TH1F("h_dT_barrel","h_dT_barrel", 400, -20., 20.);
+
+TH2F *h_dxdy_barrel = new TH2F("h_dxdy_barrel","h_dxdy_barrel", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dydz_barrel = new TH2F("h_dydz_barrel","h_dydz_barrel", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dxdz_barrel = new TH2F("h_dxdz_barrel","h_dxdz_barrel", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dTdz_barrel = new TH2F("h_dTdz_barrel","h_dTdz_barrel", 400, -20., 20., 400, -20., 20.);
+
+
+TH1F *h_dx_overlap = new TH1F("h_dx_overlap","h_dx_overlap", 400, -20., 20.);
+TH1F *h_dy_overlap = new TH1F("h_dy_overlap","h_dy_overlap", 400, -20., 20.);
+TH1F *h_dz_overlap = new TH1F("h_dz_overlap","h_dz_overlap", 400, -20., 20.);
+TH1F *h_dT_overlap = new TH1F("h_dT_overlap","h_dT_overlap", 400, -20., 20.);
+
+TH2F *h_dxdy_overlap = new TH2F("h_dxdy_overlap","h_dxdy_overlap", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dydz_overlap = new TH2F("h_dydz_overlap","h_dydz_overlap", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dxdz_overlap = new TH2F("h_dxdz_overlap","h_dxdz_overlap", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dTdz_overlap = new TH2F("h_dTdz_overlap","h_dTdz_overlap", 400, -20., 20., 400, -20., 20.);
+
+
+TH1F *h_dx_endcap = new TH1F("h_dx_endcap","h_dx_endcap", 400, -20., 20.);
+TH1F *h_dy_endcap = new TH1F("h_dy_endcap","h_dy_endcap", 400, -20., 20.);
+TH1F *h_dz_endcap = new TH1F("h_dz_endcap","h_dz_endcap", 400, -20., 20.);
+TH1F *h_dT_endcap = new TH1F("h_dT_endcap","h_dT_endcap", 400, -20., 20.);
+
+TH2F *h_dxdy_endcap = new TH2F("h_dxdy_endcap","h_dxdy_endcap", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dydz_endcap = new TH2F("h_dydz_endcap","h_dydz_endcap", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dxdz_endcap = new TH2F("h_dxdz_endcap","h_dxdz_endcap", 400, -20., 20., 400, -20., 20.);
+TH2F *h_dTdz_endcap = new TH2F("h_dTdz_endcap","h_dTdz_endcap", 400, -20., 20., 400, -20., 20.);
+
+
 //============= Global Variables ===========================//
 std::vector<double> mGammaD_0250_eff;
 std::vector<double> mGammaD_0275_eff;
@@ -51,9 +100,27 @@ double calc_eff(double num, double denom)
   return eff_uncert;
 }
 
+void make_basic_plot(TH1* h, TString title)
+{
+  TCanvas *c = new TCanvas("c", "c", 800, 600);
+  c->cd();
+  h->Draw();
+  c->SaveAs(title);
+  c->Close();
+}
+
+void make_basic_plot(TH2* h, TString title)
+{
+  TCanvas *c = new TCanvas("c", "c", 800, 600);
+  c->cd();
+  h->Draw();
+  c->SaveAs(title);
+  c->Close();
+}
+
 void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1)
 {
-  bool verbose(true);
+  bool verbose(false);
   TChain* chain = new TChain("dummy");
   TString ext("out_ana_");
 
@@ -105,6 +172,12 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   Float_t genA1Mu0_phi;
   Float_t genA1Mu1_phi;
 
+  Float_t genA0_eta;
+  Float_t genA1_eta;
+  
+  Float_t genA0_phi;
+  Float_t genA1_phi;
+
   Float_t genA0Mu0_vx;
   Float_t genA1Mu0_vx;
   
@@ -126,6 +199,14 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   Float_t diMuonF_FittedVtx_phi;
   Float_t diMuonC_FittedVtx_eta;
   Float_t diMuonC_FittedVtx_phi;
+
+  Float_t diMuonF_FittedVtx_px;
+  Float_t diMuonF_FittedVtx_py;
+  Float_t diMuonF_FittedVtx_pz;
+
+  Float_t diMuonC_FittedVtx_px;
+  Float_t diMuonC_FittedVtx_py;
+  Float_t diMuonC_FittedVtx_pz;
 
   Int_t diMuonC_m1_FittedVtx_hitpix;
   Int_t diMuonC_m2_FittedVtx_hitpix;
@@ -164,8 +245,13 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   TObjArray *fileElements=chain->GetListOfFiles();
   TIter next(fileElements);
   TChainElement *chEl=0;
-
+  
+  cout << "Number of file in list: " << fileElements->GetEntries() << endl;
+  int iFile=0;
   while ((chEl=(TChainElement*)next())) {
+    ++iFile;
+    if (iFile>100) break;
+    cout << "Processing file " << iFile << "/" << fileElements->GetEntries() << endl;
     if (verbose) std::cout << "running on file " << chEl->GetTitle() << std::endl;
     TFile* myfile = new TFile(chEl->GetTitle()); //dirname  +
     if (!myfile) {
@@ -205,12 +291,12 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
     t->SetBranchAddress("is2MuJets",                      &is2MuJets);
     t->SetBranchAddress("is2DiMuons",                     &is2DiMuons);
     t->SetBranchAddress("is2DiMuonsFittedVtxOK",          &is2DiMuonsFittedVtxOK);
-    t->SetBranchAddress("is2DiMuonsDzOK_FittedVtx",       &is2DiMuonsDzOK_FittedVtx);
-    t->SetBranchAddress("isDiMuonHLTFired",               &isDiMuonHLTFired);
-    t->SetBranchAddress("is2DiMuonsMassOK_FittedVtx",     &is2DiMuonsMassOK_FittedVtx);
-    t->SetBranchAddress("is2DiMuonsIsoTkOK_FittedVtx",    &is2DiMuonsIsoTkOK_FittedVtx);
-    t->SetBranchAddress("isVertexOK",                     &isVertexOK);
-    t->SetBranchAddress("isDiMuonHLTFired",              &isDiMuonHLTFired);
+    // t->SetBranchAddress("is2DiMuonsDzOK_FittedVtx",       &is2DiMuonsDzOK_FittedVtx);
+    // t->SetBranchAddress("isDiMuonHLTFired",               &isDiMuonHLTFired);
+    // t->SetBranchAddress("is2DiMuonsMassOK_FittedVtx",     &is2DiMuonsMassOK_FittedVtx);
+    // t->SetBranchAddress("is2DiMuonsIsoTkOK_FittedVtx",    &is2DiMuonsIsoTkOK_FittedVtx);
+    // t->SetBranchAddress("isVertexOK",                     &isVertexOK);
+    // t->SetBranchAddress("isDiMuonHLTFired",              &isDiMuonHLTFired);
 
     t->SetBranchAddress("genA0_Lxy", &genA0_Lxy);
     t->SetBranchAddress("genA0_Lz",  &genA0_Lz);
@@ -226,11 +312,23 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
     t->SetBranchAddress("genA0Mu0_vz", &genA0Mu0_vz);
     t->SetBranchAddress("genA1Mu0_vz", &genA1Mu0_vz);
 
+    cout << "genA0Mu0_vx " << genA0Mu0_vx << "genA0Mu0_vy " << genA0Mu0_vy <<"genA0Mu0_vz " << genA0Mu0_vz <<endl;
+    cout << "genA1Mu0_vx " << genA1Mu0_vx << "genA1Mu0_vy " << genA1Mu0_vy <<"genA1Mu0_vz " << genA1Mu0_vz <<endl;
+
+    float genA0Mu0_veta = xyzToEta(genA0Mu0_vx, genA0Mu0_vy, genA0Mu0_vz);
+    float genA1Mu0_veta = xyzToEta(genA1Mu0_vx, genA1Mu0_vy, genA1Mu0_vz);
+
     t->SetBranchAddress("genA0Mu0_eta", &genA0Mu0_eta);
     t->SetBranchAddress("genA1Mu0_eta", &genA1Mu0_eta);
     
     t->SetBranchAddress("genA0Mu0_phi", &genA0Mu0_phi);
     t->SetBranchAddress("genA1Mu0_phi", &genA1Mu0_phi);
+
+    t->SetBranchAddress("genA0_eta", &genA0_eta);
+    t->SetBranchAddress("genA1_eta", &genA1_eta);
+
+    t->SetBranchAddress("genA0_phi", &genA0_phi);
+    t->SetBranchAddress("genA1_phi", &genA1_phi);
 
     t->SetBranchAddress("diMuonF_FittedVtx_vx", &diMuonF_FittedVtx_vx);
     t->SetBranchAddress("diMuonF_FittedVtx_vy", &diMuonF_FittedVtx_vy);
@@ -244,6 +342,14 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
     t->SetBranchAddress("diMuonF_FittedVtx_phi", &diMuonF_FittedVtx_phi);
     t->SetBranchAddress("diMuonC_FittedVtx_eta", &diMuonC_FittedVtx_eta);
     t->SetBranchAddress("diMuonC_FittedVtx_phi", &diMuonC_FittedVtx_phi);
+
+    t->SetBranchAddress("diMuonF_FittedVtx_px", &diMuonF_FittedVtx_px);
+    t->SetBranchAddress("diMuonF_FittedVtx_py", &diMuonF_FittedVtx_py);
+    t->SetBranchAddress("diMuonF_FittedVtx_pz", &diMuonF_FittedVtx_pz);
+
+    t->SetBranchAddress("diMuonC_FittedVtx_px", &diMuonC_FittedVtx_px);
+    t->SetBranchAddress("diMuonC_FittedVtx_py", &diMuonC_FittedVtx_py);
+    t->SetBranchAddress("diMuonC_FittedVtx_pz", &diMuonC_FittedVtx_pz);
 
     t->SetBranchAddress("diMuonC_m1_FittedVtx_hitpix", &diMuonC_m1_FittedVtx_hitpix);
     t->SetBranchAddress("diMuonC_m2_FittedVtx_hitpix", &diMuonC_m2_FittedVtx_hitpix);
@@ -263,7 +369,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
     for(int k=0; k<t->GetEntries(); k++) {
       t->GetEntry(k);
       
-      cout << "Processing event "<<k<<endl;
+      if (verbose) cout << "Processing event "<<k<<endl;
 
       ev_all++;
 
@@ -298,12 +404,12 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
 	      cout << "genA1Mu0_vz "<< genA1Mu0_vz<<endl;
 	      */
 	      // first we need to match the central/forward dimuon to the correct gen particles
-	      
-	      cout << "genA0Mu0_eta "<< genA0Mu0_eta<<endl;
-	      cout << "genA0Mu0_phi "<< genA0Mu0_phi<<endl;
+	      if (verbose) {
+	      cout << "genA0_eta "<< genA0_eta<<endl;
+	      cout << "genA0_phi "<< genA0_phi<<endl;
 
-	      cout << "genA1Mu0_eta "<< genA1Mu0_eta<<endl;
-	      cout << "genA1Mu0_phi "<< genA1Mu0_phi<<endl;
+	      cout << "genA1_eta "<< genA1_eta<<endl;
+	      cout << "genA1_phi "<< genA1_phi<<endl;
 	      
 	      cout << "diMuonC_FittedVtx_eta "<< diMuonC_FittedVtx_eta<<endl;
 	      cout << "diMuonC_FittedVtx_phi "<< diMuonC_FittedVtx_phi<<endl;
@@ -311,39 +417,458 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
 	      cout << "diMuonF_FittedVtx_eta "<< diMuonF_FittedVtx_eta<<endl;
 	      cout << "diMuonF_FittedVtx_phi "<< diMuonF_FittedVtx_phi<<endl;
 
-	      // calculate the dRs
-	      float dR_diMuonC_genA0 = deltaR(genA0Mu0_eta, genA0Mu0_phi, diMuonC_FittedVtx_eta, diMuonC_FittedVtx_phi);
-	      float dR_diMuonC_genA1 = deltaR(genA1Mu0_eta, genA1Mu0_phi, diMuonC_FittedVtx_eta, diMuonC_FittedVtx_phi);
-	      float dR_diMuonF_genA0 = deltaR(genA0Mu0_eta, genA0Mu0_phi, diMuonF_FittedVtx_eta, diMuonF_FittedVtx_phi);
-	      float dR_diMuonF_genA1 = deltaR(genA1Mu0_eta, genA1Mu0_phi, diMuonF_FittedVtx_eta, diMuonF_FittedVtx_phi);
+	      cout << "diMuonC_FittedVtx_vx "<< diMuonC_FittedVtx_vx<<endl;
+	      cout << "diMuonC_FittedVtx_vy "<< diMuonC_FittedVtx_vy<<endl;
+	      cout << "diMuonC_FittedVtx_vz "<< diMuonC_FittedVtx_vz<<endl;
 	      
+	      cout << "diMuonF_FittedVtx_vx "<< diMuonF_FittedVtx_vx<<endl;
+	      cout << "diMuonF_FittedVtx_vy "<< diMuonF_FittedVtx_vy<<endl;
+	      cout << "diMuonF_FittedVtx_vz "<< diMuonF_FittedVtx_vz<<endl;
+
+	      cout << "diMuonC_FittedVtx_px "<< diMuonC_FittedVtx_px<<endl;
+	      cout << "diMuonC_FittedVtx_py "<< diMuonC_FittedVtx_py<<endl;
+	      cout << "diMuonC_FittedVtx_pz "<< diMuonC_FittedVtx_pz<<endl;
+	      
+	      cout << "diMuonF_FittedVtx_px "<< diMuonF_FittedVtx_px<<endl;
+	      cout << "diMuonF_FittedVtx_py "<< diMuonF_FittedVtx_py<<endl;
+	      cout << "diMuonF_FittedVtx_pz "<< diMuonF_FittedVtx_pz<<endl;
+	      }
+	      // calculate the dRs
+	      float dR_diMuonC_genA0 = deltaR(genA0_eta, genA0_phi, diMuonC_FittedVtx_eta, diMuonC_FittedVtx_phi);
+	      float dR_diMuonC_genA1 = deltaR(genA1_eta, genA1_phi, diMuonC_FittedVtx_eta, diMuonC_FittedVtx_phi);
+	      float dR_diMuonF_genA0 = deltaR(genA0_eta, genA0_phi, diMuonF_FittedVtx_eta, diMuonF_FittedVtx_phi);
+	      float dR_diMuonF_genA1 = deltaR(genA1_eta, genA1_phi, diMuonF_FittedVtx_eta, diMuonF_FittedVtx_phi);
+	      
+	      if (verbose) {
 	      cout << "dR_diMuonC_genA0 "<<dR_diMuonC_genA0<<endl;
 	      cout << "dR_diMuonC_genA1 "<<dR_diMuonC_genA1<<endl;
 	      cout << "dR_diMuonF_genA0 "<<dR_diMuonF_genA0<<endl;
 	      cout << "dR_diMuonF_genA1 "<<dR_diMuonF_genA1<<endl;
+	      }	      
+	      // pick the closest GEN diMuon
+	      int diMuonC_index = dR_diMuonC_genA0 < dR_diMuonC_genA1 ? 0 : 1;
+	      int diMuonF_index = dR_diMuonF_genA0 < dR_diMuonF_genA1 ? 0 : 1;
+
+	      if (verbose) {
+	      cout << "diMuonC_index " << diMuonC_index<<endl;
+	      cout << "diMuonF_index " << diMuonF_index<<endl;
+	      }
+	      if (diMuonC_index == diMuonF_index) {
+		cout << "ALARM!!! -- both RECO diMuons match to same GEN diMuon" << endl;
+
+		cout << "dR_diMuonC_genA0 "<<dR_diMuonC_genA0<<endl;
+		cout << "dR_diMuonC_genA1 "<<dR_diMuonC_genA1<<endl;
+		cout << "dR_diMuonF_genA0 "<<dR_diMuonF_genA0<<endl;
+		cout << "dR_diMuonF_genA1 "<<dR_diMuonF_genA1<<endl;
+
+		cout << "diMuonC_index " << diMuonC_index<<endl;
+		cout << "diMuonF_index " << diMuonF_index<<endl;	      
+		continue;
+	      }
+
+	      // calculate the dx, dy and dz between Vtx positions for each diMuon 
+	      float dx_diMuonC_genA_Vtx = diMuonC_index == 0 ? (diMuonC_FittedVtx_vx - genA0Mu0_vx) : (diMuonC_FittedVtx_vx - genA1Mu0_vx);
+	      float dy_diMuonC_genA_Vtx = diMuonC_index == 0 ? (diMuonC_FittedVtx_vy - genA0Mu0_vy) : (diMuonC_FittedVtx_vy - genA1Mu0_vy);
+	      float dz_diMuonC_genA_Vtx = diMuonC_index == 0 ? (diMuonC_FittedVtx_vz - genA0Mu0_vz) : (diMuonC_FittedVtx_vz - genA1Mu0_vz);
+
+	      float dx_diMuonF_genA_Vtx = diMuonF_index == 0 ? (diMuonF_FittedVtx_vx - genA0Mu0_vx) : (diMuonF_FittedVtx_vx - genA1Mu0_vx);
+	      float dy_diMuonF_genA_Vtx = diMuonF_index == 0 ? (diMuonF_FittedVtx_vy - genA0Mu0_vy) : (diMuonF_FittedVtx_vy - genA1Mu0_vy);
+	      float dz_diMuonF_genA_Vtx = diMuonF_index == 0 ? (diMuonF_FittedVtx_vz - genA0Mu0_vz) : (diMuonF_FittedVtx_vz - genA1Mu0_vz);
+
+	      if (verbose) {	      
+	      cout<< "dx_diMuonC_genA_Vtx " << dx_diMuonC_genA_Vtx << endl;
+	      cout<< "dy_diMuonC_genA_Vtx " << dy_diMuonC_genA_Vtx << endl;
+	      cout<< "dz_diMuonC_genA_Vtx " << dz_diMuonC_genA_Vtx << endl;
 	      
-	      // pick the closest GEN dimuon
-	      int dimuonC_index = dR_diMuonC_genA0 < dR_diMuonC_genA1 ? 0 : 1;
-	      int dimuonF_index = dR_diMuonF_genA0 < dR_diMuonF_genA1 ? 0 : 1;
+	      cout<< "dx_diMuonF_genA_Vtx " << dx_diMuonF_genA_Vtx << endl;
+	      cout<< "dy_diMuonF_genA_Vtx " << dy_diMuonF_genA_Vtx << endl;
+	      cout<< "dz_diMuonF_genA_Vtx " << dz_diMuonF_genA_Vtx << endl;
+	      }
+	      // do a 3D rotation so that the dimuon's vertex vector corresponds with the z-axis
+	      // http://mathworld.wolfram.com/SphericalCoordinates.html
+	      float r_diMuonC_Vtx = TMath::Sqrt(diMuonC_FittedVtx_vx*diMuonC_FittedVtx_vx + diMuonC_FittedVtx_vy*diMuonC_FittedVtx_vy + diMuonC_FittedVtx_vz*diMuonC_FittedVtx_vz);
+	      float theta_diMuonC_Vtx = TMath::ACos(diMuonC_FittedVtx_vz/r_diMuonC_Vtx);
+	      float phi_diMuonC_Vtx = TMath::ATan(diMuonC_FittedVtx_vy/diMuonC_FittedVtx_vx);
+	      
+	      float r_diMuonF_Vtx = TMath::Sqrt(diMuonF_FittedVtx_vx*diMuonF_FittedVtx_vx + diMuonF_FittedVtx_vy*diMuonF_FittedVtx_vy + diMuonF_FittedVtx_vz*diMuonF_FittedVtx_vz);
+	      float theta_diMuonF_Vtx = TMath::ACos(diMuonF_FittedVtx_vz/r_diMuonF_Vtx);
+	      float phi_diMuonF_Vtx = TMath::ATan(diMuonF_FittedVtx_vy/diMuonF_FittedVtx_vx);
 
-	      cout << "dimuonC_index " << dimuonC_index<<endl;
-	      cout << "dimuonF_index " << dimuonF_index<<endl;
+	      float p_diMuonC = TMath::Sqrt(diMuonC_FittedVtx_px*diMuonC_FittedVtx_px + diMuonC_FittedVtx_py*diMuonC_FittedVtx_py + diMuonC_FittedVtx_pz*diMuonC_FittedVtx_pz);
+	      float theta_diMuonC = TMath::ACos(diMuonC_FittedVtx_pz/p_diMuonC);
+	      float phi_diMuonC = TMath::ATan(diMuonC_FittedVtx_py/diMuonC_FittedVtx_px);
+	      
+	      float p_diMuonF = TMath::Sqrt(diMuonF_FittedVtx_px*diMuonF_FittedVtx_px + diMuonF_FittedVtx_py*diMuonF_FittedVtx_py + diMuonF_FittedVtx_pz*diMuonF_FittedVtx_pz);
+	      float theta_diMuonF = TMath::ACos(diMuonF_FittedVtx_pz/p_diMuonF);
+	      float phi_diMuonF = TMath::ATan(diMuonF_FittedVtx_py/diMuonF_FittedVtx_px);
 
-	      if (dimuonC_index == dimuonF_index)
-		cout << "ALARM!!! -- both RECO dimuons match to same GEN dimuon" << endl;
+	      float r_genA0Mu0 = TMath::Sqrt(genA0Mu0_vx*genA0Mu0_vx + genA0Mu0_vy*genA0Mu0_vy + genA0Mu0_vz*genA0Mu0_vz);
+	      float theta_genA0Mu0 = TMath::ACos(genA0Mu0_vz/r_genA0Mu0);
+	      float phi_genA0Mu0 = TMath::ATan(genA0Mu0_vy/genA0Mu0_vx);
 
-	      // calculate the dx, dy and dz between Vtx positions for each dimuon 
-	      float dx_diMuonC_genA_Vtx = dimuonC_index == 0 ? (diMuonC_FittedVtx_vx - genA0Mu0_vx) : (diMuonC_FittedVtx_vx - genA1Mu0_vx);
-	      float dy_diMuonC_genA_Vtx = dimuonC_index == 0 ? (diMuonC_FittedVtx_vy - genA0Mu0_vy) : (diMuonC_FittedVtx_vy - genA1Mu0_vy);
-	      float dz_diMuonC_genA_Vtx = dimuonC_index == 0 ? (diMuonC_FittedVtx_vz - genA0Mu0_vz) : (diMuonC_FittedVtx_vz - genA1Mu0_vz);
+	      float r_genA1Mu0 = TMath::Sqrt(genA1Mu0_vx*genA1Mu0_vx + genA1Mu0_vy*genA1Mu0_vy + genA1Mu0_vz*genA1Mu0_vz);
+	      float theta_genA1Mu0 = TMath::ACos(genA1Mu0_vz/r_genA1Mu0);
+	      float phi_genA1Mu0 = TMath::ATan(genA1Mu0_vy/genA1Mu0_vx);
 
-	      float dx_diMuonF_genA_Vtx = dimuonF_index == 0 ? (diMuonF_FittedVtx_vx - genA0Mu0_vx) : (diMuonF_FittedVtx_vx - genA1Mu0_vx);
-	      float dy_diMuonF_genA_Vtx = dimuonF_index == 0 ? (diMuonF_FittedVtx_vy - genA0Mu0_vy) : (diMuonF_FittedVtx_vy - genA1Mu0_vy);
-	      float dz_diMuonF_genA_Vtx = dimuonF_index == 0 ? (diMuonF_FittedVtx_vz - genA0Mu0_vz) : (diMuonF_FittedVtx_vz - genA1Mu0_vz);
+	      if (verbose) {
+	      cout << endl;
+	      cout << "r_diMuonC_Vtx " << r_diMuonC_Vtx << endl;
+	      cout << "theta_diMuonC_Vtx " << theta_diMuonC_Vtx << endl;
+	      cout << "phi_diMuonC_Vtx " << phi_diMuonC_Vtx << endl;
+	      
+	      cout << "r_diMuonF_Vtx " << r_diMuonF_Vtx << endl;
+	      cout << "theta_diMuonF_Vtx " << theta_diMuonF_Vtx << endl;
+	      cout << "phi_diMuonF_Vtx " << phi_diMuonF_Vtx << endl;
+	      
+	      cout << "p_diMuonC " << p_diMuonC << endl;
+	      cout << "theta_diMuonC " << theta_diMuonC << endl;
+	      cout << "phi_diMuonC " << phi_diMuonC << endl;
 
+	      cout << "p_diMuonF " << p_diMuonF << endl;
+	      cout << "theta_diMuonF " << theta_diMuonF << endl;
+	      cout << "phi_diMuonF " << phi_diMuonF << endl;
+	      }	      	      	      
 	      // calculate the longitudinal and transverse distance between the vertices
+	      // http://mathworld.wolfram.com/Point-LineDistance3-Dimensional.html
+	      // x1 = (O,O,O)
+	      // x2: GEN vertex
+	      // x0: RECO vertex	      
+	      // double p0[] = {0.,0.,0.};
+	      // double p10[3] = {genA0Mu0_vx, genA0Mu0_vy, genA0Mu0_vz};
+	      // double p11[3] = {genA1Mu0_vx, genA1Mu0_vy, genA1Mu0_vz};
+	      // double p2[3] = {diMuonC_FittedVtx_vx, diMuonC_FittedVtx_vy, diMuonC_FittedVtx_vz};
+	      
+	      if (diMuonC_index == 0){
+		float stheta(TMath::Sin(theta_genA0Mu0));
+		float ctheta(TMath::Cos(theta_genA0Mu0));
 
+		float sphi(TMath::Sin(phi_genA0Mu0));
+		float cphi(TMath::Cos(phi_genA0Mu0));
 
+		float genA0Mu0_vx_prime =       -sphi * genA0Mu0_vx +        cphi * genA0Mu0_vy;
+		float genA0Mu0_vy_prime = ctheta*cphi * genA0Mu0_vx + ctheta*sphi * genA0Mu0_vy - stheta * genA0Mu0_vz;
+		float genA0Mu0_vz_prime = stheta*cphi * genA0Mu0_vx + stheta*sphi * genA0Mu0_vy + ctheta * genA0Mu0_vz;
+		float genA0Mu0_vT_prime = TMath::Sqrt(genA0Mu0_vx_prime*genA0Mu0_vx_prime + genA0Mu0_vy_prime*genA0Mu0_vy_prime);
+
+		float diMuonC_FittedVtx_vx_prime =       -sphi * diMuonC_FittedVtx_vx +        cphi * diMuonC_FittedVtx_vy;
+		float diMuonC_FittedVtx_vy_prime = ctheta*cphi * diMuonC_FittedVtx_vx + ctheta*sphi * diMuonC_FittedVtx_vy - stheta * diMuonC_FittedVtx_vz;
+		float diMuonC_FittedVtx_vz_prime = stheta*cphi * diMuonC_FittedVtx_vx + stheta*sphi * diMuonC_FittedVtx_vy + ctheta * diMuonC_FittedVtx_vz;
+		float diMuonC_FittedVtx_vT_prime = TMath::Sqrt(diMuonC_FittedVtx_vx_prime*diMuonC_FittedVtx_vx_prime + diMuonC_FittedVtx_vy_prime*diMuonC_FittedVtx_vy_prime);
+
+		//diMuonC_FittedVtx_vz_prime += genA0Mu0_vz;
+
+		if (verbose) {
+		cout <<"diMuonC_FittedVtx_vx_prime " <<diMuonC_FittedVtx_vx_prime<<endl;
+		cout <<"diMuonC_FittedVtx_vy_prime " <<diMuonC_FittedVtx_vy_prime<<endl;
+		cout <<"diMuonC_FittedVtx_vz_prime " <<diMuonC_FittedVtx_vz_prime<<endl;
+		cout << endl;
+		cout <<"genA0Mu0_vx_prime " <<genA0Mu0_vx_prime<<endl;
+		cout <<"genA0Mu0_vy_prime " <<genA0Mu0_vy_prime<<endl;
+		cout <<"genA0Mu0_vz_prime " <<genA0Mu0_vz_prime<<endl;
+		}
+		h_dx->Fill(diMuonC_FittedVtx_vx_prime);
+		h_dy->Fill(diMuonC_FittedVtx_vy_prime);
+		h_dz->Fill(diMuonC_FittedVtx_vz_prime);
+		h_dT->Fill(diMuonC_FittedVtx_vT_prime);
+
+		h_dxdy->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vy_prime);
+		h_dydz->Fill(diMuonC_FittedVtx_vy_prime, diMuonC_FittedVtx_vz_prime);
+		h_dxdz->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vz_prime);
+		h_dTdz->Fill(diMuonC_FittedVtx_vT_prime, diMuonC_FittedVtx_vz_prime);
+
+		h_dxdy_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vy_prime);
+		h_dydz_true->Fill(genA0Mu0_vy_prime, genA0Mu0_vz_prime);
+		h_dxdz_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vz_prime);
+		h_dTdz_true->Fill(genA0Mu0_vT_prime, genA0Mu0_vz_prime);
+
+		if (abs(genA0Mu0_veta) < 0.9) {
+		  h_dxdy_barrel->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vy_prime);
+		  h_dydz_barrel->Fill(diMuonC_FittedVtx_vy_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dxdz_barrel->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dTdz_barrel->Fill(diMuonC_FittedVtx_vT_prime, diMuonC_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_barrel_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vy_prime);
+		  // h_dydz_barrel_true->Fill(genA0Mu0_vy_prime, genA0Mu0_vz_prime);
+		  // h_dxdz_barrel_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vz_prime);
+		  // h_dTdz_barrel_true->Fill(genA0Mu0_vT_prime, genA0Mu0_vz_prime);		  
+		}
+		else if (0.9 <= abs(genA0Mu0_veta) and abs(genA0Mu0_veta) <1.2) {
+		  h_dxdy_overlap->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vy_prime);
+		  h_dydz_overlap->Fill(diMuonC_FittedVtx_vy_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dxdz_overlap->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dTdz_overlap->Fill(diMuonC_FittedVtx_vT_prime, diMuonC_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_overlap_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vy_prime);
+		  // h_dydz_overlap_true->Fill(genA0Mu0_vy_prime, genA0Mu0_vz_prime);
+		  // h_dxdz_overlap_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vz_prime);
+		  // h_dTdz_overlap_true->Fill(genA0Mu0_vT_prime, genA0Mu0_vz_prime);		  
+		}
+		else if (1.2 <= abs(genA0Mu0_veta)) {
+		  h_dxdy_endcap->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vy_prime);
+		  h_dydz_endcap->Fill(diMuonC_FittedVtx_vy_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dxdz_endcap->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dTdz_endcap->Fill(diMuonC_FittedVtx_vT_prime, diMuonC_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_endcap_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vy_prime);
+		  // h_dydz_endcap_true->Fill(genA0Mu0_vy_prime, genA0Mu0_vz_prime);
+		  // h_dxdz_endcap_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vz_prime);
+		  // h_dTdz_endcap_true->Fill(genA0Mu0_vT_prime, genA0Mu0_vz_prime);		  
+		}
+	      } 
+	      else {
+		float stheta(TMath::Sin(theta_genA1Mu0));
+		float ctheta(TMath::Cos(theta_genA1Mu0));
+
+		float sphi(TMath::Sin(phi_genA1Mu0));
+		float cphi(TMath::Cos(phi_genA1Mu0));
+
+		float genA1Mu0_vx_prime =       -sphi * genA1Mu0_vx +        cphi * genA1Mu0_vy;
+		float genA1Mu0_vy_prime = ctheta*cphi * genA1Mu0_vx + ctheta*sphi * genA1Mu0_vy - stheta * genA1Mu0_vz;
+		float genA1Mu0_vz_prime = stheta*cphi * genA1Mu0_vx + stheta*sphi * genA1Mu0_vy + ctheta * genA1Mu0_vz;
+		float genA1Mu0_vT_prime = TMath::Sqrt(genA1Mu0_vx_prime*genA1Mu0_vx_prime + genA1Mu0_vy_prime*genA1Mu0_vy_prime);
+
+		float diMuonC_FittedVtx_vx_prime =       -sphi * diMuonC_FittedVtx_vx +        cphi * diMuonC_FittedVtx_vy;
+		float diMuonC_FittedVtx_vy_prime = ctheta*cphi * diMuonC_FittedVtx_vx + ctheta*sphi * diMuonC_FittedVtx_vy - stheta * diMuonC_FittedVtx_vz;
+		float diMuonC_FittedVtx_vz_prime = stheta*cphi * diMuonC_FittedVtx_vx + stheta*sphi * diMuonC_FittedVtx_vy + ctheta * diMuonC_FittedVtx_vz;
+		float diMuonC_FittedVtx_vT_prime = TMath::Sqrt(diMuonC_FittedVtx_vx_prime*diMuonC_FittedVtx_vx_prime + diMuonC_FittedVtx_vy_prime*diMuonC_FittedVtx_vy_prime);
+
+		//diMuonC_FittedVtx_vz_prime += genA1Mu0_vz;
+
+		if (verbose) {
+		cout <<"diMuonC_FittedVtx_vx_prime " <<diMuonC_FittedVtx_vx_prime<<endl;
+		cout <<"diMuonC_FittedVtx_vy_prime " <<diMuonC_FittedVtx_vy_prime<<endl;
+		cout <<"diMuonC_FittedVtx_vz_prime " <<diMuonC_FittedVtx_vz_prime<<endl;		
+		cout << endl;
+		cout <<"genA1Mu0_vx_prime " <<genA1Mu0_vx_prime<<endl;
+		cout <<"genA1Mu0_vy_prime " <<genA1Mu0_vy_prime<<endl;
+		cout <<"genA1Mu0_vz_prime " <<genA1Mu0_vz_prime<<endl;
+		}
+		h_dx->Fill(diMuonC_FittedVtx_vx_prime);
+		h_dy->Fill(diMuonC_FittedVtx_vy_prime);
+		h_dz->Fill(diMuonC_FittedVtx_vz_prime);
+		h_dT->Fill(diMuonC_FittedVtx_vT_prime);
+
+		h_dxdy->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vy_prime);
+		h_dydz->Fill(diMuonC_FittedVtx_vy_prime, diMuonC_FittedVtx_vz_prime);
+		h_dxdz->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vz_prime);
+		h_dTdz->Fill(diMuonC_FittedVtx_vT_prime, diMuonC_FittedVtx_vz_prime);
+		
+		h_dxdy_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vy_prime);
+		h_dydz_true->Fill(genA1Mu0_vy_prime, genA1Mu0_vz_prime);
+		h_dxdz_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vz_prime);
+		h_dTdz_true->Fill(genA1Mu0_vT_prime, genA1Mu0_vz_prime);
+
+		if (abs(genA1Mu0_veta) < 0.9) {
+		  h_dxdy_barrel->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vy_prime);
+		  h_dydz_barrel->Fill(diMuonC_FittedVtx_vy_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dxdz_barrel->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dTdz_barrel->Fill(diMuonC_FittedVtx_vT_prime, diMuonC_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_barrel_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vy_prime);
+		  // h_dydz_barrel_true->Fill(genA1Mu0_vy_prime, genA1Mu0_vz_prime);
+		  // h_dxdz_barrel_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vz_prime);
+		  // h_dTdz_barrel_true->Fill(genA1Mu0_vT_prime, genA1Mu0_vz_prime);		  
+		}
+		else if (0.9 <= abs(genA1Mu0_veta) and abs(genA1Mu0_veta) <1.2) {
+		  h_dxdy_overlap->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vy_prime);
+		  h_dydz_overlap->Fill(diMuonC_FittedVtx_vy_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dxdz_overlap->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dTdz_overlap->Fill(diMuonC_FittedVtx_vT_prime, diMuonC_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_overlap_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vy_prime);
+		  // h_dydz_overlap_true->Fill(genA1Mu0_vy_prime, genA1Mu0_vz_prime);
+		  // h_dxdz_overlap_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vz_prime);
+		  // h_dTdz_overlap_true->Fill(genA1Mu0_vT_prime, genA1Mu0_vz_prime);		  
+		}
+		else if (1.2 <= abs(genA1Mu0_veta)) {
+		  h_dxdy_endcap->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vy_prime);
+		  h_dydz_endcap->Fill(diMuonC_FittedVtx_vy_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dxdz_endcap->Fill(diMuonC_FittedVtx_vx_prime, diMuonC_FittedVtx_vz_prime);
+		  h_dTdz_endcap->Fill(diMuonC_FittedVtx_vT_prime, diMuonC_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_endcap_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vy_prime);
+		  // h_dydz_endcap_true->Fill(genA1Mu0_vy_prime, genA1Mu0_vz_prime);
+		  // h_dxdz_endcap_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vz_prime);
+		  // h_dTdz_endcap_true->Fill(genA1Mu0_vT_prime, genA1Mu0_vz_prime);		  
+		}
+	      }
+
+	      if (diMuonF_index == 0){
+		float stheta(TMath::Sin(theta_genA0Mu0));
+		float ctheta(TMath::Cos(theta_genA0Mu0));
+
+		float sphi(TMath::Sin(phi_genA0Mu0));
+		float cphi(TMath::Cos(phi_genA0Mu0));
+
+		float genA0Mu0_vx_prime =       -sphi * genA0Mu0_vx +        cphi * genA0Mu0_vy;
+		float genA0Mu0_vy_prime = ctheta*cphi * genA0Mu0_vx + ctheta*sphi * genA0Mu0_vy - stheta * genA0Mu0_vz;
+		float genA0Mu0_vz_prime = stheta*cphi * genA0Mu0_vx + stheta*sphi * genA0Mu0_vy + ctheta * genA0Mu0_vz;
+		float genA0Mu0_vT_prime = TMath::Sqrt(genA0Mu0_vx_prime*genA0Mu0_vx_prime + genA0Mu0_vy_prime*genA0Mu0_vy_prime);
+
+		float diMuonF_FittedVtx_vx_prime =       -sphi * diMuonF_FittedVtx_vx +        cphi * diMuonF_FittedVtx_vy;
+		float diMuonF_FittedVtx_vy_prime = ctheta*cphi * diMuonF_FittedVtx_vx + ctheta*sphi * diMuonF_FittedVtx_vy - stheta * diMuonF_FittedVtx_vz;
+		float diMuonF_FittedVtx_vz_prime = stheta*cphi * diMuonF_FittedVtx_vx + stheta*sphi * diMuonF_FittedVtx_vy + ctheta * diMuonF_FittedVtx_vz;
+		float diMuonF_FittedVtx_vT_prime = TMath::Sqrt(diMuonF_FittedVtx_vx_prime*diMuonF_FittedVtx_vx_prime + diMuonF_FittedVtx_vy_prime*diMuonF_FittedVtx_vy_prime);
+
+		// translate 
+		//diMuonF_FittedVtx_vz_prime += genA0Mu0_vz;
+
+		if (verbose) {
+		cout <<"diMuonF_FittedVtx_vx_prime " <<diMuonF_FittedVtx_vx_prime<<endl;
+		cout <<"diMuonF_FittedVtx_vy_prime " <<diMuonF_FittedVtx_vy_prime<<endl;
+		cout <<"diMuonF_FittedVtx_vz_prime " <<diMuonF_FittedVtx_vz_prime<<endl;
+		cout << endl;
+		cout <<"genA0Mu0_vx_prime " <<genA0Mu0_vx_prime<<endl;
+		cout <<"genA0Mu0_vy_prime " <<genA0Mu0_vy_prime<<endl;
+		cout <<"genA0Mu0_vz_prime " <<genA0Mu0_vz_prime<<endl;
+		}		
+		h_dx->Fill(diMuonF_FittedVtx_vx_prime);
+		h_dy->Fill(diMuonF_FittedVtx_vy_prime);
+		h_dz->Fill(diMuonF_FittedVtx_vz_prime);
+		h_dT->Fill(diMuonF_FittedVtx_vT_prime);
+
+		h_dxdy->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vy_prime);
+		h_dydz->Fill(diMuonF_FittedVtx_vy_prime, diMuonF_FittedVtx_vz_prime);
+		h_dxdz->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vz_prime);
+		h_dTdz->Fill(diMuonF_FittedVtx_vT_prime, diMuonF_FittedVtx_vz_prime);
+
+		h_dxdy_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vy_prime);
+		h_dydz_true->Fill(genA0Mu0_vy_prime, genA0Mu0_vz_prime);
+		h_dxdz_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vz_prime);
+		h_dTdz_true->Fill(genA0Mu0_vT_prime, genA0Mu0_vz_prime);
+
+		if (abs(genA0Mu0_veta) < 0.9) {
+		  h_dxdy_barrel->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vy_prime);
+		  h_dydz_barrel->Fill(diMuonF_FittedVtx_vy_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dxdz_barrel->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dTdz_barrel->Fill(diMuonF_FittedVtx_vT_prime, diMuonF_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_barrel_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vy_prime);
+		  // h_dydz_barrel_true->Fill(genA0Mu0_vy_prime, genA0Mu0_vz_prime);
+		  // h_dxdz_barrel_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vz_prime);
+		  // h_dTdz_barrel_true->Fill(genA0Mu0_vT_prime, genA0Mu0_vz_prime);		  
+		}
+		else if (0.9 <= abs(genA0Mu0_veta) and abs(genA0Mu0_veta) <1.2) {
+		  h_dxdy_overlap->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vy_prime);
+		  h_dydz_overlap->Fill(diMuonF_FittedVtx_vy_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dxdz_overlap->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dTdz_overlap->Fill(diMuonF_FittedVtx_vT_prime, diMuonF_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_overlap_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vy_prime);
+		  // h_dydz_overlap_true->Fill(genA0Mu0_vy_prime, genA0Mu0_vz_prime);
+		  // h_dxdz_overlap_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vz_prime);
+		  // h_dTdz_overlap_true->Fill(genA0Mu0_vT_prime, genA0Mu0_vz_prime);		  
+		}
+		else if (1.2 <= abs(genA0Mu0_veta)) {
+		  h_dxdy_endcap->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vy_prime);
+		  h_dydz_endcap->Fill(diMuonF_FittedVtx_vy_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dxdz_endcap->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dTdz_endcap->Fill(diMuonF_FittedVtx_vT_prime, diMuonF_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_endcap_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vy_prime);
+		  // h_dydz_endcap_true->Fill(genA0Mu0_vy_prime, genA0Mu0_vz_prime);
+		  // h_dxdz_endcap_true->Fill(genA0Mu0_vx_prime, genA0Mu0_vz_prime);
+		  // h_dTdz_endcap_true->Fill(genA0Mu0_vT_prime, genA0Mu0_vz_prime);		  
+		}
+	      } 
+	      else {
+		float stheta(TMath::Sin(theta_genA1Mu0));
+		float ctheta(TMath::Cos(theta_genA1Mu0));
+
+		float sphi(TMath::Sin(phi_genA1Mu0));
+		float cphi(TMath::Cos(phi_genA1Mu0));
+
+		float genA1Mu0_vx_prime =       -sphi * genA1Mu0_vx +        cphi * genA1Mu0_vy;
+		float genA1Mu0_vy_prime = ctheta*cphi * genA1Mu0_vx + ctheta*sphi * genA1Mu0_vy - stheta * genA1Mu0_vz;
+		float genA1Mu0_vz_prime = stheta*cphi * genA1Mu0_vx + stheta*sphi * genA1Mu0_vy + ctheta * genA1Mu0_vz;
+		float genA1Mu0_vT_prime = TMath::Sqrt(genA1Mu0_vx_prime*genA1Mu0_vx_prime + genA1Mu0_vy_prime*genA1Mu0_vy_prime);
+
+		float diMuonF_FittedVtx_vx_prime =       -sphi * diMuonF_FittedVtx_vx +        cphi * diMuonF_FittedVtx_vy;
+		float diMuonF_FittedVtx_vy_prime = ctheta*cphi * diMuonF_FittedVtx_vx + ctheta*sphi * diMuonF_FittedVtx_vy - stheta * diMuonF_FittedVtx_vz;
+		float diMuonF_FittedVtx_vz_prime = stheta*cphi * diMuonF_FittedVtx_vx + stheta*sphi * diMuonF_FittedVtx_vy + ctheta * diMuonF_FittedVtx_vz;
+		float diMuonF_FittedVtx_vT_prime = TMath::Sqrt(diMuonF_FittedVtx_vx_prime*diMuonF_FittedVtx_vx_prime + diMuonF_FittedVtx_vy_prime*diMuonF_FittedVtx_vy_prime);
+
+		//diMuonF_FittedVtx_vz_prime += genA1Mu0_vz;
+
+		if (verbose) {
+		cout <<"diMuonF_FittedVtx_vx_prime " <<diMuonF_FittedVtx_vx_prime<<endl;
+		cout <<"diMuonF_FittedVtx_vy_prime " <<diMuonF_FittedVtx_vy_prime<<endl;
+		cout <<"diMuonF_FittedVtx_vz_prime " <<diMuonF_FittedVtx_vz_prime<<endl;		
+		cout << endl;
+		cout <<"genA1Mu0_vx_prime " <<genA1Mu0_vx_prime<<endl;
+		cout <<"genA1Mu0_vy_prime " <<genA1Mu0_vy_prime<<endl;
+		cout <<"genA1Mu0_vz_prime " <<genA1Mu0_vz_prime<<endl;
+		}
+		h_dx->Fill(diMuonF_FittedVtx_vx_prime);
+		h_dy->Fill(diMuonF_FittedVtx_vy_prime);
+		h_dz->Fill(diMuonF_FittedVtx_vz_prime);
+		h_dT->Fill(diMuonF_FittedVtx_vT_prime);
+
+		h_dxdy->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vy_prime);
+		h_dydz->Fill(diMuonF_FittedVtx_vy_prime, diMuonF_FittedVtx_vz_prime);
+		h_dxdz->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vz_prime);
+		h_dTdz->Fill(diMuonF_FittedVtx_vT_prime, diMuonF_FittedVtx_vz_prime);
+
+		h_dxdy_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vy_prime);
+		h_dydz_true->Fill(genA1Mu0_vy_prime, genA1Mu0_vz_prime);
+		h_dxdz_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vz_prime);
+		h_dTdz_true->Fill(genA1Mu0_vT_prime, genA1Mu0_vz_prime);
+
+		if (abs(genA1Mu0_veta) < 0.9) {
+		  h_dxdy_barrel->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vy_prime);
+		  h_dydz_barrel->Fill(diMuonF_FittedVtx_vy_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dxdz_barrel->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dTdz_barrel->Fill(diMuonF_FittedVtx_vT_prime, diMuonF_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_barrel_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vy_prime);
+		  // h_dydz_barrel_true->Fill(genA1Mu0_vy_prime, genA1Mu0_vz_prime);
+		  // h_dxdz_barrel_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vz_prime);
+		  // h_dTdz_barrel_true->Fill(genA1Mu0_vT_prime, genA1Mu0_vz_prime);		  
+		}
+		else if (0.9 <= abs(genA1Mu0_veta) and abs(genA1Mu0_veta) <1.2) {
+		  h_dxdy_overlap->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vy_prime);
+		  h_dydz_overlap->Fill(diMuonF_FittedVtx_vy_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dxdz_overlap->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dTdz_overlap->Fill(diMuonF_FittedVtx_vT_prime, diMuonF_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_overlap_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vy_prime);
+		  // h_dydz_overlap_true->Fill(genA1Mu0_vy_prime, genA1Mu0_vz_prime);
+		  // h_dxdz_overlap_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vz_prime);
+		  // h_dTdz_overlap_true->Fill(genA1Mu0_vT_prime, genA1Mu0_vz_prime);		  
+		}
+		else if (1.2 <= abs(genA1Mu0_veta)) {
+		  h_dxdy_endcap->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vy_prime);
+		  h_dydz_endcap->Fill(diMuonF_FittedVtx_vy_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dxdz_endcap->Fill(diMuonF_FittedVtx_vx_prime, diMuonF_FittedVtx_vz_prime);
+		  h_dTdz_endcap->Fill(diMuonF_FittedVtx_vT_prime, diMuonF_FittedVtx_vz_prime);
+		  
+		  // h_dxdy_endcap_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vy_prime);
+		  // h_dydz_endcap_true->Fill(genA1Mu0_vy_prime, genA1Mu0_vz_prime);
+		  // h_dxdz_endcap_true->Fill(genA1Mu0_vx_prime, genA1Mu0_vz_prime);
+		  // h_dTdz_endcap_true->Fill(genA1Mu0_vT_prime, genA1Mu0_vz_prime);		  
+		}
+	      }
+
+	      // if (dimuonC_index == 0) {
+	      // 	double dist = distancePointToLine(p0, p10, p2);
+	      // 	cout << "distC " << dist << endl;
+	      // }
+	      // else {
+	      // 	double dist = distancePointToLine(p0, p11, p2);
+	      // 	cout << "distC " << dist << endl;
+	      // }
+	      
+	      // double p2F[3] = {diMuonF_FittedVtx_vx, diMuonF_FittedVtx_vy, diMuonF_FittedVtx_vz};
+
+	      // if (dimuonF_index == 0) {
+	      // 	double dist = distancePointToLine(p0, p10, p2F);
+	      // 	cout << "distF " << dist << endl;
+	      // }
+	      // else {
+	      // 	double dist = distancePointToLine(p0, p11, p2F);
+	      // 	cout << "distF " << dist << endl;
+	      // }
+	      
 
 	      // 	      ev_is2DiMuons++;
 	      // 	      if(is2DiMuonsFittedVtxOK){
@@ -513,8 +1038,141 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   // }  
 
   // }
-//delete chEl;
-//delete fileElements;
+  //delete chEl;
+  //delete fileElements;
+  
+  // calculate a, b, c using 68% quantiles
+  double aa[5];
+  double bb[5];
+  double cc[5];
+  double probSum[5] = {0.022749999, 0.317310508/2., 0.5, 1-0.317310508/2., 1-0.022749999};
+  h_dx->GetQuantiles(5, aa, probSum);
+  h_dy->GetQuantiles(5, bb, probSum);
+  h_dz->GetQuantiles(5, cc, probSum);
+
+  // cout << "quantiles dx "<< q[0] <<" "<<q[1] <<" "<<q[2] <<" "<<q[3] <<" "<<q[4] <<" "<<endl;
+  // cout << "quantiles dy "<< q[0] <<" "<<q[1] <<" "<<q[2] <<" "<<q[3] <<" "<<q[4] <<" "<<endl;
+  // cout << "quantiles dz "<< q[0] <<" "<<q[1] <<" "<<q[2] <<" "<<q[3] <<" "<<q[4] <<" "<<endl;
+
+  make_basic_plot(h_dx, fileName + "dx.pdf");
+  make_basic_plot(h_dy, fileName + "dy.pdf");
+  make_basic_plot(h_dz, fileName + "dz.pdf");
+  make_basic_plot(h_dT, fileName + "dT.pdf");
+
+  make_basic_plot(h_dxdy, fileName + "dxdy.pdf");
+  make_basic_plot(h_dydz, fileName + "dydz.pdf");
+  make_basic_plot(h_dxdz, fileName + "dxdz.pdf");
+  make_basic_plot(h_dTdz, fileName + "dTdz.pdf");
+
+  make_basic_plot(h_dx_barrel, fileName + "dx_barrel.pdf");
+  make_basic_plot(h_dy_barrel, fileName + "dy_barrel.pdf");
+  make_basic_plot(h_dz_barrel, fileName + "dz_barrel.pdf");
+  make_basic_plot(h_dT_barrel, fileName + "dT_barrel.pdf");
+
+  make_basic_plot(h_dxdy_barrel, fileName + "dxdy_barrel.pdf");
+  make_basic_plot(h_dydz_barrel, fileName + "dydz_barrel.pdf");
+  make_basic_plot(h_dxdz_barrel, fileName + "dxdz_barrel.pdf");
+  make_basic_plot(h_dTdz_barrel, fileName + "dTdz_barrel.pdf");
+
+  make_basic_plot(h_dx_overlap, fileName + "dx_overlap.pdf");
+  make_basic_plot(h_dy_overlap, fileName + "dy_overlap.pdf");
+  make_basic_plot(h_dz_overlap, fileName + "dz_overlap.pdf");
+  make_basic_plot(h_dT_overlap, fileName + "dT_overlap.pdf");
+
+  make_basic_plot(h_dxdy_overlap, fileName + "dxdy_overlap.pdf");
+  make_basic_plot(h_dydz_overlap, fileName + "dydz_overlap.pdf");
+  make_basic_plot(h_dxdz_overlap, fileName + "dxdz_overlap.pdf");
+  make_basic_plot(h_dTdz_overlap, fileName + "dTdz_overlap.pdf");
+
+  make_basic_plot(h_dx_endcap, fileName + "dx_endcap.pdf");
+  make_basic_plot(h_dy_endcap, fileName + "dy_endcap.pdf");
+  make_basic_plot(h_dz_endcap, fileName + "dz_endcap.pdf");
+  make_basic_plot(h_dT_endcap, fileName + "dT_endcap.pdf");
+
+  make_basic_plot(h_dxdy_endcap, fileName + "dxdy_endcap.pdf");
+  make_basic_plot(h_dydz_endcap, fileName + "dydz_endcap.pdf");
+  make_basic_plot(h_dxdz_endcap, fileName + "dxdz_endcap.pdf");
+  make_basic_plot(h_dTdz_endcap, fileName + "dTdz_endcap.pdf");
+
+
+  TCanvas *dxdy_c = new TCanvas("dxdy_c", "dxdy_c", 800, 600);
+  dxdy_c->cd();
+  h_dxdy->Draw();
+
+  TEllipse *el3 = new TEllipse(0., 0., abs(aa[1]), abs(bb[1]));
+  el3->SetFillStyle(0);
+  el3->SetLineColor(kRed);
+  el3->SetLineWidth(2);
+  el3->Draw("same");  
+
+  TEllipse *el4 = new TEllipse(0., 0., abs(aa[0]), abs(bb[0]));
+  el4->SetFillStyle(0);
+  el4->SetLineColor(kBlue);
+  el4->SetLineWidth(2);
+  el4->Draw("same");  
+
+  dxdy_c->SaveAs(fileName + "dxdy_c.pdf");
+  dxdy_c->Close();
+
+  TCanvas *dxdz_c = new TCanvas("dxdz_c", "dxdz_c", 800, 600);
+  dxdz_c->cd();
+  h_dxdz->Draw();
+  dxdz_c->SaveAs(fileName + "dxdz_c.pdf");
+  dxdz_c->Close();
+
+  TCanvas *dydz_c = new TCanvas("dydz_c", "dydz_c", 800, 600);
+  dydz_c->cd();
+  h_dydz->Draw();
+  dydz_c->SaveAs(fileName + "dydz_c.pdf");
+  dydz_c->Close();
+
+  TCanvas *dTdz_c = new TCanvas("dTdz_c", "dTdz_c", 800, 600);
+  dTdz_c->cd();
+  h_dTdz->Draw();
+  dTdz_c->SaveAs(fileName + "dTdz_c.pdf");
+  dTdz_c->Close();
+
+
+
+  {
+  // true vertices
+  TCanvas *dxdy_true_c = new TCanvas(fileName + "dxdy_true_c", "dxdy_true_c", 800, 600);
+  dxdy_true_c->cd();
+  h_dxdy_true->Draw();
+
+  TEllipse *el3 = new TEllipse(0., 0., abs(aa[1]), abs(bb[1]));
+  el3->SetFillStyle(0);
+  el3->SetLineColor(kRed);
+  el3->SetLineWidth(2);
+  el3->Draw("same");  
+
+  TEllipse *el4 = new TEllipse(0., 0., abs(aa[0]), abs(bb[0]));
+  el4->SetFillStyle(0);
+  el4->SetLineColor(kBlue);
+  el4->SetLineWidth(2);
+  el4->Draw("same");  
+
+  dxdy_true_c->SaveAs(fileName + "dxdy_true_c.pdf");
+  dxdy_true_c->Close();
+
+  TCanvas *dxdz_true_c = new TCanvas("dxdz_true_c", "dxdz_true_c", 800, 600);
+  dxdz_true_c->cd();
+  h_dxdz_true->Draw();
+  dxdz_true_c->SaveAs(fileName + "dxdz_true_c.pdf");
+  dxdz_true_c->Close();
+
+  TCanvas *dydz_true_c = new TCanvas("dydz_true_c", "dydz_true_c", 800, 600);
+  dydz_true_c->cd();
+  h_dydz_true->Draw();
+  dydz_true_c->SaveAs(fileName + "dydz_true_c.pdf");
+  dydz_true_c->Close();
+
+  TCanvas *dTdz_true_c = new TCanvas("dTdz_true_c", "dTdz_true_c", 800, 600);
+  dTdz_true_c->cd();
+  h_dTdz_true->Draw();
+  dTdz_true_c->SaveAs(fileName + "dTdz_true_c.pdf");
+  dTdz_true_c->Close();
+  }
 }
 
 void makePlot(int layers = 1)

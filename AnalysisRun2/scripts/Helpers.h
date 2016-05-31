@@ -128,3 +128,18 @@ double deltaR(double eta1, double phi1, double eta2, double phi2)
   double dPhi = My_dPhi(phi1,phi2);
   return sqrt(dEta*dEta+dPhi*dPhi);
 }
+
+double xyzToTheta(double x, double y, double z)
+{
+  return TMath::ACos(z/TMath::Sqrt(x*x+y*y+z*z));
+}
+
+double thetaToEta(double theta)
+{
+  return -TMath::Log(TMath::Tan(theta/2.));
+}
+
+double xyzToEta(double x, double y, double z)
+{
+  return thetaToEta(xyzToTheta(x, y, z));
+}
