@@ -4,11 +4,12 @@ from MuJetAnalysis.MuJetProducer.MuJetProducer_cfi import *
 
 TrackerMuJetProducer05 = MuJetProducer.clone(
     muons = cms.InputTag("cleanPatTrackerMuonsTriggerMatch"),
-    groupingMode = cms.string("GroupByMassAndVertexProbOrDeltaR"),
+    groupingMode = cms.string("GroupByDeltaRAndMass"),
 )
 
 PFMuJetProducer05 = MuJetProducer.clone(
     muons = cms.InputTag("cleanPatPFMuonsTriggerMatch"),
+    groupingMode = cms.string("GroupByDeltaRAndMass"),
     selectTrackerMuons = cms.bool(False),
     selectGlobalMuons = cms.bool(False),
     minSegmentMatches = cms.int32(-1),
