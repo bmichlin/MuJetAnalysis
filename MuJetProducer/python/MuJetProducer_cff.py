@@ -16,7 +16,9 @@ TrackerMuJetProducer05 = MuJetProducer.clone(
 
 PFMuJetProducer05 = MuJetProducer.clone(
     maxMass = cms.double(9.),
-    muons = cms.InputTag("cleanPatPFMuonsTriggerMatch"),
+    #muons = cms.InputTag("cleanPatPFMuonsTriggerMatch"),
+    #Changed for Jpsi estimation
+    muons = cms.InputTag("cleanPatPFMuons"),
     selectTrackerMuons = cms.bool(False),
     selectGlobalMuons = cms.bool(False),
     groupingMode = cms.string("GroupByMassAndVertexProbOrDeltaR"),

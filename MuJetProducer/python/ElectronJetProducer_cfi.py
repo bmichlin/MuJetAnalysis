@@ -34,7 +34,7 @@ ElectronJetProducer = cms.EDProducer(
     # how to group muons into jets
     groupingMode = cms.string("GroupByMassAndVertexProbOrDeltaR"),
     maxDeltaR = cms.double(0.01),
-    maxMass = cms.double(5.),
+    maxMass = cms.double(9.),
     minVertexProb = cms.double(0.01),
     groupByCharge = cms.string("opposite"),
     

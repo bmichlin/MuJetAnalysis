@@ -1,0 +1,45 @@
+   ------------------------------------------------------------
+  | Welcome to ROOT 6.02/05                http://root.cern.ch |
+  |                               (c) 1995-2014, The ROOT Team |
+  | Built for linuxx8664gcc                                    |
+  | From tag , 9 February 2015                                 |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q' |
+   ------------------------------------------------------------
+
+
+Processing bam_fitLxy.C...
+ **********
+ **    1 **SET PRINT           0
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 frac0        5.00000e-01  1.00000e-02     no limits
+     2 frac1        5.00000e-01  1.00000e-02    0.00000e+00  1.00000e+00
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           0
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ **********
+ **    6 **MIGRAD        1220        0.01
+ **********
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ FCN=-807.827 FROM MIGRAD    STATUS=CONVERGED      46 CALLS          47 TOTAL
+                     EDM=9.89432e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  frac0        1.00015e+00   2.72133e-01   5.34947e-03   2.00872e-03
+   2  frac1        5.96663e-08   8.43904e-02   1.15641e-02** at limit **
+                               ERR DEF= 0.5
+fit status: 0
+Info in <TCanvas::Print>: png file Lxy_fit.png has been created
+Info in <TCanvas::SaveSource>: C++ Macro file: Lxy_fit.C has been generated
+Info in <TCanvas::Print>: pdf file Lxy_fit.pdf has been created

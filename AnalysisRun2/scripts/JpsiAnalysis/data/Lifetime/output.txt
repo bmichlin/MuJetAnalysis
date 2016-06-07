@@ -1,0 +1,50 @@
+   ------------------------------------------------------------
+  | Welcome to ROOT 6.02/05                http://root.cern.ch |
+  |                               (c) 1995-2014, The ROOT Team |
+  | Built for linuxx8664gcc                                    |
+  | From tag , 9 February 2015                                 |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q' |
+   ------------------------------------------------------------
+
+
+Processing bam_fitLxy.C...
+In file included from input_line_24:1:
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:5:21: error: use of undeclared identifier 'f'
+        TH1F *data =(TH1F*)f->Get("t1_data_regionA_dimuon1_lxy");
+                           ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:6:21: error: use of undeclared identifier 'f'
+        TH1F *mc0 = (TH1F*)f->Get("t1_dps_regionA_dimuon1_lxy");
+                           ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:7:21: error: use of undeclared identifier 'f'
+        TH1F *mc1 = (TH1F*)f->Get("t1_data_np_regionC_dimuon1_lxy");
+                           ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:34:3: error: use of undeclared identifier 'txtHeader'
+                txtHeader = new TLegend(.93,.935,.1.47,1.);
+                ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:34:38: error: invalid suffix '.47' on floating constant
+                txtHeader = new TLegend(.93,.935,.1.47,1.);
+                                                   ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:36:3: error: use of undeclared identifier 'txtHeader'
+                txtHeader->SetFillColor(kWhite);
+                ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:37:3: error: use of undeclared identifier 'txtHeader'
+                txtHeader->SetFillStyle(0);
+                ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:38:3: error: use of undeclared identifier 'txtHeader'
+                txtHeader->SetBorderSize(0);
+                ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:39:3: error: use of undeclared identifier 'txtHeader'
+                txtHeader->SetTextFont(42);
+                ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:40:3: error: use of undeclared identifier 'txtHeader'
+                txtHeader->SetTextSize(0.045);
+                ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:41:3: error: use of undeclared identifier 'txtHeader'
+                txtHeader->SetTextAlign(22);
+                ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:42:3: error: use of undeclared identifier 'txtHeader'
+                txtHeader->SetHeader("CMS 2012  #sqrt{s} = 8 TeV  L_{int} = 20.65 fb^{-1}");
+                ^
+/home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/Lifetime/bam_fitLxy.C:62:3: error: use of undeclared identifier 'txtHeader'
+                txtHeader->Draw("same");
+                ^
