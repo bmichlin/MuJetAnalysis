@@ -1,0 +1,3477 @@
+# Conditions read from  CMS_CONDITIONS  via FrontierProd 
+07-Jun-2016 10:27:53 CDT  Initiating request to open file file:/home/bmichlin/forGithub/stupid/CMSSW_7_6_3_patch2/src/MuJetAnalysis/CutFlowAnalyzer/test/jpsi/sps/out_reco_18.root
+07-Jun-2016 10:27:57 CDT  Successfully opened file file:/home/bmichlin/forGithub/stupid/CMSSW_7_6_3_patch2/src/MuJetAnalysis/CutFlowAnalyzer/test/jpsi/sps/out_reco_18.root
+BEGIN JOB
+BEGIN JOB
+BEGIN JOB
+Begin processing the 1st record. Run 1, Event 60001, LumiSection 601 at 07-Jun-2016 10:28:50.403 CDT
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60001
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+1 Start GEN Level
+WARNING! genA.size() < 2
+1 Stop GEN Level
+1 Start RECO Level
+1 Count selected RECO muons
+1 Build RECO muon jets
+1 Check if exactly 2 muon jets are built
+1 Check if 2 muon jets are dimuons
+1 Apply cut on dZ
+1 Apply cut on HLT
+1 Apply cut on dimuon mass
+1 Apply cut on dimuon isolation
+1 Stop RECO Level
+1 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.78232
+patMuons
+Muon pT: 4.78232
+Muon pT: 2.10151
+Muon pT: 1.201
+Muon pT: 1.13507
+Muon pT: 0.840739
+(RECO) muons
+Muon pT: 4.78232
+Muon pT: 1.201
+Muon pT: 0.840739
+Muon pT: 1.13507
+Muon pT: 2.10151
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+1 Count Jpsi muons
+Number of Jpsi muons: 1
+1 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+1 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+1 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60001
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+1 Start GEN Level
+WARNING! genA.size() < 2
+1 Stop GEN Level
+1 Start RECO Level
+1 Count selected RECO muons
+1 Build RECO muon jets
+1 Check if exactly 2 muon jets are built
+1 Check if 2 muon jets are dimuons
+1 Apply cut on dZ
+1 Apply cut on HLT
+1 Apply cut on dimuon mass
+1 Apply cut on dimuon isolation
+1 Stop RECO Level
+1 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.78232
+patMuons
+Muon pT: 4.78232
+Muon pT: 2.10151
+Muon pT: 1.201
+Muon pT: 1.13507
+Muon pT: 0.840739
+(RECO) muons
+Muon pT: 4.78232
+Muon pT: 1.201
+Muon pT: 0.840739
+Muon pT: 1.13507
+Muon pT: 2.10151
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+1 Count Jpsi muons
+Number of Jpsi muons: 1
+1 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+1 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+1 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60001
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+1 Start GEN Level
+WARNING! genA.size() < 2
+1 Stop GEN Level
+1 Start RECO Level
+1 Count selected RECO muons
+1 Build RECO muon jets
+1 Check if exactly 2 muon jets are built
+1 Check if 2 muon jets are dimuons
+1 Apply cut on dZ
+1 Apply cut on HLT
+1 Apply cut on dimuon mass
+1 Apply cut on dimuon isolation
+1 Stop RECO Level
+1 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.78232
+patMuons
+Muon pT: 4.78232
+Muon pT: 2.10151
+Muon pT: 1.201
+Muon pT: 1.13507
+Muon pT: 0.840739
+(RECO) muons
+Muon pT: 4.78232
+Muon pT: 1.201
+Muon pT: 0.840739
+Muon pT: 1.13507
+Muon pT: 2.10151
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+1 Count Jpsi muons
+Number of Jpsi muons: 1
+1 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+1 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+1 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 2nd record. Run 1, Event 60002, LumiSection 601 at 07-Jun-2016 10:29:01.824 CDT
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60002
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+2 Start GEN Level
+WARNING! genA.size() < 2
+2 Stop GEN Level
+2 Start RECO Level
+2 Count selected RECO muons
+2 Build RECO muon jets
+2 Check if exactly 2 muon jets are built
+2 Check if 2 muon jets are dimuons
+2 Apply cut on dZ
+2 Apply cut on HLT
+2 Apply cut on dimuon mass
+2 Apply cut on dimuon isolation
+2 Stop RECO Level
+2 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 4.14993
+Muon pT: 2.14997
+Muon pT: 1.90934
+Muon pT: 1.62584
+Muon pT: 1.52467
+Muon pT: 1.15574
+(RECO) muons
+Muon pT: 1.90934
+Muon pT: 1.52467
+Muon pT: 4.14993
+Muon pT: 1.15574
+Muon pT: 1.62584
+Muon pT: 2.14997
+Watch this event
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 0, 
+2 Count Jpsi muons
+Number of Jpsi muons: 0
+2 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+2 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+2 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60002
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+2 Start GEN Level
+WARNING! genA.size() < 2
+2 Stop GEN Level
+2 Start RECO Level
+2 Count selected RECO muons
+2 Build RECO muon jets
+2 Check if exactly 2 muon jets are built
+2 Check if 2 muon jets are dimuons
+2 Apply cut on dZ
+2 Apply cut on HLT
+2 Apply cut on dimuon mass
+2 Apply cut on dimuon isolation
+2 Stop RECO Level
+2 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 4.14993
+Muon pT: 2.14997
+Muon pT: 1.90934
+Muon pT: 1.62584
+Muon pT: 1.52467
+Muon pT: 1.15574
+(RECO) muons
+Muon pT: 1.90934
+Muon pT: 1.52467
+Muon pT: 4.14993
+Muon pT: 1.15574
+Muon pT: 1.62584
+Muon pT: 2.14997
+Watch this event
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 0, 
+2 Count Jpsi muons
+Number of Jpsi muons: 0
+2 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+2 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+2 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60002
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+2 Start GEN Level
+WARNING! genA.size() < 2
+2 Stop GEN Level
+2 Start RECO Level
+2 Count selected RECO muons
+2 Build RECO muon jets
+2 Check if exactly 2 muon jets are built
+2 Check if 2 muon jets are dimuons
+2 Apply cut on dZ
+2 Apply cut on HLT
+2 Apply cut on dimuon mass
+2 Apply cut on dimuon isolation
+2 Stop RECO Level
+2 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 4.14993
+Muon pT: 2.14997
+Muon pT: 1.90934
+Muon pT: 1.62584
+Muon pT: 1.52467
+Muon pT: 1.15574
+(RECO) muons
+Muon pT: 1.90934
+Muon pT: 1.52467
+Muon pT: 4.14993
+Muon pT: 1.15574
+Muon pT: 1.62584
+Muon pT: 2.14997
+Watch this event
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 0, 
+2 Count Jpsi muons
+Number of Jpsi muons: 0
+2 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+2 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+2 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 3rd record. Run 1, Event 60003, LumiSection 601 at 07-Jun-2016 10:29:02.475 CDT
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60003
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+3 Start GEN Level
+WARNING! genA.size() < 2
+3 Stop GEN Level
+3 Start RECO Level
+3 Count selected RECO muons
+3 Build RECO muon jets
+3 Check if exactly 2 muon jets are built
+3 Check if 2 muon jets are dimuons
+3 Apply cut on dZ
+3 Apply cut on HLT
+3 Apply cut on dimuon mass
+3 Apply cut on dimuon isolation
+3 Stop RECO Level
+3 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+(RECO) muons
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+3 Count Jpsi muons
+Number of Jpsi muons: 0
+3 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+3 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+3 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60003
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+3 Start GEN Level
+WARNING! genA.size() < 2
+3 Stop GEN Level
+3 Start RECO Level
+3 Count selected RECO muons
+3 Build RECO muon jets
+3 Check if exactly 2 muon jets are built
+3 Check if 2 muon jets are dimuons
+3 Apply cut on dZ
+3 Apply cut on HLT
+3 Apply cut on dimuon mass
+3 Apply cut on dimuon isolation
+3 Stop RECO Level
+3 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+(RECO) muons
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+3 Count Jpsi muons
+Number of Jpsi muons: 0
+3 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+3 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+3 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60003
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+3 Start GEN Level
+WARNING! genA.size() < 2
+3 Stop GEN Level
+3 Start RECO Level
+3 Count selected RECO muons
+3 Build RECO muon jets
+3 Check if exactly 2 muon jets are built
+3 Check if 2 muon jets are dimuons
+3 Apply cut on dZ
+3 Apply cut on HLT
+3 Apply cut on dimuon mass
+3 Apply cut on dimuon isolation
+3 Stop RECO Level
+3 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+(RECO) muons
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+3 Count Jpsi muons
+Number of Jpsi muons: 0
+3 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+3 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+3 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 4th record. Run 1, Event 60004, LumiSection 601 at 07-Jun-2016 10:29:03.034 CDT
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60004
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+4 Start GEN Level
+WARNING! genA.size() < 2
+4 Stop GEN Level
+4 Start RECO Level
+4 Count selected RECO muons
+4 Build RECO muon jets
+4 Check if exactly 2 muon jets are built
+4 Check if 2 muon jets are dimuons
+4 Apply cut on dZ
+4 Apply cut on HLT
+4 Apply cut on dimuon mass
+4 Apply cut on dimuon isolation
+4 Stop RECO Level
+4 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 2.53596
+Muon pT: 2.03922
+Muon pT: 2.00018
+Muon pT: 1.92871
+Muon pT: 1.71797
+Muon pT: 1.624
+Muon pT: 1.29412
+Muon pT: 1.24635
+Muon pT: 1.08009
+Muon pT: 1.03831
+Muon pT: 0.760228
+Muon pT: 0.605303
+(RECO) muons
+Muon pT: 1.03831
+Muon pT: 2.00018
+Muon pT: 2.53596
+Muon pT: 1.08009
+Muon pT: 1.92871
+Muon pT: 1.29412
+Muon pT: 2.03922
+Muon pT: 0.760228
+Muon pT: 1.624
+Muon pT: 1.24635
+Muon pT: 1.71797
+Muon pT: 0.605303
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+4 Count Jpsi muons
+Number of Jpsi muons: 0
+4 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+4 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+4 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60004
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+4 Start GEN Level
+WARNING! genA.size() < 2
+4 Stop GEN Level
+4 Start RECO Level
+4 Count selected RECO muons
+4 Build RECO muon jets
+4 Check if exactly 2 muon jets are built
+4 Check if 2 muon jets are dimuons
+4 Apply cut on dZ
+4 Apply cut on HLT
+4 Apply cut on dimuon mass
+4 Apply cut on dimuon isolation
+4 Stop RECO Level
+4 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 2.53596
+Muon pT: 2.03922
+Muon pT: 2.00018
+Muon pT: 1.92871
+Muon pT: 1.71797
+Muon pT: 1.624
+Muon pT: 1.29412
+Muon pT: 1.24635
+Muon pT: 1.08009
+Muon pT: 1.03831
+Muon pT: 0.760228
+Muon pT: 0.605303
+(RECO) muons
+Muon pT: 1.03831
+Muon pT: 2.00018
+Muon pT: 2.53596
+Muon pT: 1.08009
+Muon pT: 1.92871
+Muon pT: 1.29412
+Muon pT: 2.03922
+Muon pT: 0.760228
+Muon pT: 1.624
+Muon pT: 1.24635
+Muon pT: 1.71797
+Muon pT: 0.605303
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+4 Count Jpsi muons
+Number of Jpsi muons: 0
+4 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+4 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+4 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60004
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+4 Start GEN Level
+WARNING! genA.size() < 2
+4 Stop GEN Level
+4 Start RECO Level
+4 Count selected RECO muons
+4 Build RECO muon jets
+4 Check if exactly 2 muon jets are built
+4 Check if 2 muon jets are dimuons
+4 Apply cut on dZ
+4 Apply cut on HLT
+4 Apply cut on dimuon mass
+4 Apply cut on dimuon isolation
+4 Stop RECO Level
+4 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 2.53596
+Muon pT: 2.03922
+Muon pT: 2.00018
+Muon pT: 1.92871
+Muon pT: 1.71797
+Muon pT: 1.624
+Muon pT: 1.29412
+Muon pT: 1.24635
+Muon pT: 1.08009
+Muon pT: 1.03831
+Muon pT: 0.760228
+Muon pT: 0.605303
+(RECO) muons
+Muon pT: 1.03831
+Muon pT: 2.00018
+Muon pT: 2.53596
+Muon pT: 1.08009
+Muon pT: 1.92871
+Muon pT: 1.29412
+Muon pT: 2.03922
+Muon pT: 0.760228
+Muon pT: 1.624
+Muon pT: 1.24635
+Muon pT: 1.71797
+Muon pT: 0.605303
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+4 Count Jpsi muons
+Number of Jpsi muons: 0
+4 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+4 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+4 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 5th record. Run 1, Event 60005, LumiSection 601 at 07-Jun-2016 10:29:03.881 CDT
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60005
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+5 Start GEN Level
+WARNING! genA.size() < 2
+5 Stop GEN Level
+5 Start RECO Level
+5 Count selected RECO muons
+5 Build RECO muon jets
+5 Check if exactly 2 muon jets are built
+5 Check if 2 muon jets are dimuons
+5 Apply cut on dZ
+5 Apply cut on HLT
+5 Apply cut on dimuon mass
+5 Apply cut on dimuon isolation
+5 Stop RECO Level
+5 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 3.95802
+patMuons
+Muon pT: 3.95802
+Muon pT: 0.831217
+(RECO) muons
+Muon pT: 3.95802
+Muon pT: 0.831217
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+5 Count Jpsi muons
+Number of Jpsi muons: 1
+5 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+5 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+5 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60005
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+5 Start GEN Level
+WARNING! genA.size() < 2
+5 Stop GEN Level
+5 Start RECO Level
+5 Count selected RECO muons
+5 Build RECO muon jets
+5 Check if exactly 2 muon jets are built
+5 Check if 2 muon jets are dimuons
+5 Apply cut on dZ
+5 Apply cut on HLT
+5 Apply cut on dimuon mass
+5 Apply cut on dimuon isolation
+5 Stop RECO Level
+5 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 3.95802
+patMuons
+Muon pT: 3.95802
+Muon pT: 0.831217
+(RECO) muons
+Muon pT: 3.95802
+Muon pT: 0.831217
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+5 Count Jpsi muons
+Number of Jpsi muons: 1
+5 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+5 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+5 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60005
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+5 Start GEN Level
+WARNING! genA.size() < 2
+5 Stop GEN Level
+5 Start RECO Level
+5 Count selected RECO muons
+5 Build RECO muon jets
+5 Check if exactly 2 muon jets are built
+5 Check if 2 muon jets are dimuons
+5 Apply cut on dZ
+5 Apply cut on HLT
+5 Apply cut on dimuon mass
+5 Apply cut on dimuon isolation
+5 Stop RECO Level
+5 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 3.95802
+patMuons
+Muon pT: 3.95802
+Muon pT: 0.831217
+(RECO) muons
+Muon pT: 3.95802
+Muon pT: 0.831217
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+5 Count Jpsi muons
+Number of Jpsi muons: 1
+5 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+5 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+5 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 6th record. Run 1, Event 60006, LumiSection 601 at 07-Jun-2016 10:29:04.393 CDT
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60006
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+6 Start GEN Level
+WARNING! genA.size() < 2
+6 Stop GEN Level
+6 Start RECO Level
+6 Count selected RECO muons
+6 Build RECO muon jets
+6 Check if exactly 2 muon jets are built
+6 Check if 2 muon jets are dimuons
+6 Apply cut on dZ
+6 Apply cut on HLT
+6 Apply cut on dimuon mass
+6 Apply cut on dimuon isolation
+6 Stop RECO Level
+6 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 5.19273
+Muon pT: 3.52876
+patMuons
+Muon pT: 5.19273
+Muon pT: 3.52876
+Muon pT: 3.26734
+Muon pT: 1.81076
+Muon pT: 1.42259
+Muon pT: 1.07802
+Muon pT: 0.997434
+Muon pT: 0.953404
+(RECO) muons
+Muon pT: 3.52876
+Muon pT: 1.07802
+Muon pT: 5.19273
+Muon pT: 1.42259
+Muon pT: 0.997434
+Muon pT: 0.953404
+Muon pT: 1.81076
+Muon pT: 3.26734
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 2, 2, 2, 
+6 Count Jpsi muons
+Number of Jpsi muons: 2
+6 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+6 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+6 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60006
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+6 Start GEN Level
+WARNING! genA.size() < 2
+6 Stop GEN Level
+6 Start RECO Level
+6 Count selected RECO muons
+6 Build RECO muon jets
+6 Check if exactly 2 muon jets are built
+6 Check if 2 muon jets are dimuons
+6 Apply cut on dZ
+6 Apply cut on HLT
+6 Apply cut on dimuon mass
+6 Apply cut on dimuon isolation
+6 Stop RECO Level
+6 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 5.19273
+Muon pT: 3.52876
+patMuons
+Muon pT: 5.19273
+Muon pT: 3.52876
+Muon pT: 3.26734
+Muon pT: 1.81076
+Muon pT: 1.42259
+Muon pT: 1.07802
+Muon pT: 0.997434
+Muon pT: 0.953404
+(RECO) muons
+Muon pT: 3.52876
+Muon pT: 1.07802
+Muon pT: 5.19273
+Muon pT: 1.42259
+Muon pT: 0.997434
+Muon pT: 0.953404
+Muon pT: 1.81076
+Muon pT: 3.26734
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 2, 2, 2, 
+6 Count Jpsi muons
+Number of Jpsi muons: 2
+6 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+6 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+6 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60006
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+6 Start GEN Level
+WARNING! genA.size() < 2
+6 Stop GEN Level
+6 Start RECO Level
+6 Count selected RECO muons
+6 Build RECO muon jets
+6 Check if exactly 2 muon jets are built
+6 Check if 2 muon jets are dimuons
+6 Apply cut on dZ
+6 Apply cut on HLT
+6 Apply cut on dimuon mass
+6 Apply cut on dimuon isolation
+6 Stop RECO Level
+6 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 5.19273
+Muon pT: 3.52876
+patMuons
+Muon pT: 5.19273
+Muon pT: 3.52876
+Muon pT: 3.26734
+Muon pT: 1.81076
+Muon pT: 1.42259
+Muon pT: 1.07802
+Muon pT: 0.997434
+Muon pT: 0.953404
+(RECO) muons
+Muon pT: 3.52876
+Muon pT: 1.07802
+Muon pT: 5.19273
+Muon pT: 1.42259
+Muon pT: 0.997434
+Muon pT: 0.953404
+Muon pT: 1.81076
+Muon pT: 3.26734
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 2, 2, 2, 
+6 Count Jpsi muons
+Number of Jpsi muons: 2
+6 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+6 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+6 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 7th record. Run 1, Event 60007, LumiSection 601 at 07-Jun-2016 10:29:05.068 CDT
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60007
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+7 Start GEN Level
+WARNING! genA.size() < 2
+7 Stop GEN Level
+7 Start RECO Level
+7 Count selected RECO muons
+7 Build RECO muon jets
+7 Check if exactly 2 muon jets are built
+7 Check if 2 muon jets are dimuons
+7 Apply cut on dZ
+7 Apply cut on HLT
+7 Apply cut on dimuon mass
+7 Apply cut on dimuon isolation
+7 Stop RECO Level
+7 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 6.24822
+Muon pT: 4.0597
+patMuons
+Muon pT: 6.24822
+Muon pT: 4.0597
+Muon pT: 1.91938
+Muon pT: 1.72051
+Muon pT: 1.53141
+Muon pT: 1.35888
+(RECO) muons
+Muon pT: 4.0597
+Muon pT: 6.24822
+Muon pT: 1.53141
+Muon pT: 1.35888
+Muon pT: 1.72051
+Muon pT: 1.91938
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 2, 2, 2, 
+7 Count Jpsi muons
+Number of Jpsi muons: 2
+7 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+7 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+7 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60007
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+7 Start GEN Level
+WARNING! genA.size() < 2
+7 Stop GEN Level
+7 Start RECO Level
+7 Count selected RECO muons
+7 Build RECO muon jets
+7 Check if exactly 2 muon jets are built
+7 Check if 2 muon jets are dimuons
+7 Apply cut on dZ
+7 Apply cut on HLT
+7 Apply cut on dimuon mass
+7 Apply cut on dimuon isolation
+7 Stop RECO Level
+7 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 6.24822
+Muon pT: 4.0597
+patMuons
+Muon pT: 6.24822
+Muon pT: 4.0597
+Muon pT: 1.91938
+Muon pT: 1.72051
+Muon pT: 1.53141
+Muon pT: 1.35888
+(RECO) muons
+Muon pT: 4.0597
+Muon pT: 6.24822
+Muon pT: 1.53141
+Muon pT: 1.35888
+Muon pT: 1.72051
+Muon pT: 1.91938
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 2, 2, 2, 
+7 Count Jpsi muons
+Number of Jpsi muons: 2
+7 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+7 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+7 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60007
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+7 Start GEN Level
+WARNING! genA.size() < 2
+7 Stop GEN Level
+7 Start RECO Level
+7 Count selected RECO muons
+7 Build RECO muon jets
+7 Check if exactly 2 muon jets are built
+7 Check if 2 muon jets are dimuons
+7 Apply cut on dZ
+7 Apply cut on HLT
+7 Apply cut on dimuon mass
+7 Apply cut on dimuon isolation
+7 Stop RECO Level
+7 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 6.24822
+Muon pT: 4.0597
+patMuons
+Muon pT: 6.24822
+Muon pT: 4.0597
+Muon pT: 1.91938
+Muon pT: 1.72051
+Muon pT: 1.53141
+Muon pT: 1.35888
+(RECO) muons
+Muon pT: 4.0597
+Muon pT: 6.24822
+Muon pT: 1.53141
+Muon pT: 1.35888
+Muon pT: 1.72051
+Muon pT: 1.91938
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 2, 2, 2, 
+7 Count Jpsi muons
+Number of Jpsi muons: 2
+7 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+7 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+7 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 8th record. Run 1, Event 60008, LumiSection 601 at 07-Jun-2016 10:29:05.813 CDT
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60008
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+8 Start GEN Level
+WARNING! genA.size() < 2
+8 Stop GEN Level
+8 Start RECO Level
+8 Count selected RECO muons
+8 Build RECO muon jets
+8 Check if exactly 2 muon jets are built
+8 Check if 2 muon jets are dimuons
+8 Apply cut on dZ
+8 Apply cut on HLT
+8 Apply cut on dimuon mass
+8 Apply cut on dimuon isolation
+8 Stop RECO Level
+8 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 5.44883
+patMuons
+Muon pT: 5.44883
+Muon pT: 1.21556
+(RECO) muons
+Muon pT: 5.44883
+Muon pT: 1.21556
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+8 Count Jpsi muons
+Number of Jpsi muons: 1
+8 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+8 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+8 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60008
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+8 Start GEN Level
+WARNING! genA.size() < 2
+8 Stop GEN Level
+8 Start RECO Level
+8 Count selected RECO muons
+8 Build RECO muon jets
+8 Check if exactly 2 muon jets are built
+8 Check if 2 muon jets are dimuons
+8 Apply cut on dZ
+8 Apply cut on HLT
+8 Apply cut on dimuon mass
+8 Apply cut on dimuon isolation
+8 Stop RECO Level
+8 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 5.44883
+patMuons
+Muon pT: 5.44883
+Muon pT: 1.21556
+(RECO) muons
+Muon pT: 5.44883
+Muon pT: 1.21556
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+8 Count Jpsi muons
+Number of Jpsi muons: 1
+8 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+8 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+8 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60008
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+8 Start GEN Level
+WARNING! genA.size() < 2
+8 Stop GEN Level
+8 Start RECO Level
+8 Count selected RECO muons
+8 Build RECO muon jets
+8 Check if exactly 2 muon jets are built
+8 Check if 2 muon jets are dimuons
+8 Apply cut on dZ
+8 Apply cut on HLT
+8 Apply cut on dimuon mass
+8 Apply cut on dimuon isolation
+8 Stop RECO Level
+8 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 5.44883
+patMuons
+Muon pT: 5.44883
+Muon pT: 1.21556
+(RECO) muons
+Muon pT: 5.44883
+Muon pT: 1.21556
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+8 Count Jpsi muons
+Number of Jpsi muons: 1
+8 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+8 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+8 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 9th record. Run 1, Event 60009, LumiSection 601 at 07-Jun-2016 10:29:06.348 CDT
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60009
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+9 Start GEN Level
+WARNING! genA.size() < 2
+9 Stop GEN Level
+9 Start RECO Level
+9 Count selected RECO muons
+9 Build RECO muon jets
+9 Check if exactly 2 muon jets are built
+9 Check if 2 muon jets are dimuons
+9 Apply cut on dZ
+9 Apply cut on HLT
+9 Apply cut on dimuon mass
+9 Apply cut on dimuon isolation
+9 Stop RECO Level
+9 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 3.45806
+Muon pT: 1.84308
+(RECO) muons
+Muon pT: 3.45806
+Muon pT: 1.84308
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+9 Count Jpsi muons
+Number of Jpsi muons: 0
+9 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+9 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+9 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60009
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+9 Start GEN Level
+WARNING! genA.size() < 2
+9 Stop GEN Level
+9 Start RECO Level
+9 Count selected RECO muons
+9 Build RECO muon jets
+9 Check if exactly 2 muon jets are built
+9 Check if 2 muon jets are dimuons
+9 Apply cut on dZ
+9 Apply cut on HLT
+9 Apply cut on dimuon mass
+9 Apply cut on dimuon isolation
+9 Stop RECO Level
+9 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 3.45806
+Muon pT: 1.84308
+(RECO) muons
+Muon pT: 3.45806
+Muon pT: 1.84308
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+9 Count Jpsi muons
+Number of Jpsi muons: 0
+9 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+9 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+9 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60009
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+9 Start GEN Level
+WARNING! genA.size() < 2
+9 Stop GEN Level
+9 Start RECO Level
+9 Count selected RECO muons
+9 Build RECO muon jets
+9 Check if exactly 2 muon jets are built
+9 Check if 2 muon jets are dimuons
+9 Apply cut on dZ
+9 Apply cut on HLT
+9 Apply cut on dimuon mass
+9 Apply cut on dimuon isolation
+9 Stop RECO Level
+9 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 3.45806
+Muon pT: 1.84308
+(RECO) muons
+Muon pT: 3.45806
+Muon pT: 1.84308
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+9 Count Jpsi muons
+Number of Jpsi muons: 0
+9 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+9 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+9 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 10th record. Run 1, Event 60010, LumiSection 601 at 07-Jun-2016 10:29:06.792 CDT
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60010
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+10 Start GEN Level
+WARNING! genA.size() < 2
+10 Stop GEN Level
+10 Start RECO Level
+10 Count selected RECO muons
+10 Build RECO muon jets
+10 Check if exactly 2 muon jets are built
+10 Check if 2 muon jets are dimuons
+10 Apply cut on dZ
+10 Apply cut on HLT
+10 Apply cut on dimuon mass
+10 Apply cut on dimuon isolation
+10 Stop RECO Level
+10 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 1.71044
+Muon pT: 1.53226
+Muon pT: 1.39535
+Muon pT: 1.37023
+Muon pT: 1.06834
+(RECO) muons
+Muon pT: 1.71044
+Muon pT: 1.53226
+Muon pT: 1.37023
+Muon pT: 1.06834
+Muon pT: 1.39535
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+10 Count Jpsi muons
+Number of Jpsi muons: 0
+10 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+10 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+10 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60010
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+10 Start GEN Level
+WARNING! genA.size() < 2
+10 Stop GEN Level
+10 Start RECO Level
+10 Count selected RECO muons
+10 Build RECO muon jets
+10 Check if exactly 2 muon jets are built
+10 Check if 2 muon jets are dimuons
+10 Apply cut on dZ
+10 Apply cut on HLT
+10 Apply cut on dimuon mass
+10 Apply cut on dimuon isolation
+10 Stop RECO Level
+10 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 1.71044
+Muon pT: 1.53226
+Muon pT: 1.39535
+Muon pT: 1.37023
+Muon pT: 1.06834
+(RECO) muons
+Muon pT: 1.71044
+Muon pT: 1.53226
+Muon pT: 1.37023
+Muon pT: 1.06834
+Muon pT: 1.39535
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+10 Count Jpsi muons
+Number of Jpsi muons: 0
+10 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+10 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+10 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60010
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+10 Start GEN Level
+WARNING! genA.size() < 2
+10 Stop GEN Level
+10 Start RECO Level
+10 Count selected RECO muons
+10 Build RECO muon jets
+10 Check if exactly 2 muon jets are built
+10 Check if 2 muon jets are dimuons
+10 Apply cut on dZ
+10 Apply cut on HLT
+10 Apply cut on dimuon mass
+10 Apply cut on dimuon isolation
+10 Stop RECO Level
+10 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 1.71044
+Muon pT: 1.53226
+Muon pT: 1.39535
+Muon pT: 1.37023
+Muon pT: 1.06834
+(RECO) muons
+Muon pT: 1.71044
+Muon pT: 1.53226
+Muon pT: 1.37023
+Muon pT: 1.06834
+Muon pT: 1.39535
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+10 Count Jpsi muons
+Number of Jpsi muons: 0
+10 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+10 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+10 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 11th record. Run 1, Event 60011, LumiSection 601 at 07-Jun-2016 10:29:07.403 CDT
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60011
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+11 Start GEN Level
+WARNING! genA.size() < 2
+11 Stop GEN Level
+11 Start RECO Level
+11 Count selected RECO muons
+11 Build RECO muon jets
+11 Check if exactly 2 muon jets are built
+11 Check if 2 muon jets are dimuons
+11 Apply cut on dZ
+11 Apply cut on HLT
+11 Apply cut on dimuon mass
+11 Apply cut on dimuon isolation
+11 Stop RECO Level
+11 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 7.08314
+Muon pT: 4.81494
+patMuons
+Muon pT: 7.08314
+Muon pT: 4.81494
+Muon pT: 1.73278
+Muon pT: 1.55424
+Muon pT: 1.223
+(RECO) muons
+Muon pT: 4.81494
+Muon pT: 7.08314
+Muon pT: 1.73278
+Muon pT: 1.55424
+Muon pT: 1.223
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 2, 2, 2, 
+11 Count Jpsi muons
+Number of Jpsi muons: 2
+11 Build Jpsi muon jets
+Number of Jpsi mu jets: 1
+11 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+11 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60011
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+11 Start GEN Level
+WARNING! genA.size() < 2
+11 Stop GEN Level
+11 Start RECO Level
+11 Count selected RECO muons
+11 Build RECO muon jets
+11 Check if exactly 2 muon jets are built
+11 Check if 2 muon jets are dimuons
+11 Apply cut on dZ
+11 Apply cut on HLT
+11 Apply cut on dimuon mass
+11 Apply cut on dimuon isolation
+11 Stop RECO Level
+11 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 7.08314
+Muon pT: 4.81494
+patMuons
+Muon pT: 7.08314
+Muon pT: 4.81494
+Muon pT: 1.73278
+Muon pT: 1.55424
+Muon pT: 1.223
+(RECO) muons
+Muon pT: 4.81494
+Muon pT: 7.08314
+Muon pT: 1.73278
+Muon pT: 1.55424
+Muon pT: 1.223
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 2, 2, 2, 
+11 Count Jpsi muons
+Number of Jpsi muons: 2
+11 Build Jpsi muon jets
+Number of Jpsi mu jets: 1
+11 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+11 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60011
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+11 Start GEN Level
+WARNING! genA.size() < 2
+11 Stop GEN Level
+11 Start RECO Level
+11 Count selected RECO muons
+11 Build RECO muon jets
+11 Check if exactly 2 muon jets are built
+11 Check if 2 muon jets are dimuons
+11 Apply cut on dZ
+11 Apply cut on HLT
+11 Apply cut on dimuon mass
+11 Apply cut on dimuon isolation
+11 Stop RECO Level
+11 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 7.08314
+Muon pT: 4.81494
+patMuons
+Muon pT: 7.08314
+Muon pT: 4.81494
+Muon pT: 1.73278
+Muon pT: 1.55424
+Muon pT: 1.223
+(RECO) muons
+Muon pT: 4.81494
+Muon pT: 7.08314
+Muon pT: 1.73278
+Muon pT: 1.55424
+Muon pT: 1.223
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 2, 2, 2, 
+11 Count Jpsi muons
+Number of Jpsi muons: 2
+11 Build Jpsi muon jets
+Number of Jpsi mu jets: 1
+11 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+11 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 12th record. Run 1, Event 60012, LumiSection 601 at 07-Jun-2016 10:29:08.250 CDT
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60012
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+12 Start GEN Level
+WARNING! genA.size() < 2
+12 Stop GEN Level
+12 Start RECO Level
+12 Count selected RECO muons
+12 Build RECO muon jets
+12 Check if exactly 2 muon jets are built
+12 Check if 2 muon jets are dimuons
+12 Apply cut on dZ
+12 Apply cut on HLT
+12 Apply cut on dimuon mass
+12 Apply cut on dimuon isolation
+12 Stop RECO Level
+12 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+(RECO) muons
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+12 Count Jpsi muons
+Number of Jpsi muons: 0
+12 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+12 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+12 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60012
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+12 Start GEN Level
+WARNING! genA.size() < 2
+12 Stop GEN Level
+12 Start RECO Level
+12 Count selected RECO muons
+12 Build RECO muon jets
+12 Check if exactly 2 muon jets are built
+12 Check if 2 muon jets are dimuons
+12 Apply cut on dZ
+12 Apply cut on HLT
+12 Apply cut on dimuon mass
+12 Apply cut on dimuon isolation
+12 Stop RECO Level
+12 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+(RECO) muons
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+12 Count Jpsi muons
+Number of Jpsi muons: 0
+12 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+12 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+12 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60012
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+12 Start GEN Level
+WARNING! genA.size() < 2
+12 Stop GEN Level
+12 Start RECO Level
+12 Count selected RECO muons
+12 Build RECO muon jets
+12 Check if exactly 2 muon jets are built
+12 Check if 2 muon jets are dimuons
+12 Apply cut on dZ
+12 Apply cut on HLT
+12 Apply cut on dimuon mass
+12 Apply cut on dimuon isolation
+12 Stop RECO Level
+12 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+(RECO) muons
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+12 Count Jpsi muons
+Number of Jpsi muons: 0
+12 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+12 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+12 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 13th record. Run 1, Event 60013, LumiSection 601 at 07-Jun-2016 10:29:08.775 CDT
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60013
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+13 Start GEN Level
+WARNING! genA.size() < 2
+13 Stop GEN Level
+13 Start RECO Level
+13 Count selected RECO muons
+13 Build RECO muon jets
+13 Check if exactly 2 muon jets are built
+13 Check if 2 muon jets are dimuons
+13 Apply cut on dZ
+13 Apply cut on HLT
+13 Apply cut on dimuon mass
+13 Apply cut on dimuon isolation
+13 Stop RECO Level
+13 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.06123
+patMuons
+Muon pT: 4.06123
+Muon pT: 2.50699
+Muon pT: 1.76512
+Muon pT: 1.66225
+(RECO) muons
+Muon pT: 4.06123
+Muon pT: 1.66225
+Muon pT: 1.76512
+Muon pT: 2.50699
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+13 Count Jpsi muons
+Number of Jpsi muons: 1
+13 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+13 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+13 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60013
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+13 Start GEN Level
+WARNING! genA.size() < 2
+13 Stop GEN Level
+13 Start RECO Level
+13 Count selected RECO muons
+13 Build RECO muon jets
+13 Check if exactly 2 muon jets are built
+13 Check if 2 muon jets are dimuons
+13 Apply cut on dZ
+13 Apply cut on HLT
+13 Apply cut on dimuon mass
+13 Apply cut on dimuon isolation
+13 Stop RECO Level
+13 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.06123
+patMuons
+Muon pT: 4.06123
+Muon pT: 2.50699
+Muon pT: 1.76512
+Muon pT: 1.66225
+(RECO) muons
+Muon pT: 4.06123
+Muon pT: 1.66225
+Muon pT: 1.76512
+Muon pT: 2.50699
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+13 Count Jpsi muons
+Number of Jpsi muons: 1
+13 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+13 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+13 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60013
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+13 Start GEN Level
+WARNING! genA.size() < 2
+13 Stop GEN Level
+13 Start RECO Level
+13 Count selected RECO muons
+13 Build RECO muon jets
+13 Check if exactly 2 muon jets are built
+13 Check if 2 muon jets are dimuons
+13 Apply cut on dZ
+13 Apply cut on HLT
+13 Apply cut on dimuon mass
+13 Apply cut on dimuon isolation
+13 Stop RECO Level
+13 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.06123
+patMuons
+Muon pT: 4.06123
+Muon pT: 2.50699
+Muon pT: 1.76512
+Muon pT: 1.66225
+(RECO) muons
+Muon pT: 4.06123
+Muon pT: 1.66225
+Muon pT: 1.76512
+Muon pT: 2.50699
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+13 Count Jpsi muons
+Number of Jpsi muons: 1
+13 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+13 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+13 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 14th record. Run 1, Event 60014, LumiSection 601 at 07-Jun-2016 10:29:09.377 CDT
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60014
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+14 Start GEN Level
+WARNING! genA.size() < 2
+14 Stop GEN Level
+14 Start RECO Level
+14 Count selected RECO muons
+14 Build RECO muon jets
+14 Check if exactly 2 muon jets are built
+14 Check if 2 muon jets are dimuons
+14 Apply cut on dZ
+14 Apply cut on HLT
+14 Apply cut on dimuon mass
+14 Apply cut on dimuon isolation
+14 Stop RECO Level
+14 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+(RECO) muons
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+14 Count Jpsi muons
+Number of Jpsi muons: 0
+14 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+14 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+14 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60014
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+14 Start GEN Level
+WARNING! genA.size() < 2
+14 Stop GEN Level
+14 Start RECO Level
+14 Count selected RECO muons
+14 Build RECO muon jets
+14 Check if exactly 2 muon jets are built
+14 Check if 2 muon jets are dimuons
+14 Apply cut on dZ
+14 Apply cut on HLT
+14 Apply cut on dimuon mass
+14 Apply cut on dimuon isolation
+14 Stop RECO Level
+14 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+(RECO) muons
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+14 Count Jpsi muons
+Number of Jpsi muons: 0
+14 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+14 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+14 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60014
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+14 Start GEN Level
+WARNING! genA.size() < 2
+14 Stop GEN Level
+14 Start RECO Level
+14 Count selected RECO muons
+14 Build RECO muon jets
+14 Check if exactly 2 muon jets are built
+14 Check if 2 muon jets are dimuons
+14 Apply cut on dZ
+14 Apply cut on HLT
+14 Apply cut on dimuon mass
+14 Apply cut on dimuon isolation
+14 Stop RECO Level
+14 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+(RECO) muons
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+14 Count Jpsi muons
+Number of Jpsi muons: 0
+14 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+14 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+14 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 15th record. Run 1, Event 60015, LumiSection 601 at 07-Jun-2016 10:29:09.892 CDT
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60015
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+15 Start GEN Level
+WARNING! genA.size() < 2
+15 Stop GEN Level
+15 Start RECO Level
+15 Count selected RECO muons
+15 Build RECO muon jets
+15 Check if exactly 2 muon jets are built
+15 Check if 2 muon jets are dimuons
+15 Apply cut on dZ
+15 Apply cut on HLT
+15 Apply cut on dimuon mass
+15 Apply cut on dimuon isolation
+15 Stop RECO Level
+15 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 1.7562
+Muon pT: 1.62741
+Muon pT: 1.55166
+Muon pT: 1.04172
+Muon pT: 1.03743
+Muon pT: 0.817906
+(RECO) muons
+Muon pT: 1.04172
+Muon pT: 1.03743
+Muon pT: 1.7562
+Muon pT: 0.817906
+Muon pT: 1.62741
+Muon pT: 1.55166
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+15 Count Jpsi muons
+Number of Jpsi muons: 0
+15 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+15 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+15 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60015
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+15 Start GEN Level
+WARNING! genA.size() < 2
+15 Stop GEN Level
+15 Start RECO Level
+15 Count selected RECO muons
+15 Build RECO muon jets
+15 Check if exactly 2 muon jets are built
+15 Check if 2 muon jets are dimuons
+15 Apply cut on dZ
+15 Apply cut on HLT
+15 Apply cut on dimuon mass
+15 Apply cut on dimuon isolation
+15 Stop RECO Level
+15 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 1.7562
+Muon pT: 1.62741
+Muon pT: 1.55166
+Muon pT: 1.04172
+Muon pT: 1.03743
+Muon pT: 0.817906
+(RECO) muons
+Muon pT: 1.04172
+Muon pT: 1.03743
+Muon pT: 1.7562
+Muon pT: 0.817906
+Muon pT: 1.62741
+Muon pT: 1.55166
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+15 Count Jpsi muons
+Number of Jpsi muons: 0
+15 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+15 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+15 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60015
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+15 Start GEN Level
+WARNING! genA.size() < 2
+15 Stop GEN Level
+15 Start RECO Level
+15 Count selected RECO muons
+15 Build RECO muon jets
+15 Check if exactly 2 muon jets are built
+15 Check if 2 muon jets are dimuons
+15 Apply cut on dZ
+15 Apply cut on HLT
+15 Apply cut on dimuon mass
+15 Apply cut on dimuon isolation
+15 Stop RECO Level
+15 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 1.7562
+Muon pT: 1.62741
+Muon pT: 1.55166
+Muon pT: 1.04172
+Muon pT: 1.03743
+Muon pT: 0.817906
+(RECO) muons
+Muon pT: 1.04172
+Muon pT: 1.03743
+Muon pT: 1.7562
+Muon pT: 0.817906
+Muon pT: 1.62741
+Muon pT: 1.55166
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+15 Count Jpsi muons
+Number of Jpsi muons: 0
+15 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+15 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+15 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 16th record. Run 1, Event 60016, LumiSection 601 at 07-Jun-2016 10:29:10.529 CDT
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60016
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+16 Start GEN Level
+WARNING! genA.size() < 2
+16 Stop GEN Level
+16 Start RECO Level
+16 Count selected RECO muons
+16 Build RECO muon jets
+16 Check if exactly 2 muon jets are built
+16 Check if 2 muon jets are dimuons
+16 Apply cut on dZ
+16 Apply cut on HLT
+16 Apply cut on dimuon mass
+16 Apply cut on dimuon isolation
+16 Stop RECO Level
+16 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.62174
+patMuons
+Muon pT: 4.62174
+Muon pT: 2.06267
+(RECO) muons
+Muon pT: 4.62174
+Muon pT: 2.06267
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+16 Count Jpsi muons
+Number of Jpsi muons: 1
+16 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+16 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+16 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60016
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+16 Start GEN Level
+WARNING! genA.size() < 2
+16 Stop GEN Level
+16 Start RECO Level
+16 Count selected RECO muons
+16 Build RECO muon jets
+16 Check if exactly 2 muon jets are built
+16 Check if 2 muon jets are dimuons
+16 Apply cut on dZ
+16 Apply cut on HLT
+16 Apply cut on dimuon mass
+16 Apply cut on dimuon isolation
+16 Stop RECO Level
+16 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.62174
+patMuons
+Muon pT: 4.62174
+Muon pT: 2.06267
+(RECO) muons
+Muon pT: 4.62174
+Muon pT: 2.06267
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+16 Count Jpsi muons
+Number of Jpsi muons: 1
+16 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+16 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+16 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60016
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+16 Start GEN Level
+WARNING! genA.size() < 2
+16 Stop GEN Level
+16 Start RECO Level
+16 Count selected RECO muons
+16 Build RECO muon jets
+16 Check if exactly 2 muon jets are built
+16 Check if 2 muon jets are dimuons
+16 Apply cut on dZ
+16 Apply cut on HLT
+16 Apply cut on dimuon mass
+16 Apply cut on dimuon isolation
+16 Stop RECO Level
+16 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.62174
+patMuons
+Muon pT: 4.62174
+Muon pT: 2.06267
+(RECO) muons
+Muon pT: 4.62174
+Muon pT: 2.06267
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+16 Count Jpsi muons
+Number of Jpsi muons: 1
+16 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+16 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+16 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 17th record. Run 1, Event 60017, LumiSection 601 at 07-Jun-2016 10:29:11.110 CDT
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60017
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+17 Start GEN Level
+WARNING! genA.size() < 2
+17 Stop GEN Level
+17 Start RECO Level
+17 Count selected RECO muons
+17 Build RECO muon jets
+17 Check if exactly 2 muon jets are built
+17 Check if 2 muon jets are dimuons
+17 Apply cut on dZ
+17 Apply cut on HLT
+17 Apply cut on dimuon mass
+17 Apply cut on dimuon isolation
+17 Stop RECO Level
+17 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.63818
+patMuons
+Muon pT: 4.63818
+(RECO) muons
+Muon pT: 4.63818
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+17 Count Jpsi muons
+Number of Jpsi muons: 1
+17 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+17 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+17 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60017
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+17 Start GEN Level
+WARNING! genA.size() < 2
+17 Stop GEN Level
+17 Start RECO Level
+17 Count selected RECO muons
+17 Build RECO muon jets
+17 Check if exactly 2 muon jets are built
+17 Check if 2 muon jets are dimuons
+17 Apply cut on dZ
+17 Apply cut on HLT
+17 Apply cut on dimuon mass
+17 Apply cut on dimuon isolation
+17 Stop RECO Level
+17 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.63818
+patMuons
+Muon pT: 4.63818
+(RECO) muons
+Muon pT: 4.63818
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+17 Count Jpsi muons
+Number of Jpsi muons: 1
+17 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+17 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+17 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60017
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+17 Start GEN Level
+WARNING! genA.size() < 2
+17 Stop GEN Level
+17 Start RECO Level
+17 Count selected RECO muons
+17 Build RECO muon jets
+17 Check if exactly 2 muon jets are built
+17 Check if 2 muon jets are dimuons
+17 Apply cut on dZ
+17 Apply cut on HLT
+17 Apply cut on dimuon mass
+17 Apply cut on dimuon isolation
+17 Stop RECO Level
+17 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 4.63818
+patMuons
+Muon pT: 4.63818
+(RECO) muons
+Muon pT: 4.63818
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+17 Count Jpsi muons
+Number of Jpsi muons: 1
+17 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+17 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+17 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 18th record. Run 1, Event 60018, LumiSection 601 at 07-Jun-2016 10:29:11.741 CDT
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60018
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+18 Start GEN Level
+WARNING! genA.size() < 2
+18 Stop GEN Level
+18 Start RECO Level
+18 Count selected RECO muons
+18 Build RECO muon jets
+18 Check if exactly 2 muon jets are built
+18 Check if 2 muon jets are dimuons
+18 Apply cut on dZ
+18 Apply cut on HLT
+18 Apply cut on dimuon mass
+18 Apply cut on dimuon isolation
+18 Stop RECO Level
+18 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 3.28279
+Muon pT: 1.44945
+Muon pT: 1.1829
+Muon pT: 1.16839
+(RECO) muons
+Muon pT: 1.16839
+Muon pT: 3.28279
+Muon pT: 1.44945
+Muon pT: 1.1829
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+18 Count Jpsi muons
+Number of Jpsi muons: 0
+18 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+18 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+18 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60018
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+18 Start GEN Level
+WARNING! genA.size() < 2
+18 Stop GEN Level
+18 Start RECO Level
+18 Count selected RECO muons
+18 Build RECO muon jets
+18 Check if exactly 2 muon jets are built
+18 Check if 2 muon jets are dimuons
+18 Apply cut on dZ
+18 Apply cut on HLT
+18 Apply cut on dimuon mass
+18 Apply cut on dimuon isolation
+18 Stop RECO Level
+18 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 3.28279
+Muon pT: 1.44945
+Muon pT: 1.1829
+Muon pT: 1.16839
+(RECO) muons
+Muon pT: 1.16839
+Muon pT: 3.28279
+Muon pT: 1.44945
+Muon pT: 1.1829
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+18 Count Jpsi muons
+Number of Jpsi muons: 0
+18 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+18 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+18 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60018
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+18 Start GEN Level
+WARNING! genA.size() < 2
+18 Stop GEN Level
+18 Start RECO Level
+18 Count selected RECO muons
+18 Build RECO muon jets
+18 Check if exactly 2 muon jets are built
+18 Check if 2 muon jets are dimuons
+18 Apply cut on dZ
+18 Apply cut on HLT
+18 Apply cut on dimuon mass
+18 Apply cut on dimuon isolation
+18 Stop RECO Level
+18 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 3.28279
+Muon pT: 1.44945
+Muon pT: 1.1829
+Muon pT: 1.16839
+(RECO) muons
+Muon pT: 1.16839
+Muon pT: 3.28279
+Muon pT: 1.44945
+Muon pT: 1.1829
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+18 Count Jpsi muons
+Number of Jpsi muons: 0
+18 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+18 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+18 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 19th record. Run 1, Event 60019, LumiSection 601 at 07-Jun-2016 10:29:12.352 CDT
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60019
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+19 Start GEN Level
+WARNING! genA.size() < 2
+19 Stop GEN Level
+19 Start RECO Level
+19 Count selected RECO muons
+19 Build RECO muon jets
+19 Check if exactly 2 muon jets are built
+19 Check if 2 muon jets are dimuons
+19 Apply cut on dZ
+19 Apply cut on HLT
+19 Apply cut on dimuon mass
+19 Apply cut on dimuon isolation
+19 Stop RECO Level
+19 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 0.883751
+(RECO) muons
+Muon pT: 0.883751
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+19 Count Jpsi muons
+Number of Jpsi muons: 0
+19 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+19 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+19 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60019
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+19 Start GEN Level
+WARNING! genA.size() < 2
+19 Stop GEN Level
+19 Start RECO Level
+19 Count selected RECO muons
+19 Build RECO muon jets
+19 Check if exactly 2 muon jets are built
+19 Check if 2 muon jets are dimuons
+19 Apply cut on dZ
+19 Apply cut on HLT
+19 Apply cut on dimuon mass
+19 Apply cut on dimuon isolation
+19 Stop RECO Level
+19 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 0.883751
+(RECO) muons
+Muon pT: 0.883751
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+19 Count Jpsi muons
+Number of Jpsi muons: 0
+19 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+19 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+19 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60019
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+19 Start GEN Level
+WARNING! genA.size() < 2
+19 Stop GEN Level
+19 Start RECO Level
+19 Count selected RECO muons
+19 Build RECO muon jets
+19 Check if exactly 2 muon jets are built
+19 Check if 2 muon jets are dimuons
+19 Apply cut on dZ
+19 Apply cut on HLT
+19 Apply cut on dimuon mass
+19 Apply cut on dimuon isolation
+19 Stop RECO Level
+19 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+patMuons
+Muon pT: 0.883751
+(RECO) muons
+Muon pT: 0.883751
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 0, 0, 0, 
+19 Count Jpsi muons
+Number of Jpsi muons: 0
+19 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+19 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+19 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+Begin processing the 20th record. Run 1, Event 60020, LumiSection 601 at 07-Jun-2016 10:29:12.970 CDT
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+MuJet Creation Failure Code: 0
+m_barrelPixelLayer: 1
+ Event info:  run 1 lumi 601 event 60020
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+20 Start GEN Level
+WARNING! genA.size() < 2
+20 Stop GEN Level
+20 Start RECO Level
+20 Count selected RECO muons
+20 Build RECO muon jets
+20 Check if exactly 2 muon jets are built
+20 Check if 2 muon jets are dimuons
+20 Apply cut on dZ
+20 Apply cut on HLT
+20 Apply cut on dimuon mass
+20 Apply cut on dimuon isolation
+20 Stop RECO Level
+20 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 9.29514
+patMuons
+Muon pT: 9.29514
+Muon pT: 2.565
+(RECO) muons
+Muon pT: 2.565
+Muon pT: 9.29514
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+20 Count Jpsi muons
+Number of Jpsi muons: 1
+20 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+20 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+20 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 2
+ Event info:  run 1 lumi 601 event 60020
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+20 Start GEN Level
+WARNING! genA.size() < 2
+20 Stop GEN Level
+20 Start RECO Level
+20 Count selected RECO muons
+20 Build RECO muon jets
+20 Check if exactly 2 muon jets are built
+20 Check if 2 muon jets are dimuons
+20 Apply cut on dZ
+20 Apply cut on HLT
+20 Apply cut on dimuon mass
+20 Apply cut on dimuon isolation
+20 Stop RECO Level
+20 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 9.29514
+patMuons
+Muon pT: 9.29514
+Muon pT: 2.565
+(RECO) muons
+Muon pT: 2.565
+Muon pT: 9.29514
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+20 Count Jpsi muons
+Number of Jpsi muons: 1
+20 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+20 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+20 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+m_barrelPixelLayer: 3
+ Event info:  run 1 lumi 601 event 60020
+ Beam spot  x 0.104823 y 0.168665 z -1.07339
+20 Start GEN Level
+WARNING! genA.size() < 2
+20 Stop GEN Level
+20 Start RECO Level
+20 Count selected RECO muons
+20 Build RECO muon jets
+20 Check if exactly 2 muon jets are built
+20 Check if 2 muon jets are dimuons
+20 Apply cut on dZ
+20 Apply cut on HLT
+20 Apply cut on dimuon mass
+20 Apply cut on dimuon isolation
+20 Stop RECO Level
+20 Start Prompt Jpsi estimation
+Checkpoint 1
+Checkpoint 2
+Checkpoint 3
+Checkpoint 4
+Checkpoint 4.1
+Checkpoint 4.2
+Checkpoint 4.3
+Checkpoint 4.4
+Checkpoint 4.5
+Checkpoint 5
+Checkpoint 5.01
+Checkpoint 6
+cleanPatPFMuons
+Muon pT: 9.29514
+patMuons
+Muon pT: 9.29514
+Muon pT: 2.565
+(RECO) muons
+Muon pT: 2.565
+Muon pT: 9.29514
+Number of each type of muon (RECO, PAT, CleanPatPF, bbar): 1, 1, 1, 
+20 Count Jpsi muons
+Number of Jpsi muons: 1
+20 Build Jpsi muon jets
+Number of Jpsi mu jets: 0
+20 Check if Jpsi mu jets are dimuons
+Both jpsi jets are NOT dimuons
+Check if both dimuons have a valid vertex
+Both dimuons do NOT have a valid vertex
+20 Stop RECO Level
+Jpsi event terminated: Event does not contain >= 4 muonts with pT > 3.5
+Jpsi estimation complete
+Filling nTuple
+jpsi_isoTk_dimuon1: -1
+07-Jun-2016 10:29:13 CDT  Closed file file:/home/bmichlin/forGithub/stupid/CMSSW_7_6_3_patch2/src/MuJetAnalysis/CutFlowAnalyzer/test/jpsi/sps/out_reco_18.root
+END JOB
+Total number of events:          20
+Total number of events with 4mu: 0 fraction: 0
+********** GEN **********
+Selection              nEv 	 RelEff 	 Eff
+pT1>17 |eta1|<0.9:       0 	0 	0
+pT2>8  |eta2|<2.4:       0 	-nan 	0
+pT3>8  |eta2|<2.4:       0 	-nan 	0
+pT4>8  |eta2|<2.4:       0 	-nan 	0
+Basic MC Acceptance:     0
+********** RECO **********
+Selection                nEv 	 RelEff 	 Eff
+m_events1SelMu17:        0 	0 	0
+m_events2SelMu8:         0 	-nan 	0
+m_events3SelMu8:         0 	-nan 	0
+m_events4SelMu8:         0 	-nan 	0
+Basic Acceptance:        0
+Basic MC Accept. a_gen:  0
+m_events2MuJets:         0 	-nan 	0
+m_events2DiMuons:        0 	-nan 	0
+ *** FITTED VERTEXES *** 
+ *** CONSISTENT VERTEXES *** 
+ *** FITTED VERTEXES *** 
+20
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+ *** CONSISTENT VERTEXES *** 
+20
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+END JOB
+Total number of events:          20
+Total number of events with 4mu: 0 fraction: 0
+********** GEN **********
+Selection              nEv 	 RelEff 	 Eff
+pT1>17 |eta1|<0.9:       0 	0 	0
+pT2>8  |eta2|<2.4:       0 	-nan 	0
+pT3>8  |eta2|<2.4:       0 	-nan 	0
+pT4>8  |eta2|<2.4:       0 	-nan 	0
+Basic MC Acceptance:     0
+********** RECO **********
+Selection                nEv 	 RelEff 	 Eff
+m_events1SelMu17:        0 	0 	0
+m_events2SelMu8:         0 	-nan 	0
+m_events3SelMu8:         0 	-nan 	0
+m_events4SelMu8:         0 	-nan 	0
+Basic Acceptance:        0
+Basic MC Accept. a_gen:  0
+m_events2MuJets:         0 	-nan 	0
+m_events2DiMuons:        0 	-nan 	0
+ *** FITTED VERTEXES *** 
+ *** CONSISTENT VERTEXES *** 
+ *** FITTED VERTEXES *** 
+20
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+ *** CONSISTENT VERTEXES *** 
+20
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+END JOB
+Total number of events:          20
+Total number of events with 4mu: 0 fraction: 0
+********** GEN **********
+Selection              nEv 	 RelEff 	 Eff
+pT1>17 |eta1|<0.9:       0 	0 	0
+pT2>8  |eta2|<2.4:       0 	-nan 	0
+pT3>8  |eta2|<2.4:       0 	-nan 	0
+pT4>8  |eta2|<2.4:       0 	-nan 	0
+Basic MC Acceptance:     0
+********** RECO **********
+Selection                nEv 	 RelEff 	 Eff
+m_events1SelMu17:        0 	0 	0
+m_events2SelMu8:         0 	-nan 	0
+m_events3SelMu8:         0 	-nan 	0
+m_events4SelMu8:         0 	-nan 	0
+Basic Acceptance:        0
+Basic MC Accept. a_gen:  0
+m_events2MuJets:         0 	-nan 	0
+m_events2DiMuons:        0 	-nan 	0
+ *** FITTED VERTEXES *** 
+ *** CONSISTENT VERTEXES *** 
+ *** FITTED VERTEXES *** 
+20
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+ *** CONSISTENT VERTEXES *** 
+20
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+=============================================
+
+MessageLogger Summary
+
+ type     category        sev    module        subroutine        count    total
+ ---- -------------------- -- ---------------- ----------------  -----    -----
+    1 fileAction           -s file_close                             1        1
+    2 fileAction           -s file_open                              2        2
+
+ type    category    Examples: run/evt        run/evt          run/evt
+ ---- -------------------- ---------------- ---------------- ----------------
+    1 fileAction           PostEndRun                        
+    2 fileAction           pre-events       pre-events       
+
+Severity    # Occurrences   Total Occurrences
+--------    -------------   -----------------
+System                  3                   3
