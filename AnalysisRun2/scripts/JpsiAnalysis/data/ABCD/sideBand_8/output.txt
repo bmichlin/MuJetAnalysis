@@ -1,0 +1,27 @@
+   ------------------------------------------------------------
+  | Welcome to ROOT 6.02/05                http://root.cern.ch |
+  |                               (c) 1995-2014, The ROOT Team |
+  | Built for linuxx8664gcc                                    |
+  | From tag , 9 February 2015                                 |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q' |
+   ------------------------------------------------------------
+
+
+Processing jpsiPlots.C+...
+Info in <TUnixSystem::ACLiC>: creating shared library /home/bmichlin/JpsiEstimation/CMSSW_7_4_12_patch4/src/MuJetAnalysis/AnalysisRun2/scripts/JpsiAnalysis/data/sideBand_8/./jpsiPlots_C.so
+Begin plotting Jpsi
+Correlation factor between IsoTK of dimuon1 and 2: 0.142271
+Number of data events in region A, B, C, D       : 22, 16, 25, 15
+Estimated number of prompt Jpsi in region A      : 12.4 +/- 6.1311
+Estimated number of non-prompt Jpsi in region A  : 9.6 +/- 3.94847
+Info in <TCanvas::Print>: pdf file Event_Failure_Type.pdf has been created
+Info in <TCanvas::Print>: pdf file InvMass1.pdf has been created
+Info in <TCanvas::Print>: pdf file InvMass2.pdf has been created
+Info in <TCanvas::Print>: pdf file Mass1.pdf has been created
+Info in <TCanvas::Print>: pdf file Mass2.pdf has been created
+Info in <TCanvas::Print>: pdf file InvMass1plus2.pdf has been created
+Info in <TCanvas::Print>: pdf file IsoTk_1.pdf has been created
+Info in <TCanvas::Print>: pdf file IsoTk_2.pdf has been created
+Info in <TCanvas::Print>: pdf file deltaY.pdf has been created
+Info in <TCanvas::Print>: pdf file 2D_invMass.pdf has been created
+Info in <TCanvas::Print>: pdf file 2D_iso.pdf has been created
