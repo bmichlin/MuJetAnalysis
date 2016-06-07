@@ -808,11 +808,11 @@ class CutFlowAnalyzer : public edm::EDAnalyzer
 CutFlowAnalyzer::CutFlowAnalyzer(const edm::ParameterSet& iConfig)
 
 {
-		//****************************************************************************
-		//                          SET THRESHOLDS                                    
-		//****************************************************************************
+	//****************************************************************************
+	//                          SET THRESHOLDS                                    
+	//****************************************************************************
 
-		m_threshold_Mu17_pT  = 17.0; // min pT in GeV      //These values are set by trigger efficiencies and detector geometry so may be left hard-coded 
+	m_threshold_Mu17_pT  = 17.0; // min pT in GeV      //These values are set by trigger efficiencies and detector geometry so may be left hard-coded 
 	m_threshold_Mu17_eta =  0.9; // max eta in Barrel  //These values are set by trigger efficiencies and detector geometry so may be left hard-coded 
 	m_threshold_Mu8_pT   =  8.0; // min pT in GeV      //These values are set by trigger efficiencies and detector geometry so may be left hard-coded 
 	m_threshold_Mu8_eta  =  2.4; // max eta in Endcaps //These values are set by trigger efficiencies and detector geometry so may be left hard-coded 
@@ -925,7 +925,7 @@ CutFlowAnalyzer::~CutFlowAnalyzer()
 	void
 CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
-		using namespace edm;
+	using namespace edm;
 	double eq = 0.000001; // small number used below to compare variables
 
 	b_diMuonC_m1_FittedVtx_hitpix=-1000;
@@ -1215,7 +1215,7 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 	//****************************************************************************
 	//                          GEN LEVEL ANALYSIS START                          
 	//****************************************************************************
-
+//{{{
 	if (m_fillGenLevel){  
 
 		if ( m_debug > 10 ) std::cout << m_events << " Start GEN Level" << std::endl;
@@ -1566,7 +1566,9 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 		}
 
 		if ( m_debug > 10 ) std::cout << m_events << " Stop GEN Level" << std::endl;
+
 	}
+	//}}}
 
 	//****************************************************************************
 	//                          GEN LEVEL ANALYSIS FINISH                         
@@ -1575,7 +1577,7 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 	//****************************************************************************
 	//                          RECO LEVEL ANALYSIS START                         
 	//****************************************************************************
-
+//{{{
 	if ( m_debug > 10 ) std::cout << m_events << " Start RECO Level" << std::endl;
 
 	edm::Handle<pat::MuonCollection> muons;
@@ -3008,925 +3010,12 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 			}
 		}
 	}
-	//****************************************************************************
-	//                          RECO LEVEL ANALYSIS FINISH                        
-	//****************************************************************************
 
-	//****************************************************************************
-	//                            FILL BRANCHES TO TREE                           
-	//****************************************************************************
-
-	if(skimOutput_) { if (b_massC>-1. && b_massF>-1.) m_ttree->Fill(); }
-	else m_ttree->Fill();
-
-	if(runBBestimation_ && m_orphan_passOffLineSel) m_ttree_orphan->Fill();
-}
-
-GlobalPoint beamSpotPosition(beamSpot->position().x(), beamSpot->position().y(), beamSpot->position().z());
-
-//****************************************************************************
-//                          GEN LEVEL ANALYSIS START                          
-//****************************************************************************
-//{{{
-if (m_fillGenLevel){  
-
-	if ( m_debug > 10 ) std::cout << m_events << " Start GEN Level" << std::endl;
-
-	edm::Handle<reco::GenParticleCollection> genParticles;
-	iEvent.getByToken(m_genParticles, genParticles);
-
-	// Loop over all genParticles and save prompt muons from particles with codes 36 (a1) or 3000022 (gammaD) in vector genMuons
-	std::vector<const reco::GenParticle*> genH;
-	std::vector<const reco::GenParticle*> genA_unsorted;
-	std::vector<const reco::GenParticle*> genA;
-	std::vector<const reco::GenParticle*> genMuons;
-	std::vector<const reco::Candidate*>   genMuonMothers;
-	// Loop over all gen particles
-	int counterGenParticle = 0;
-	for(reco::GenParticleCollection::const_iterator iGenParticle = genParticles->begin();  iGenParticle != genParticles->end();  ++iGenParticle) {
-		counterGenParticle++;
-		//    std::cout << counterGenParticle << " " << iGenParticle->status() << " " << iGenParticle->pdgId() << " " << iGenParticle->vx() << " " << iGenParticle->vy() << " " << iGenParticle->vz() << std::endl;
-		// Check if gen particle is muon (pdgId = +/-13) and stable (status = 1)
-		if ( fabs( iGenParticle->pdgId() ) == 13 && iGenParticle->status() == 1 ) {
-			// Mother of the muon can be muon. Find the last muon in this chain: genMuonCand
-			// Example: a1 -> mu+ (status = 3) mu- (status = 3)
-			//          mu- (status = 3) -> mu- (status = 2) -> mu- (status = 1)
-			const reco::Candidate *genMuonCand = &(*iGenParticle);
-			bool isMuonMother = true;
-			while(isMuonMother) {
-				isMuonMother = false;
-				for ( size_t iMother = 0; iMother < genMuonCand->numberOfMothers(); iMother++ ) {
-					if ( fabs( genMuonCand->mother(iMother)->pdgId() ) == 13 ) {
-						isMuonMother = true;
-						genMuonCand = genMuonCand->mother(iMother);
-					}
-				}
-			}
-			// Loop over all real (non-muon) mothers of the muon (here we use genMuonCand)
-			for ( size_t iMother = 0; iMother < genMuonCand->numberOfMothers(); iMother++ ) {
-				// Check if mother is CP-odd Higgs (PdgId = 36) or gamma_Dark (PdgId = 3000022)
-				//        if ( genMuonCand->mother(iMother)->pdgId() == 36 || genMuonCand->mother(iMother)->pdgId() == 3000022 || genMuonCand->mother(iMother)->pdgId() == 443 ) 
-				if ( genMuonCand->mother(iMother)->pdgId() == 36 || genMuonCand->mother(iMother)->pdgId() == 3000022 ) {
-					// Store the muon (stable, first in chain) into vector
-					genMuons.push_back(&(*iGenParticle));
-					// Store mother of the muon into vector. We need this to group muons into dimuons later
-					genMuonMothers.push_back(genMuonCand->mother(iMother));
-				}
-			}
-		}
-		// Check if gen particle is
-		if (    ( iGenParticle->status() == 22 && iGenParticle->pdgId() == 25 ) // decaying (status = 3) SM Higgs (pdgId = 25)
-				|| ( iGenParticle->status() == 22 && iGenParticle->pdgId() == 35 ) // decaying (status = 3) CP-even Higgs (pdgId = 35)
-		   ) {
-			genH.push_back(&(*iGenParticle)); // Store the Higgs into vector
-		}
-		// Check if gen particle is
-		if (    ( iGenParticle->status() == 22 && iGenParticle->pdgId() == 36      ) // decaying (status = 3) CP-odd Higgs (pdgId = 36)
-				|| ( iGenParticle->status() == 22 && iGenParticle->pdgId() == 3000022 ) // decaying (status = 3) gamma_Dark (pdgId = 3000022)
-		   ) {
-			genA_unsorted.push_back(&(*iGenParticle));
-		}
-	}
-
-	if ( genH.size() == 1 ) {
-		b_genH_m   = genH[0]->mass();
-		b_genH_px  = genH[0]->px();
-		b_genH_py  = genH[0]->py();
-		b_genH_pz  = genH[0]->pz();
-		b_genH_eta = genH[0]->eta();
-		b_genH_phi = genH[0]->phi();
-		b_genH_vx  = genH[0]->vx() - b_beamSpot_x;
-		b_genH_vy  = genH[0]->vy() - b_beamSpot_y;
-		b_genH_vz  = genH[0]->vz() - b_beamSpot_z;
-	} else {
-		//    std::cout << "WARNING! genH.size() != 1" << std::endl;
-	}
-
-	if ( genA_unsorted.size() >= 2 ) {
-		// Sort genA by pT (leading pT first)
-		std::sort (genA_unsorted.begin(), genA_unsorted.end(), tamu::helpers::PtOrder);
-
-	}
-
-	genA = genA_unsorted;
-
-	if ( genA.size() >= 2 ) {
-		b_genA0_m   = genA[0]->mass();
-		b_genA0_px  = genA[0]->px();
-		b_genA0_py  = genA[0]->py();
-		b_genA0_pz  = genA[0]->pz();
-		b_genA0_eta = genA[0]->eta();
-		b_genA0_phi = genA[0]->phi();
-		b_genA0_vx  = genA[0]->vx() - b_beamSpot_x;
-		b_genA0_vy  = genA[0]->vy() - b_beamSpot_y;
-		b_genA0_vz  = genA[0]->vz() - b_beamSpot_z;
-
-		b_genA1_m   = genA[1]->mass();
-		b_genA1_px  = genA[1]->px();
-		b_genA1_py  = genA[1]->py();
-		b_genA1_pz  = genA[1]->pz();
-		b_genA1_eta = genA[1]->eta();
-		b_genA1_phi = genA[1]->phi();
-		b_genA1_vx  = genA[1]->vx() - b_beamSpot_x;
-		b_genA1_vy  = genA[1]->vy() - b_beamSpot_y;
-		b_genA1_vz  = genA[1]->vz() - b_beamSpot_z;
-	} else {
-		std::cout << "WARNING! genA.size() < 2" << std::endl;
-	}
-
-	// Group muons with the same mother
-	std::vector< std::vector<const reco::GenParticle*> > genMuonGroupsUnsorted;
-	std::vector<const reco::Candidate*> genMuonGroupsUnsortedMothers;
-	std::vector<const reco::GenParticle*> genMuonsTMP1       = genMuons;
-	std::vector<const reco::Candidate*>   genMuonMothersTMP1 = genMuonMothers;
-	unsigned int nMuonGroup = 0;
-	while ( genMuonsTMP1.size() > 0 ) {
-		std::vector<const reco::GenParticle*> genMuonsTMP2;
-		std::vector<const reco::Candidate*>   genMuonMothersTMP2;
-		std::vector<const reco::GenParticle*> genMuonsSameMother;
-		std::vector<const reco::Candidate*>   genMuonMothersSame;
-		for ( unsigned int j = 0; j < genMuonsTMP1.size(); j++ ) {
-			// Check if mothers are the same particle
-			if ( fabs( genMuonMothersTMP1[0]->pt() - genMuonMothersTMP1[j]->pt() ) < eq ) {
-				genMuonsSameMother.push_back( genMuonsTMP1[j] );
-			} else {
-				genMuonsTMP2.push_back( genMuonsTMP1[j] );
-				genMuonMothersTMP2.push_back( genMuonMothersTMP1[j] );
-			}
-		}
-		genMuonGroupsUnsorted.push_back(genMuonsSameMother);
-		genMuonGroupsUnsortedMothers.push_back(genMuonMothersTMP1[0]);
-		genMuonsTMP1       = genMuonsTMP2;
-		genMuonMothersTMP1 = genMuonMothersTMP2;
-		nMuonGroup++;
-	}
-
-	// Sort muon groups to match order of genA vector
-	std::vector< std::vector<const reco::GenParticle*> > genMuonGroups;
-	std::vector<const reco::Candidate*> genMuonGroupsMothers;
-	for (unsigned int iA = 0; iA < genA.size(); iA++ ) {
-		bool isMuGroupMatchedToA = false;
-		int  nMuGroup = -1;
-		for ( unsigned int iMuGroup = 0; iMuGroup < genMuonGroupsUnsortedMothers.size(); iMuGroup++ ) {
-			if ( fabs ( genA[iA]->pt() - genMuonGroupsUnsortedMothers[iMuGroup]->pt() ) < eq ) {
-				isMuGroupMatchedToA = true;
-				nMuGroup = iMuGroup;
-				break;
-			}
-		}
-		if ( isMuGroupMatchedToA && nMuGroup >= 0 ) {
-			genMuonGroups.push_back( genMuonGroupsUnsorted[nMuGroup] );
-			genMuonGroupsMothers.push_back( genMuonGroupsUnsortedMothers[nMuGroup] );
-		} else {
-			std::cout << "Error! Muon group has no matched boson A" << std::endl;
-		}
-	}
-
-	b_isGenALxyOK = false;
-	if ( genMuonGroups.size() == 2 && genMuonGroups[0].size() == 2 && genMuonGroups[1].size() == 2 ) {
-		std::sort( genMuonGroups[0].begin(), genMuonGroups[0].end(), tamu::helpers::PtOrder );
-		std::sort( genMuonGroups[1].begin(), genMuonGroups[1].end(), tamu::helpers::PtOrder );
-
-		b_genA0Mu0_px = genMuonGroups[0][0]->px();
-		b_genA0Mu1_px = genMuonGroups[0][1]->px();
-		b_genA1Mu0_px = genMuonGroups[1][0]->px();
-		b_genA1Mu1_px = genMuonGroups[1][1]->px();
-
-		b_genA0Mu0_py = genMuonGroups[0][0]->py();
-		b_genA0Mu1_py = genMuonGroups[0][1]->py();
-		b_genA1Mu0_py = genMuonGroups[1][0]->py();
-		b_genA1Mu1_py = genMuonGroups[1][1]->py();
-
-		b_genA0Mu0_pz = genMuonGroups[0][0]->pz();
-		b_genA0Mu1_pz = genMuonGroups[0][1]->pz();
-		b_genA1Mu0_pz = genMuonGroups[1][0]->pz();
-		b_genA1Mu1_pz = genMuonGroups[1][1]->pz();
-
-		b_genA0Mu0_eta = genMuonGroups[0][0]->eta();
-		b_genA0Mu1_eta = genMuonGroups[0][1]->eta();
-		b_genA1Mu0_eta = genMuonGroups[1][0]->eta();
-		b_genA1Mu1_eta = genMuonGroups[1][1]->eta();
-
-		b_genA0Mu0_phi = genMuonGroups[0][0]->phi();
-		b_genA0Mu1_phi = genMuonGroups[0][1]->phi();
-		b_genA1Mu0_phi = genMuonGroups[1][0]->phi();
-		b_genA1Mu1_phi = genMuonGroups[1][1]->phi();
-
-		b_genA0Mu0_vx = genMuonGroups[0][0]->vx() - b_beamSpot_x;
-		b_genA0Mu1_vx = genMuonGroups[0][1]->vx() - b_beamSpot_x;
-		b_genA1Mu0_vx = genMuonGroups[1][0]->vx() - b_beamSpot_x;
-		b_genA1Mu1_vx = genMuonGroups[1][1]->vx() - b_beamSpot_x;
-
-		b_genA0Mu0_vy = genMuonGroups[0][0]->vy() - b_beamSpot_y;
-		b_genA0Mu1_vy = genMuonGroups[0][1]->vy() - b_beamSpot_y;
-		b_genA1Mu0_vy = genMuonGroups[1][0]->vy() - b_beamSpot_y;
-		b_genA1Mu1_vy = genMuonGroups[1][1]->vy() - b_beamSpot_y;
-
-		b_genA0Mu0_vz = genMuonGroups[0][0]->vz() - b_beamSpot_z;
-		b_genA0Mu1_vz = genMuonGroups[0][1]->vz() - b_beamSpot_z;
-		b_genA1Mu0_vz = genMuonGroups[1][0]->vz() - b_beamSpot_z;
-		b_genA1Mu1_vz = genMuonGroups[1][1]->vz() - b_beamSpot_z;
-
-		if (    fabs(b_genA0Mu0_vx - b_genA0Mu1_vx) < eq
-				&& fabs(b_genA1Mu0_vx - b_genA1Mu1_vx) < eq
-				&& fabs(b_genA0Mu0_vy - b_genA0Mu1_vy) < eq
-				&& fabs(b_genA1Mu0_vy - b_genA1Mu1_vy) < eq
-				&& fabs(b_genA0Mu0_vz - b_genA0Mu1_vz) < eq
-				&& fabs(b_genA1Mu0_vz - b_genA1Mu1_vz) < eq
-		   ) {
-			b_genA0_Lx = b_genA0Mu0_vx - b_genA0_vx;
-			b_genA1_Lx = b_genA1Mu0_vx - b_genA1_vx;
-
-			b_genA0_Ly = b_genA0Mu0_vy - b_genA0_vy;
-			b_genA1_Ly = b_genA1Mu0_vy - b_genA1_vy;
-
-			b_genA0_Lz = b_genA0Mu0_vz - b_genA0_vz;
-			b_genA1_Lz = b_genA1Mu0_vz - b_genA1_vz;
-
-			b_genA0_Lxy = sqrt( b_genA0_Lx * b_genA0_Lx + b_genA0_Ly * b_genA0_Ly );
-			b_genA1_Lxy = sqrt( b_genA1_Lx * b_genA1_Lx + b_genA1_Ly * b_genA1_Ly );
-
-			b_genA0_L = sqrt( b_genA0_Lx * b_genA0_Lx + b_genA0_Ly * b_genA0_Ly + b_genA0_Lz * b_genA0_Lz );
-			b_genA1_L = sqrt( b_genA1_Lx * b_genA1_Lx + b_genA1_Ly * b_genA1_Ly + b_genA1_Lz * b_genA1_Lz );
-
-			if ( b_genA0_Lxy < m_threshold_GenA_Lxy && b_genA1_Lxy < m_threshold_GenA_Lxy ) b_isGenALxyOK = true;
-		} else {
-			std::cout << "WARNING! Muon vertexes are different. No Lxy's are calculated." << std::endl;
-			b_genA0_Lx  = -1000.0;
-			b_genA1_Lx  = -1000.0;
-			b_genA0_Ly  = -1000.0;
-			b_genA1_Ly  = -1000.0;
-			b_genA0_Lz  = -1000.0;
-			b_genA1_Lz  = -1000.0;
-			b_genA0_Lxy = -1000.0;
-			b_genA1_Lxy = -1000.0;
-			b_genA0_L   = -1000.0;
-			b_genA1_L   = -1000.0;
-		}
-
-		b_genA0Mu_dEta = genMuonGroups[0][0]->eta() - genMuonGroups[0][1]->eta();
-		b_genA1Mu_dEta = genMuonGroups[1][0]->eta() - genMuonGroups[1][1]->eta();
-		b_genA0Mu_dPhi = tamu::helpers::My_dPhi( genMuonGroups[0][0]->phi(), genMuonGroups[0][1]->phi() );
-		b_genA1Mu_dPhi = tamu::helpers::My_dPhi( genMuonGroups[1][0]->phi(), genMuonGroups[1][1]->phi() );
-		b_genA0Mu_dR   = sqrt(b_genA0Mu_dEta*b_genA0Mu_dEta + b_genA0Mu_dPhi*b_genA0Mu_dPhi);
-		b_genA1Mu_dR   = sqrt(b_genA1Mu_dEta*b_genA1Mu_dEta + b_genA1Mu_dPhi*b_genA1Mu_dPhi);
-	} else {
-
-	}
-
-	if ( b_isGenALxyOK ) m_eventsGenALxyOK++;
-
-	// Sort genMuons by pT (leading pT first)
-	if ( genMuons.size() > 1 ) std::sort( genMuons.begin(), genMuons.end(), tamu::helpers::PtOrder );
-
-	b_is4GenMu = false;
-
-	if ( genMuons.size() == 4 ){
-		m_events4GenMu++;
-		b_is4GenMu = true;
-	}
-
-	if ( genMuons.size() > 0 ) {
-		b_genMu0_px  = genMuons[0]->px();
-		b_genMu0_py  = genMuons[0]->py();
-		b_genMu0_pz  = genMuons[0]->pz();
-		b_genMu0_pT  = genMuons[0]->pt();
-		b_genMu0_eta = genMuons[0]->eta();
-		b_genMu0_phi = genMuons[0]->phi();
-	} else {
-		b_genMu0_px  = -100.0;
-		b_genMu0_py  = -100.0;
-		b_genMu0_pz  = -100.0;
-		b_genMu0_pT  = -100.0;
-		b_genMu0_eta = -100.0;
-		b_genMu0_phi = -100.0;
-	}
-	if ( genMuons.size() > 1 ) {
-		b_genMu1_px  = genMuons[1]->px();
-		b_genMu1_py  = genMuons[1]->py();
-		b_genMu1_pz  = genMuons[1]->pz();
-		b_genMu1_pT  = genMuons[1]->pt();
-		b_genMu1_eta = genMuons[1]->eta();
-		b_genMu1_phi = genMuons[1]->phi();
-	} else {
-		b_genMu1_px  = -100.0;
-		b_genMu1_py  = -100.0;
-		b_genMu1_pz  = -100.0;
-		b_genMu1_pT  = -100.0;
-		b_genMu1_eta = -100.0;
-		b_genMu1_phi = -100.0;
-	}
-	if ( genMuons.size() > 2 ) {
-		b_genMu2_px  = genMuons[2]->px();
-		b_genMu2_py  = genMuons[2]->py();
-		b_genMu2_pz  = genMuons[2]->pz();
-		b_genMu2_pT  = genMuons[2]->pt();
-		b_genMu2_eta = genMuons[2]->eta();
-		b_genMu2_phi = genMuons[2]->phi();
-	} else {
-		b_genMu2_px  = -100.0;
-		b_genMu2_py  = -100.0;
-		b_genMu2_pz  = -100.0;
-		b_genMu2_pT  = -100.0;
-		b_genMu2_eta = -100.0;
-		b_genMu2_phi = -100.0;
-	}
-	if ( genMuons.size() > 3 ) {
-		b_genMu3_px  = genMuons[3]->px();
-		b_genMu3_py  = genMuons[3]->py();
-		b_genMu3_pz  = genMuons[3]->pz();
-		b_genMu3_pT  = genMuons[3]->pt();
-		b_genMu3_eta = genMuons[3]->eta();
-		b_genMu3_phi = genMuons[3]->phi();
-	} else {
-		b_genMu3_px  = -100.0;
-		b_genMu3_py  = -100.0;
-		b_genMu3_pz  = -100.0;
-		b_genMu3_pT  = -100.0;
-		b_genMu3_eta = -100.0;
-		b_genMu3_phi = -100.0;
-	}
-
-	std::vector<const reco::GenParticle*> genMuons17;
-	std::vector<const reco::GenParticle*> genMuons8;
-
-	for ( unsigned int i = 0; i < genMuons.size(); i++ ) {
-		if ( genMuons[i]->pt() > m_threshold_Mu17_pT && fabs( genMuons[i]->eta() ) < m_threshold_Mu17_eta ) {
-			genMuons17.push_back(genMuons[i]);
-		}
-		if ( genMuons[i]->pt() > m_threshold_Mu8_pT && fabs( genMuons[i]->eta() ) < m_threshold_Mu8_eta ) {
-			genMuons8.push_back(genMuons[i]);
-		}
-	}
-	b_is1GenMu17 = false; 
-	b_is2GenMu8  = false;
-	b_is3GenMu8  = false;
-	b_is4GenMu8  = false;
-
-	if ( genMuons17.size() >=1) {
-		m_events1GenMu17++;
-		b_is1GenMu17 = true;
-		if ( genMuons8.size() >=2 ) {
-			m_events2GenMu8++;
-			b_is2GenMu8 = true;
-		}
-		if ( genMuons8.size() >=3 ) {
-			m_events3GenMu8++;
-			b_is3GenMu8 = true;
-		}
-		if ( genMuons8.size() >=4 ) {
-			m_events4GenMu8++;
-			b_is4GenMu8 = true;
-		}
-	}
-
-	if ( m_debug > 10 ) std::cout << m_events << " Stop GEN Level" << std::endl;
-}
-//}}}
-//****************************************************************************
-//                          GEN LEVEL ANALYSIS FINISH                         
-//****************************************************************************
-
-//****************************************************************************
-//                          RECO LEVEL ANALYSIS START                         
-//****************************************************************************
-//{{{
-if ( m_debug > 10 ) std::cout << m_events << " Start RECO Level" << std::endl;
-
-edm::Handle<pat::MuonCollection> muons;
-iEvent.getByToken(m_muons, muons);
-
-std::vector<const reco::Muon*> selMuons;
-std::vector<const reco::Muon*> selMuons8;
-std::vector<const reco::Muon*> selMuons17;
-
-for (pat::MuonCollection::const_iterator iMuon = muons->begin();  iMuon != muons->end();  ++iMuon) {
-	if ( tamu::helpers::isPFMuonLoose( &(*iMuon) ) ) {
-		//    if ( tamu::helpers::isTrackerMuonPrivateID( &(*iMuon) ) ) 
-		selMuons.push_back( &(*iMuon) );
-		if ( iMuon->pt() > m_threshold_Mu8_pT ) {
-			selMuons8.push_back( &(*iMuon) );
-		}
-		if ( iMuon->pt() > m_threshold_Mu17_pT && fabs(iMuon->eta()) < m_threshold_Mu17_eta ) {
-			selMuons17.push_back( &(*iMuon) );
-		}
-	}
-}
-
-if ( selMuons.size() > 0 ) {
-	b_selMu0_px  = selMuons[0]->px();
-	b_selMu0_py  = selMuons[0]->py();
-	b_selMu0_pz  = selMuons[0]->pz();
-	b_selMu0_eta = selMuons[0]->eta();
-	b_selMu0_phi = selMuons[0]->phi();
-} else {
-	b_selMu0_px  = -100.0;
-	b_selMu0_py  = -100.0;
-	b_selMu0_pz  = -100.0;
-	b_selMu0_eta = -100.0;
-	b_selMu0_phi = -100.0;
-}
-if ( selMuons.size() > 1 ) {
-	b_selMu1_px  = selMuons[1]->px();
-	b_selMu1_py  = selMuons[1]->py();
-	b_selMu1_pz  = selMuons[1]->pz();
-	b_selMu1_eta = selMuons[1]->eta();
-	b_selMu1_phi = selMuons[1]->phi();
-} else {
-	b_selMu1_px  = -100.0;
-	b_selMu1_py  = -100.0;
-	b_selMu1_pz  = -100.0;
-	b_selMu1_eta = -100.0;
-	b_selMu1_phi = -100.0;
-}
-if ( selMuons.size() > 2 ) {
-	b_selMu2_px  = selMuons[2]->px();
-	b_selMu2_py  = selMuons[2]->py();
-	b_selMu2_pz  = selMuons[2]->pz();
-	b_selMu2_eta = selMuons[2]->eta();
-	b_selMu2_phi = selMuons[2]->phi();
-} else {
-	b_selMu2_px  = -100.0;
-	b_selMu2_py  = -100.0;
-	b_selMu2_pz  = -100.0;
-	b_selMu2_eta = -100.0;
-	b_selMu2_phi = -100.0;
-}
-if ( selMuons.size() > 3 ) {
-	b_selMu3_px  = selMuons[3]->px();
-	b_selMu3_py  = selMuons[3]->py();
-	b_selMu3_pz  = selMuons[3]->pz();
-	b_selMu3_eta = selMuons[3]->eta();
-	b_selMu3_phi = selMuons[3]->phi();
-} else {
-	b_selMu3_px  = -100.0;
-	b_selMu3_py  = -100.0;
-	b_selMu3_pz  = -100.0;
-	b_selMu3_eta = -100.0;
-	b_selMu3_phi = -100.0;
-}
-
-if ( m_debug > 10 ) std::cout << m_events << " Count selected RECO muons" << std::endl;
-
-b_is1SelMu17 = false;
-b_is2SelMu8  = false;
-b_is3SelMu8  = false;
-b_is4SelMu8  = false;
-if ( selMuons17.size() >=1 ) {
-	m_events1SelMu17++;
-	b_is1SelMu17 = true;
-	if ( selMuons8.size() >=2 ) {
-		m_events2SelMu8++;
-		b_is2SelMu8 = true;
-	}
-	if ( selMuons8.size() >=3 ) {
-		m_events3SelMu8++;
-		b_is3SelMu8 = true;
-	}
-	if ( selMuons8.size() >=4 ) {
-		m_events4SelMu8++;
-		b_is4SelMu8 = true;
-	}
-}
-
-if ( m_debug > 10 ) std::cout << m_events << " Build RECO muon jets" << std::endl;
-
-edm::Handle<pat::MultiMuonCollection> muJets;
-iEvent.getByToken(m_muJets, muJets);
-
-const pat::MultiMuon *muJetC = NULL;
-const pat::MultiMuon *muJetF = NULL;
-int   nMuJetsContainMu17     = 0;
-unsigned int nMuJets = muJets->size();
-b_massC = -999.; b_massF = -999.;
-b_is2MuJets = false;
-if ( nMuJets == 2) {
-	for ( unsigned int j = 0; j < nMuJets; j++ ) {
-		bool isMuJetContainMu17 = false;
-		for ( unsigned int m = 0; m < (*muJets)[j].numberOfDaughters(); m++ ) {
-			if ( (*muJets)[j].muon(m)->pt() > m_threshold_Mu17_pT && fabs( (*muJets)[j].muon(m)->eta() ) < m_threshold_Mu17_eta ) {
-				isMuJetContainMu17 = true;
-				nMuJetsContainMu17++;
-				break;
-			}
-		}
-		if ( isMuJetContainMu17 ) {
-			muJetC = &((*muJets)[j]);
-		} else {
-			muJetF = &((*muJets)[j]);
-		}
-	}
-	if ( nMuJetsContainMu17 == 2 ) {
-		if (m_trandom3.Integer(2) == 0) {
-			muJetC = &((*muJets)[0]);
-			muJetF = &((*muJets)[1]);
-		} else {
-			muJetC = &((*muJets)[1]);
-			muJetF = &((*muJets)[0]);
-		}
-	}
-	if ( nMuJetsContainMu17 > 0 ) b_is2MuJets = true;
-}
-
-if ( m_debug > 10 ) std::cout << m_events << " Check if exactly 2 muon jets are built" << std::endl;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets) m_events2MuJets++;
-
-b_is2DiMuons = false;
-const pat::MultiMuon *diMuonC = NULL;
-const pat::MultiMuon *diMuonF = NULL;
-if ( muJetC != NULL && muJetF != NULL ) {
-	if ( muJetC->numberOfDaughters() == 2 && muJetF->numberOfDaughters() == 2 ) {
-		diMuonC = muJetC;
-		diMuonF = muJetF;
-		b_is2DiMuons = true;
-	}
-}
-
-if ( m_debug > 10 ) std::cout << m_events << " Check if 2 muon jets are dimuons" << std::endl;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons){
-	m_events2DiMuons++;
-	b_massC = muJetC->mass();
-	b_massF = muJetF->mass();
-}
-// "Old" fitted vertexes
-b_is2DiMuonsFittedVtxOK = false;
-if ( diMuonC != NULL && diMuonF != NULL ) {
-	if ( diMuonC->vertexValid() && diMuonF->vertexValid() ) {
-		b_is2DiMuonsFittedVtxOK = true;
-	}
-}
-// Fill branches with variables calculated with "old" fitted vertexes
-if ( b_is2DiMuonsFittedVtxOK ) {
-	b_diMuonC_FittedVtx_m   = diMuonC->vertexMass();
-	b_diMuonC_FittedVtx_px  = diMuonC->vertexMomentum().x();
-	b_diMuonC_FittedVtx_py  = diMuonC->vertexMomentum().y();
-	b_diMuonC_FittedVtx_pz  = diMuonC->vertexMomentum().z();
-	b_diMuonC_FittedVtx_eta = diMuonC->vertexMomentum().eta();
-	b_diMuonC_FittedVtx_phi = diMuonC->vertexMomentum().phi();
-	b_diMuonC_FittedVtx_vx  = diMuonC->vertexPoint().x();
-	b_diMuonC_FittedVtx_vy  = diMuonC->vertexPoint().y();
-	b_diMuonC_FittedVtx_vz  = diMuonC->vertexPoint().z();
-
-	b_diMuonC_FittedVtx_Lxy = diMuonC->vertexLxy(beamSpotPosition);
-	b_diMuonC_FittedVtx_L   = diMuonC->vertexL(beamSpotPosition);
-	b_diMuonC_FittedVtx_dz  = diMuonC->vertexDz(beamSpot->position());
-
-	b_diMuonF_FittedVtx_m   = diMuonF->vertexMass();
-	b_diMuonF_FittedVtx_px  = diMuonF->vertexMomentum().x();
-	b_diMuonF_FittedVtx_py  = diMuonF->vertexMomentum().y();
-	b_diMuonF_FittedVtx_pz  = diMuonF->vertexMomentum().z();
-	b_diMuonF_FittedVtx_eta = diMuonF->vertexMomentum().eta();
-	b_diMuonF_FittedVtx_phi = diMuonF->vertexMomentum().phi();
-	b_diMuonF_FittedVtx_vx  = diMuonF->vertexPoint().x();
-	b_diMuonF_FittedVtx_vy  = diMuonF->vertexPoint().y();
-	b_diMuonF_FittedVtx_vz  = diMuonF->vertexPoint().z();
-
-	b_diMuonF_FittedVtx_Lxy = diMuonF->vertexLxy(beamSpotPosition);
-	b_diMuonF_FittedVtx_L   = diMuonF->vertexL(beamSpotPosition);
-	b_diMuonF_FittedVtx_dz  = diMuonF->vertexDz(beamSpot->position());
-} else {
-	b_diMuonC_FittedVtx_m   = -1000.0;
-	b_diMuonC_FittedVtx_px  = -1000.0;
-	b_diMuonC_FittedVtx_py  = -1000.0;
-	b_diMuonC_FittedVtx_pz  = -1000.0;
-	b_diMuonC_FittedVtx_eta = -1000.0;
-	b_diMuonC_FittedVtx_phi = -1000.0;
-	b_diMuonC_FittedVtx_vx  = -1000.0;
-	b_diMuonC_FittedVtx_vy  = -1000.0;
-	b_diMuonC_FittedVtx_vz  = -1000.0;
-
-	b_diMuonC_FittedVtx_Lxy = -1000.0;
-	b_diMuonC_FittedVtx_L   = -1000.0;
-	b_diMuonC_FittedVtx_dz  = -1000.0;
-
-	b_diMuonF_FittedVtx_m   = -1000.0;
-	b_diMuonF_FittedVtx_px  = -1000.0;
-	b_diMuonF_FittedVtx_py  = -1000.0;
-	b_diMuonF_FittedVtx_pz  = -1000.0;
-	b_diMuonF_FittedVtx_eta = -1000.0;
-	b_diMuonF_FittedVtx_phi = -1000.0;
-	b_diMuonF_FittedVtx_vx  = -1000.0;
-	b_diMuonF_FittedVtx_vy  = -1000.0;
-	b_diMuonF_FittedVtx_vz  = -1000.0;
-
-	b_diMuonF_FittedVtx_Lxy = -1000.0;
-	b_diMuonF_FittedVtx_L   = -1000.0;
-	b_diMuonF_FittedVtx_dz  = -1000.0;
-}
-
-// "New" consistent vertexes
-b_is2DiMuonsConsistentVtxOK = false;
-if ( diMuonC != NULL && diMuonF != NULL ) {
-	if ( m_debug > 10 ) std::cout << "Two good dimuons" << std::endl;
-	edm::ESHandle<TransientTrackBuilder> transientTrackBuilder;
-	const TransientTrackBuilder *transientTrackBuilder_ptr = NULL;
-	try {
-		iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder", transientTrackBuilder);
-		transientTrackBuilder_ptr = &*transientTrackBuilder;
-
-		ConsistentVertexesCalculator ConsistentVtx(transientTrackBuilder_ptr, beamSpotPosition);      
-		ConsistentVtx.SetNThrows(m_nThrowsConsistentVertexesCalculator);
-		ConsistentVtx.SetDebug(99);      
-		b_is2DiMuonsConsistentVtxOK = ConsistentVtx.Calculate(diMuonC, diMuonF);
-
-		DisplacedVertexFinder displacedVtx(transientTrackBuilder_ptr, beamSpotPosition);      
-		displacedVtx.setDebug(99);      
-		if (runDisplacedVtxFinder_)
-			displacedVtx.findDisplacedVertex(diMuonC, diMuonF);
-
-	} catch (...) {
-		std::cout << ">>>> WARNING!!! TransientTrackRecord is not available!!! <<<<" << std::endl;
-	}    
-}
-// Fill branches with variables calculated with "new" consistent vertexes
-if ( b_is2DiMuonsConsistentVtxOK ) {
-	b_diMuonC_ConsistentVtx_m   = diMuonC->consistentVtxMass();
-	b_diMuonC_ConsistentVtx_px  = diMuonC->consistentVtxMomentum().x();
-	b_diMuonC_ConsistentVtx_py  = diMuonC->consistentVtxMomentum().y();
-	b_diMuonC_ConsistentVtx_pz  = diMuonC->consistentVtxMomentum().z();
-	b_diMuonC_ConsistentVtx_eta = diMuonC->consistentVtxMomentum().eta();
-	b_diMuonC_ConsistentVtx_phi = diMuonC->consistentVtxMomentum().phi();
-	b_diMuonC_ConsistentVtx_vx  = diMuonC->consistentVtxPoint().x();
-	b_diMuonC_ConsistentVtx_vy  = diMuonC->consistentVtxPoint().y();
-	b_diMuonC_ConsistentVtx_vz  = diMuonC->consistentVtxPoint().z();
-
-	b_diMuonC_ConsistentVtx_Lxy = diMuonC->consistentVtxLxy(beamSpotPosition);
-	b_diMuonC_ConsistentVtx_L   = diMuonC->consistentVtxL(beamSpotPosition);
-	b_diMuonC_ConsistentVtx_dz  = diMuonC->consistentVtxDz(beamSpotPosition);
-
-	b_diMuonF_ConsistentVtx_m   = diMuonF->consistentVtxMass();
-	b_diMuonF_ConsistentVtx_px  = diMuonF->consistentVtxMomentum().x();
-	b_diMuonF_ConsistentVtx_py  = diMuonF->consistentVtxMomentum().y();
-	b_diMuonF_ConsistentVtx_pz  = diMuonF->consistentVtxMomentum().z();
-	b_diMuonF_ConsistentVtx_eta = diMuonF->consistentVtxMomentum().eta();
-	b_diMuonF_ConsistentVtx_phi = diMuonF->consistentVtxMomentum().phi();
-	b_diMuonF_ConsistentVtx_vx  = diMuonF->consistentVtxPoint().x();
-	b_diMuonF_ConsistentVtx_vy  = diMuonF->consistentVtxPoint().y();
-	b_diMuonF_ConsistentVtx_vz  = diMuonF->consistentVtxPoint().z();
-
-	b_diMuonF_ConsistentVtx_Lxy = diMuonF->consistentVtxLxy(beamSpotPosition);
-	b_diMuonF_ConsistentVtx_L   = diMuonF->consistentVtxL(beamSpotPosition);
-	b_diMuonF_ConsistentVtx_dz  = diMuonF->consistentVtxDz(beamSpotPosition);
-} else {
-	b_diMuonC_ConsistentVtx_m   = -1000.0;
-	b_diMuonC_ConsistentVtx_px  = -1000.0;
-	b_diMuonC_ConsistentVtx_py  = -1000.0;
-	b_diMuonC_ConsistentVtx_pz  = -1000.0;
-	b_diMuonC_ConsistentVtx_eta = -1000.0;
-	b_diMuonC_ConsistentVtx_phi = -1000.0;
-	b_diMuonC_ConsistentVtx_vx  = -1000.0;
-	b_diMuonC_ConsistentVtx_vy  = -1000.0;
-	b_diMuonC_ConsistentVtx_vz  = -1000.0;
-
-	b_diMuonC_ConsistentVtx_Lxy = -1000.0;
-	b_diMuonC_ConsistentVtx_L   = -1000.0;
-	b_diMuonC_ConsistentVtx_dz  = -1000.0;
-
-	b_diMuonF_ConsistentVtx_m   = -1000.0;
-	b_diMuonF_ConsistentVtx_px  = -1000.0;
-	b_diMuonF_ConsistentVtx_py  = -1000.0;
-	b_diMuonF_ConsistentVtx_pz  = -1000.0;
-	b_diMuonF_ConsistentVtx_eta = -1000.0;
-	b_diMuonF_ConsistentVtx_phi = -1000.0;
-	b_diMuonF_ConsistentVtx_vx  = -1000.0;
-	b_diMuonF_ConsistentVtx_vy  = -1000.0;
-	b_diMuonF_ConsistentVtx_vz  = -1000.0;
-
-	b_diMuonF_ConsistentVtx_Lxy = -1000.0;
-	b_diMuonF_ConsistentVtx_L   = -1000.0;
-	b_diMuonF_ConsistentVtx_dz  = -1000.0;
-}
-
-
-// Calculate dz between dimuons - use fitted vertexes
-b_is2DiMuonsDzOK_FittedVtx = false;
-if ( b_is2DiMuonsFittedVtxOK ) {
-	b_diMuons_dz_FittedVtx = b_diMuonC_FittedVtx_dz - b_diMuonF_FittedVtx_dz;
-	if ( fabs( b_diMuons_dz_FittedVtx ) < m_threshold_DiMuons_dz ) b_is2DiMuonsDzOK_FittedVtx = true;
-} else {
-	b_diMuons_dz_FittedVtx = -1000.0;
-}
-
-// Calculate dz between dimuons - use consistent vertexes
-b_is2DiMuonsDzOK_ConsistentVtx = false;
-if ( b_is2DiMuonsConsistentVtxOK ) {
-	b_diMuons_dz_ConsistentVtx = b_diMuonC_ConsistentVtx_dz - b_diMuonF_ConsistentVtx_dz;
-	if ( fabs( b_diMuons_dz_ConsistentVtx ) < m_threshold_DiMuons_dz ) b_is2DiMuonsDzOK_ConsistentVtx = true;
-} else {
-	b_diMuons_dz_ConsistentVtx = -1000.0;
-}
-
-if ( m_debug > 10 ) std::cout << m_events << " Apply cut on dZ" << std::endl;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons && b_is2DiMuonsDzOK_FittedVtx     ) m_events2DiMuonsDzOK_FittedVtx++;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons && b_is2DiMuonsDzOK_ConsistentVtx ) m_events2DiMuonsDzOK_ConsistentVtx++;
-
-// HLT cut
-
-//SKIP THE HLT CUT FOR LUCA'S JPSI DPS SAMPLE
-b_isDiMuonHLTFired = false;
-////
-edm::Handle<pat::TriggerEvent> triggerEvent;
-iEvent.getByToken(m_triggerEvent, triggerEvent);
-
-b_isDiMuonHLTFired = false;
-b_hltPaths.clear();
-for (auto p : hltPaths_){
-	if ( !triggerEvent->path(p) ) {
-		if ( m_debug > 10 ) std::cout << p << " is not present in patTriggerEvent!" << std::endl;
-	}
-	else{
-		if ( triggerEvent->path(p)->wasAccept() ) {
-			b_isDiMuonHLTFired = true;
-			b_hltPaths.push_back(p);
-		}
-	}
-} 
-
-if ( m_debug > 10 ) std::cout << m_events << " Apply cut on HLT" << std::endl;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons && b_is2DiMuonsDzOK_FittedVtx     && b_isDiMuonHLTFired ) m_eventsDiMuonHLTFired_FittedVtx++;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons && b_is2DiMuonsDzOK_ConsistentVtx && b_isDiMuonHLTFired ) m_eventsDiMuonHLTFired_ConsistentVtx++;
-
-// Cut on dimuon masses - use fitted vertexes
-b_is2DiMuonsMassOK_FittedVtx = false;
-if ( b_is2DiMuonsFittedVtxOK ) {
-	double massC = b_diMuonC_FittedVtx_m;
-	double massF = b_diMuonF_FittedVtx_m;
-	if ( fabs(massC-massF) < (0.13 + 0.065*(massC+massF)/2.0) ) b_is2DiMuonsMassOK_FittedVtx = true;
-}
-
-// Cut on dimuon masses - use consistent vertexes
-b_is2DiMuonsMassOK_ConsistentVtx = false;
-if ( b_is2DiMuonsConsistentVtxOK ) {
-	double massC = b_diMuonC_ConsistentVtx_m;
-	double massF = b_diMuonF_ConsistentVtx_m;
-	if ( fabs(massC-massF) < (0.13 + 0.065*(massC+massF)/2.0) ) b_is2DiMuonsMassOK_ConsistentVtx = true;
-}
-
-if ( m_debug > 10 ) std::cout << m_events << " Apply cut on dimuon mass" << std::endl;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons && b_is2DiMuonsDzOK_FittedVtx     && b_isDiMuonHLTFired && b_is2DiMuonsMassOK_FittedVtx )     m_events2DiMuonsMassOK_FittedVtx++;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons && b_is2DiMuonsDzOK_ConsistentVtx && b_isDiMuonHLTFired && b_is2DiMuonsMassOK_ConsistentVtx ) m_events2DiMuonsMassOK_ConsistentVtx++;
-
-// Cut on isolation
-edm::Handle<reco::TrackCollection> tracks;
-iEvent.getByToken(m_tracks, tracks);
-
-//  edm::Handle<reco::PFCandidateCollection> pfCandidates;
-//  iEvent.getByLabel("particleFlow", pfCandidates);
-
-// Cut on isolation - use fitted vertexes
-//checkpoint
-b_is2DiMuonsIsoTkOK_FittedVtx = false;
-b_diMuonC_IsoTk_FittedVtx = -1.;
-b_diMuonF_IsoTk_FittedVtx = -1.;
-b_isoC_1mm = -1.;
-b_isoF_1mm = -1.;
-if ( b_is2DiMuonsFittedVtxOK ) {
-	double diMuonC_IsoTk_FittedVtx = 0.0;
-	double diMuonF_IsoTk_FittedVtx = 0.0;
-
-	const pat::MultiMuon *diMuonTmp = NULL;
-	for ( unsigned int i = 1; i <= 2; i++ ) { 
-		double diMuonTmp_IsoTk_FittedVtx = 0.0;
-		if ( i == 1 ) diMuonTmp = diMuonC;
-		if ( i == 2 ) diMuonTmp = diMuonF;
-
-		for (reco::TrackCollection::const_iterator track = tracks->begin(); track != tracks->end(); ++track) {
-			bool trackIsMuon = false;
-			if (    diMuonTmp->sameTrack( &*track, &*(diMuonTmp->muon(0)->innerTrack()) )
-					|| diMuonTmp->sameTrack( &*track, &*(diMuonTmp->muon(1)->innerTrack()) ) ) trackIsMuon = true;
-			if ( trackIsMuon == false ) {
-				double dPhi = tamu::helpers::My_dPhi( diMuonTmp->vertexMomentum().phi(), track->phi() );
-				double dEta = diMuonTmp->vertexMomentum().eta() - track->eta();
-				double dR   = sqrt( dPhi*dPhi + dEta*dEta ); 
-				double dz   = diMuonTmp->vertexDz(beamSpot->position()) - track->dz(beamSpot->position());
-				if (    dR          < m_threshold_DiMuons_Iso_dR
-						&& track->pt() > m_threshold_DiMuons_Iso_pT
-						&& fabs( dz )  < m_threshold_DiMuons_Iso_dz ) {
-					diMuonTmp_IsoTk_FittedVtx += track->pt();
-				}    
-			}
-		}
-		if ( i == 1 ) {
-			diMuonC_IsoTk_FittedVtx = diMuonTmp_IsoTk_FittedVtx;
-		}
-		if ( i == 2 ) {
-			diMuonF_IsoTk_FittedVtx = diMuonTmp_IsoTk_FittedVtx;
-		}
-	}
-	b_diMuonC_IsoTk_FittedVtx = diMuonC_IsoTk_FittedVtx;
-	b_diMuonF_IsoTk_FittedVtx = diMuonF_IsoTk_FittedVtx;
-	b_isoC_1mm = b_diMuonC_IsoTk_FittedVtx;
-	b_isoF_1mm = b_diMuonF_IsoTk_FittedVtx;
-
-
-	if ( b_diMuonC_IsoTk_FittedVtx < m_threshold_DiMuons_Iso && b_diMuonF_IsoTk_FittedVtx < m_threshold_DiMuons_Iso ) b_is2DiMuonsIsoTkOK_FittedVtx = true;
-}
-
-// Cut on isolation - use consistent vertexes
-b_is2DiMuonsIsoTkOK_ConsistentVtx = false;
-b_diMuonC_IsoTk_ConsistentVtx = -1.;
-b_diMuonF_IsoTk_ConsistentVtx = -1.;
-if ( b_is2DiMuonsConsistentVtxOK ) {
-	double diMuonC_IsoTk_ConsistentVtx = 0.0;
-	double diMuonF_IsoTk_ConsistentVtx = 0.0;
-
-	const pat::MultiMuon *diMuonTmp = NULL;
-	for ( unsigned int i = 1; i <= 2; i++ ) { 
-		double diMuonTmp_IsoTk_ConsistentVtx = 0.0;
-		if ( i == 1 ) diMuonTmp = diMuonC;
-		if ( i == 2 ) diMuonTmp = diMuonF;
-
-		for (reco::TrackCollection::const_iterator track = tracks->begin(); track != tracks->end(); ++track) {
-			bool trackIsMuon = false;
-			if (    diMuonTmp->sameTrack( &*track, &*(diMuonTmp->muon(0)->innerTrack()) )
-					|| diMuonTmp->sameTrack( &*track, &*(diMuonTmp->muon(1)->innerTrack()) ) ) trackIsMuon = true;
-			if ( trackIsMuon == false ) {
-				double dPhi = tamu::helpers::My_dPhi( diMuonTmp->consistentVtxMomentum().phi(), track->phi() );
-				double dEta = diMuonTmp->consistentVtxMomentum().eta() - track->eta();
-				double dR   = sqrt( dPhi*dPhi + dEta*dEta ); 
-				double dz   = diMuonTmp->consistentVtxDz(beamSpotPosition) - track->dz(beamSpot->position());
-				if (    dR          < m_threshold_DiMuons_Iso_dR
-						&& track->pt() > m_threshold_DiMuons_Iso_pT
-						&& fabs( dz )  < m_threshold_DiMuons_Iso_dz ) {
-					diMuonTmp_IsoTk_ConsistentVtx += track->pt();
-				}    
-			}
-		}
-		if ( i == 1 ) {
-			diMuonC_IsoTk_ConsistentVtx = diMuonTmp_IsoTk_ConsistentVtx;
-		}
-		if ( i == 2 ) {
-			diMuonF_IsoTk_ConsistentVtx = diMuonTmp_IsoTk_ConsistentVtx;
-		}
-	}
-	b_diMuonC_IsoTk_ConsistentVtx = diMuonC_IsoTk_ConsistentVtx;
-	b_diMuonF_IsoTk_ConsistentVtx = diMuonF_IsoTk_ConsistentVtx;
-
-
-	if ( b_diMuonC_IsoTk_ConsistentVtx < m_threshold_DiMuons_Iso && b_diMuonF_IsoTk_ConsistentVtx < m_threshold_DiMuons_Iso ) b_is2DiMuonsIsoTkOK_ConsistentVtx = true;
-}
-
-if ( m_debug > 10 ) std::cout << m_events << " Apply cut on dimuon isolation" << std::endl;
-
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons && b_is2DiMuonsDzOK_FittedVtx     && b_isDiMuonHLTFired && b_is2DiMuonsMassOK_FittedVtx     && b_is2DiMuonsIsoTkOK_FittedVtx     ) m_events2DiMuonsIsoTkOK_FittedVtx++;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons && b_is2DiMuonsDzOK_ConsistentVtx && b_isDiMuonHLTFired && b_is2DiMuonsMassOK_ConsistentVtx && b_is2DiMuonsIsoTkOK_ConsistentVtx ) m_events2DiMuonsIsoTkOK_ConsistentVtx++;
-
-
-if ( b_is2DiMuonsFittedVtxOK ) {
-	for(uint32_t k=0;k<2;k++){
-		for (reco::TrackCollection::const_iterator track = tracks->begin(); track != tracks->end(); ++track) {
-			if(tamu::helpers::sameTrack(&*track,&*(diMuonC->muon(k)->innerTrack()))){
-				const reco::HitPattern& p = track->hitPattern();
-				if(p.hasValidHitInFirstPixelEndcap() || p.hasValidHitInFirstPixelBarrel()){
-					if(k==0) b_diMuonC_m1_FittedVtx_hitpix = 1;
-					if(k==1) b_diMuonC_m2_FittedVtx_hitpix = 1;
-				}
-			}
-			if(tamu::helpers::sameTrack(&*track,&*(diMuonF->muon(k)->innerTrack()))){
-				const reco::HitPattern& p = track->hitPattern();
-				if(p.hasValidHitInFirstPixelEndcap() || p.hasValidHitInFirstPixelBarrel()){
-					if(k==0) b_diMuonF_m1_FittedVtx_hitpix = 1;
-					if(k==1) b_diMuonF_m2_FittedVtx_hitpix = 1;
-				}
-			}
-		}
-	}
-}
-
-// Cut on primary vertex in event
-edm::Handle<reco::VertexCollection> primaryVertices;
-iEvent.getByToken(m_primaryVertices, primaryVertices);
-
-b_isVertexOK = false;
-for (reco::VertexCollection::const_iterator vertex = primaryVertices->begin();  vertex != primaryVertices->end();  ++vertex) {
-	if (vertex->isValid() && !vertex->isFake() && vertex->tracksSize() >= 4 && fabs(vertex->z()) < 24.) {
-		b_isVertexOK = true;
-	}
-}
-
-if ( m_debug > 10 ) std::cout << m_events << " Apply cut on primary vertex in event" << std::endl;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons && b_is2DiMuonsDzOK_FittedVtx     && b_isDiMuonHLTFired && b_is2DiMuonsMassOK_FittedVtx     && b_is2DiMuonsIsoTkOK_FittedVtx     && b_isVertexOK ) m_eventsVertexOK_FittedVtx++;
-if ( b_is1SelMu17 && b_is4SelMu8 && b_is2MuJets && b_is2DiMuons && b_is2DiMuonsDzOK_ConsistentVtx && b_isDiMuonHLTFired && b_is2DiMuonsMassOK_ConsistentVtx && b_is2DiMuonsIsoTkOK_ConsistentVtx && b_isVertexOK ) m_eventsVertexOK_ConsistentVtx++;
-
-if ( m_debug > 10 ) std::cout << m_events << " Stop RECO Level" << std::endl;
-
-if (runPixelHitRecovery_) {
-
-}
-//}}}
-//****************************************************************************
-//                          BBAR ESTIMATION START                         
-//****************************************************************************
-//{{{
-//}}}
-//****************************************************************************
-//                          BBAR ESTIMATION END                         
-//****************************************************************************
 
 //****************************************************************************
 //                          PROMPT JPSI ESTIMATION START                         
 //****************************************************************************
-
+//{{{
 if(runPromptJpsiEstimation_){
 	if ( m_debug > 10 ) std::cout << m_events << " Start Prompt Jpsi estimation" << std::endl;
 
@@ -4203,7 +3292,7 @@ if(runPromptJpsiEstimation_){
 		if ( b_is2DiMuonsFittedVtxOKjpsi ) {
 			std::cout << "Calculate dz between Jpsi dimuons" << std::endl;
 			b_diMuons_dz_FittedVtx_jpsi = b_diMuonC_FittedVtx_dz_jpsi - b_diMuonF_FittedVtx_dz_jpsi;
-			if ( fabs( b_diMuons_dz_FittedVtx_jpsi ) < m_threshold_DiMuons_dz ){
+			if ( fabs( b_diMuons_dz_FittedVtx_jpsi ) < 0.1 ){ //TODO this is still hardcoded for jpsi.  At this point we have re-reviewed the offline selection and are sticking with 0.1 so this is OK
 				b_is2DiMuonsDzOK_FittedVtx_jpsi = true;
 				std::cout << "Jpsi dimuons pass dz cut" << std::endl;
 			}
@@ -4324,26 +3413,33 @@ if(runPromptJpsiEstimation_){
 	if(jpsi_event_failure_type == 6) std::cout << "Jpsi event completed successfully!" << std::endl;
 	std::cout << "Jpsi estimation complete" << std::endl;
 } //Jpsi estimation loop
+//}}}
 
 //****************************************************************************
 //                          PROMPT JPSI ESTIMATION END  
 //****************************************************************************
 
-//****************************************************************************
-//                          RECO LEVEL ANALYSIS FINISH                        
-//****************************************************************************
 
-//****************************************************************************
-//                            FILL BRANCHES TO TREE                           
-//****************************************************************************
+	//}}}
+	//****************************************************************************
+	//                          RECO LEVEL ANALYSIS FINISH                        
+	//****************************************************************************
 
-m_ttree->Fill();
-if(runPromptJpsiEstimation_){
-	std::cout << "Filling nTuple" << std::endl;
-	std::cout << "jpsi_isoTk_dimuon1: " << jpsi_isoTk_dimuon1 << std::endl;
-	m_ttree_jpsi->Fill();
-}
-//} //Event if statment
+	//****************************************************************************
+	//                            FILL BRANCHES TO TREE                           
+	//****************************************************************************
+
+	if(skimOutput_) { if (b_massC>-1. && b_massF>-1.) m_ttree->Fill(); }
+	else m_ttree->Fill();
+
+	if(runBBestimation_ && m_orphan_passOffLineSel) m_ttree_orphan->Fill();
+
+	m_ttree->Fill();
+	if(runPromptJpsiEstimation_){
+		std::cout << "Filling nTuple" << std::endl;
+		std::cout << "jpsi_isoTk_dimuon1: " << jpsi_isoTk_dimuon1 << std::endl;
+		m_ttree_jpsi->Fill();
+	}
 }
 
 // ------------ method called once each job just before starting event loop  ------------
@@ -4848,138 +3944,138 @@ void CutFlowAnalyzer::beginJob() {
 		m_ttree_orphan->Branch("orph_PtMu1", &m_orphan_PtMu1, "orph_PtMu1/F");
 		m_ttree_orphan->Branch("orph_EtaMu1", &m_orphan_EtaMu1, "orph_EtaMu1/F");
 	}
-			if(runPromptJpsiEstimation_){
-				m_ttree_jpsi = tFileService->make<TTree>("Jpsi_Events", "Jpsi_Events");
-				m_ttree_jpsi->Branch("jpsi_event_failure_type", &jpsi_event_failure_type, "jpsi_event_failure_type/F");
-				m_ttree_jpsi->Branch("jpsi_mass_dimuon1", &jpsi_mass_dimuon1, "jpsi_mass_dimuon1/F");
-				m_ttree_jpsi->Branch("jpsi_mass_dimuon2", &jpsi_mass_dimuon2, "jpsi_mass_dimuon2/F");
-				m_ttree_jpsi->Branch("jpsi_inv_mass_dimuon1", &jpsi_inv_mass_dimuon1, "jpsi_inv_mass_dimuon1/F");  
-				m_ttree_jpsi->Branch("jpsi_inv_mass_dimuon2", &jpsi_inv_mass_dimuon2, "jpsi_inv_mass_dimuon2/F");
-				m_ttree_jpsi->Branch("jpsi_isoTk_dimuon1", &jpsi_isoTk_dimuon1, "jpsi_isoTk_dimuon1/F");
-				m_ttree_jpsi->Branch("jpsi_isoTk_dimuon2", &jpsi_isoTk_dimuon2, "jpsi_isoTk_dimuon2/F");
-				m_ttree_jpsi->Branch("jpsi_Lxy_dimuon1", &jpsi_Lxy_dimuon1, "jpsi_Lxy_dimuon1/F");
-				m_ttree_jpsi->Branch("jpsi_Lxy_dimuon2", &jpsi_Lxy_dimuon2, "jpsi_Lxy_dimuon2/F");
-				m_ttree_jpsi->Branch("jpsi_L_dimuon1", &jpsi_L_dimuon1, "jpsi_L_dimuon1/F");
-				m_ttree_jpsi->Branch("jpsi_L_dimuon2", &jpsi_L_dimuon2, "jpsi_L_dimuon2/F");
-				m_ttree_jpsi->Branch("jpsi_px_dimuon1", &jpsi_px_dimuon1, "jpsi_px_dimuon1/F");
-				m_ttree_jpsi->Branch("jpsi_px_dimuon2", &jpsi_px_dimuon2, "jpsi_px_dimuon2/F");
-				m_ttree_jpsi->Branch("jpsi_py_dimuon1", &jpsi_py_dimuon1, "jpsi_py_dimuon1/F");
-				m_ttree_jpsi->Branch("jpsi_py_dimuon2", &jpsi_py_dimuon2, "jpsi_py_dimuon2/F");
-				m_ttree_jpsi->Branch("jpsi_pz_dimuon1", &jpsi_pz_dimuon1, "jpsi_pz_dimuon1/F");
-				m_ttree_jpsi->Branch("jpsi_pz_dimuon2", &jpsi_pz_dimuon2, "jpsi_pz_dimuon2/F");
-				m_ttree_jpsi->Branch("jpsi_trigger", &jpsi_trigger, "jpsi_trigger/I");
-			}
-		}
+	if(runPromptJpsiEstimation_){
+		m_ttree_jpsi = tFileService->make<TTree>("Jpsi_Events", "Jpsi_Events");
+		m_ttree_jpsi->Branch("jpsi_event_failure_type", &jpsi_event_failure_type, "jpsi_event_failure_type/F");
+		m_ttree_jpsi->Branch("jpsi_mass_dimuon1", &jpsi_mass_dimuon1, "jpsi_mass_dimuon1/F");
+		m_ttree_jpsi->Branch("jpsi_mass_dimuon2", &jpsi_mass_dimuon2, "jpsi_mass_dimuon2/F");
+		m_ttree_jpsi->Branch("jpsi_inv_mass_dimuon1", &jpsi_inv_mass_dimuon1, "jpsi_inv_mass_dimuon1/F");  
+		m_ttree_jpsi->Branch("jpsi_inv_mass_dimuon2", &jpsi_inv_mass_dimuon2, "jpsi_inv_mass_dimuon2/F");
+		m_ttree_jpsi->Branch("jpsi_isoTk_dimuon1", &jpsi_isoTk_dimuon1, "jpsi_isoTk_dimuon1/F");
+		m_ttree_jpsi->Branch("jpsi_isoTk_dimuon2", &jpsi_isoTk_dimuon2, "jpsi_isoTk_dimuon2/F");
+		m_ttree_jpsi->Branch("jpsi_Lxy_dimuon1", &jpsi_Lxy_dimuon1, "jpsi_Lxy_dimuon1/F");
+		m_ttree_jpsi->Branch("jpsi_Lxy_dimuon2", &jpsi_Lxy_dimuon2, "jpsi_Lxy_dimuon2/F");
+		m_ttree_jpsi->Branch("jpsi_L_dimuon1", &jpsi_L_dimuon1, "jpsi_L_dimuon1/F");
+		m_ttree_jpsi->Branch("jpsi_L_dimuon2", &jpsi_L_dimuon2, "jpsi_L_dimuon2/F");
+		m_ttree_jpsi->Branch("jpsi_px_dimuon1", &jpsi_px_dimuon1, "jpsi_px_dimuon1/F");
+		m_ttree_jpsi->Branch("jpsi_px_dimuon2", &jpsi_px_dimuon2, "jpsi_px_dimuon2/F");
+		m_ttree_jpsi->Branch("jpsi_py_dimuon1", &jpsi_py_dimuon1, "jpsi_py_dimuon1/F");
+		m_ttree_jpsi->Branch("jpsi_py_dimuon2", &jpsi_py_dimuon2, "jpsi_py_dimuon2/F");
+		m_ttree_jpsi->Branch("jpsi_pz_dimuon1", &jpsi_pz_dimuon1, "jpsi_pz_dimuon1/F");
+		m_ttree_jpsi->Branch("jpsi_pz_dimuon2", &jpsi_pz_dimuon2, "jpsi_pz_dimuon2/F");
+		m_ttree_jpsi->Branch("jpsi_trigger", &jpsi_trigger, "jpsi_trigger/I");
+	}
+}
 
-	// ------------ method called once each job just after ending the event loop  ------------
+// ------------ method called once each job just after ending the event loop  ------------
 	void 
-		CutFlowAnalyzer::endJob() 
-		{
-				std::cout << "END JOB" << std::endl;
+CutFlowAnalyzer::endJob() 
+{
+	std::cout << "END JOB" << std::endl;
 
-			std:: cout << "Total number of events:          " << m_events << std::endl;
-			std:: cout << "Total number of events with 4mu: " << m_events4GenMu << " fraction: " <<  m_events4GenMu/m_events << std::endl;
+	std:: cout << "Total number of events:          " << m_events << std::endl;
+	std:: cout << "Total number of events with 4mu: " << m_events4GenMu << " fraction: " <<  m_events4GenMu/m_events << std::endl;
 
-			if (m_fillGenLevel){  
-				std:: cout << "********** GEN **********" << std::endl;
-				std:: cout << "Selection              " << "nEv"         << " \t RelEff"                                       << " \t Eff" << std::endl;
-				std:: cout << "pT1>17 |eta1|<0.9:       " << m_events1GenMu17 << " \t" << (float)m_events1GenMu17/(float)m_events << " \t" << (float)m_events1GenMu17/(float)m_events << std::endl;
-				std:: cout << "pT2>8  |eta2|<2.4:       " << m_events2GenMu8  << " \t" << (float)m_events2GenMu8/(float)m_events1GenMu17  << " \t" << (float)m_events2GenMu8/(float)m_events << std::endl;
-				std:: cout << "pT3>8  |eta2|<2.4:       " << m_events3GenMu8  << " \t" << (float)m_events3GenMu8/(float)m_events2GenMu8   << " \t" << (float)m_events3GenMu8/(float)m_events << std::endl;
-				std:: cout << "pT4>8  |eta2|<2.4:       " << m_events4GenMu8  << " \t" << (float)m_events4GenMu8/(float)m_events3GenMu8   << " \t" << (float)m_events4GenMu8/(float)m_events << std::endl;
-				std:: cout << "Basic MC Acceptance:     " << (float)m_events4GenMu8/(float)m_events << std::endl;
-			}
-			std:: cout << "********** RECO **********" << std::endl;
-			std:: cout << "Selection                " << "nEv"                   << " \t RelEff"                                                         << " \t Eff" << std::endl;
-			std:: cout << "m_events1SelMu17:        " << m_events1SelMu17        << " \t" << (float)m_events1SelMu17/(float)m_events                << " \t" << (float)m_events1SelMu17/(float)m_events        << std::endl;
-			std:: cout << "m_events2SelMu8:         " << m_events2SelMu8         << " \t" << (float)m_events2SelMu8/(float)m_events1SelMu17              << " \t" << (float)m_events2SelMu8/(float)m_events         << std::endl;
-			std:: cout << "m_events3SelMu8:         " << m_events3SelMu8         << " \t" << (float)m_events3SelMu8/(float)m_events2SelMu8               << " \t" << (float)m_events3SelMu8/(float)m_events         << std::endl;
-			std:: cout << "m_events4SelMu8:         " << m_events4SelMu8         << " \t" << (float)m_events4SelMu8/(float)m_events3SelMu8               << " \t" << (float)m_events4SelMu8/(float)m_events         << std::endl;
+	if (m_fillGenLevel){  
+		std:: cout << "********** GEN **********" << std::endl;
+		std:: cout << "Selection              " << "nEv"         << " \t RelEff"                                       << " \t Eff" << std::endl;
+		std:: cout << "pT1>17 |eta1|<0.9:       " << m_events1GenMu17 << " \t" << (float)m_events1GenMu17/(float)m_events << " \t" << (float)m_events1GenMu17/(float)m_events << std::endl;
+		std:: cout << "pT2>8  |eta2|<2.4:       " << m_events2GenMu8  << " \t" << (float)m_events2GenMu8/(float)m_events1GenMu17  << " \t" << (float)m_events2GenMu8/(float)m_events << std::endl;
+		std:: cout << "pT3>8  |eta2|<2.4:       " << m_events3GenMu8  << " \t" << (float)m_events3GenMu8/(float)m_events2GenMu8   << " \t" << (float)m_events3GenMu8/(float)m_events << std::endl;
+		std:: cout << "pT4>8  |eta2|<2.4:       " << m_events4GenMu8  << " \t" << (float)m_events4GenMu8/(float)m_events3GenMu8   << " \t" << (float)m_events4GenMu8/(float)m_events << std::endl;
+		std:: cout << "Basic MC Acceptance:     " << (float)m_events4GenMu8/(float)m_events << std::endl;
+	}
+	std:: cout << "********** RECO **********" << std::endl;
+	std:: cout << "Selection                " << "nEv"                   << " \t RelEff"                                                         << " \t Eff" << std::endl;
+	std:: cout << "m_events1SelMu17:        " << m_events1SelMu17        << " \t" << (float)m_events1SelMu17/(float)m_events                << " \t" << (float)m_events1SelMu17/(float)m_events        << std::endl;
+	std:: cout << "m_events2SelMu8:         " << m_events2SelMu8         << " \t" << (float)m_events2SelMu8/(float)m_events1SelMu17              << " \t" << (float)m_events2SelMu8/(float)m_events         << std::endl;
+	std:: cout << "m_events3SelMu8:         " << m_events3SelMu8         << " \t" << (float)m_events3SelMu8/(float)m_events2SelMu8               << " \t" << (float)m_events3SelMu8/(float)m_events         << std::endl;
+	std:: cout << "m_events4SelMu8:         " << m_events4SelMu8         << " \t" << (float)m_events4SelMu8/(float)m_events3SelMu8               << " \t" << (float)m_events4SelMu8/(float)m_events         << std::endl;
 
-			std:: cout << "Basic Acceptance:        " << (float)m_events4SelMu8/(float)m_events << std::endl;
-			if (m_fillGenLevel) std:: cout << "Basic MC Accept. a_gen:  " << (float)m_events4GenMu8/(float)m_events << std::endl; 
+	std:: cout << "Basic Acceptance:        " << (float)m_events4SelMu8/(float)m_events << std::endl;
+	if (m_fillGenLevel) std:: cout << "Basic MC Accept. a_gen:  " << (float)m_events4GenMu8/(float)m_events << std::endl; 
 
-			std:: cout << "m_events2MuJets:         " << m_events2MuJets         << " \t" << (float)m_events2MuJets/(float)m_events4SelMu8               << " \t" << (float)m_events2MuJets/(float)m_events         << std::endl;
-			std:: cout << "m_events2DiMuons:        " << m_events2DiMuons        << " \t" << (float)m_events2DiMuons/(float)m_events2MuJets              << " \t" << (float)m_events2DiMuons/(float)m_events        << std::endl;
+	std:: cout << "m_events2MuJets:         " << m_events2MuJets         << " \t" << (float)m_events2MuJets/(float)m_events4SelMu8               << " \t" << (float)m_events2MuJets/(float)m_events         << std::endl;
+	std:: cout << "m_events2DiMuons:        " << m_events2DiMuons        << " \t" << (float)m_events2DiMuons/(float)m_events2MuJets              << " \t" << (float)m_events2DiMuons/(float)m_events        << std::endl;
 
-			std:: cout << " *** FITTED VERTEXES *** " << std::endl;
-
-
-			std:: cout << " *** CONSISTENT VERTEXES *** " << std::endl;
-
-			std:: cout << " *** FITTED VERTEXES *** " << std::endl;
-			std::cout << m_events << std::endl;
-			std::cout << m_events1GenMu17                  << std::endl;
-			std::cout << m_events2GenMu8                   << std::endl;
-			std::cout << m_events3GenMu8                   << std::endl;
-			std::cout << m_events4GenMu8                   << std::endl;
-			std::cout << m_events1SelMu17                  << std::endl;
-			std::cout << m_events2SelMu8                   << std::endl;
-			std::cout << m_events3SelMu8                   << std::endl;
-			std::cout << m_events4SelMu8                   << std::endl;
-			std::cout << m_events2MuJets                   << std::endl;
-			std::cout << m_events2DiMuons                  << std::endl;
-
-			std:: cout << " *** CONSISTENT VERTEXES *** " << std::endl;
-			std::cout << m_events << std::endl;
-			std::cout << m_events1GenMu17                      << std::endl;
-			std::cout << m_events2GenMu8                       << std::endl;
-			std::cout << m_events3GenMu8                       << std::endl;
-			std::cout << m_events4GenMu8                       << std::endl;
-			std::cout << m_events1SelMu17                      << std::endl;
-			std::cout << m_events2SelMu8                       << std::endl;
-			std::cout << m_events3SelMu8                       << std::endl;
-			std::cout << m_events4SelMu8                       << std::endl;
-			std::cout << m_events2MuJets                       << std::endl;
-			std::cout << m_events2DiMuons                      << std::endl;
+	std:: cout << " *** FITTED VERTEXES *** " << std::endl;
 
 
-		}
+	std:: cout << " *** CONSISTENT VERTEXES *** " << std::endl;
 
-	void CutFlowAnalyzer::FillTrigInfo( TH1F * h1, edm::Handle<pat::TriggerEvent> triggerEvent, std::map<int,std::string> nameAndNumb )
-	{
-		for( unsigned int i=0; i<nameAndNumb.size(); i++ ){
-			if( triggerEvent->path(nameAndNumb[i]) ){
-				if ( triggerEvent->path(nameAndNumb[i])->wasAccept() ) {
-					h1->Fill(i);
-				}
+	std:: cout << " *** FITTED VERTEXES *** " << std::endl;
+	std::cout << m_events << std::endl;
+	std::cout << m_events1GenMu17                  << std::endl;
+	std::cout << m_events2GenMu8                   << std::endl;
+	std::cout << m_events3GenMu8                   << std::endl;
+	std::cout << m_events4GenMu8                   << std::endl;
+	std::cout << m_events1SelMu17                  << std::endl;
+	std::cout << m_events2SelMu8                   << std::endl;
+	std::cout << m_events3SelMu8                   << std::endl;
+	std::cout << m_events4SelMu8                   << std::endl;
+	std::cout << m_events2MuJets                   << std::endl;
+	std::cout << m_events2DiMuons                  << std::endl;
+
+	std:: cout << " *** CONSISTENT VERTEXES *** " << std::endl;
+	std::cout << m_events << std::endl;
+	std::cout << m_events1GenMu17                      << std::endl;
+	std::cout << m_events2GenMu8                       << std::endl;
+	std::cout << m_events3GenMu8                       << std::endl;
+	std::cout << m_events4GenMu8                       << std::endl;
+	std::cout << m_events1SelMu17                      << std::endl;
+	std::cout << m_events2SelMu8                       << std::endl;
+	std::cout << m_events3SelMu8                       << std::endl;
+	std::cout << m_events4SelMu8                       << std::endl;
+	std::cout << m_events2MuJets                       << std::endl;
+	std::cout << m_events2DiMuons                      << std::endl;
+
+
+}
+
+void CutFlowAnalyzer::FillTrigInfo( TH1F * h1, edm::Handle<pat::TriggerEvent> triggerEvent, std::map<int,std::string> nameAndNumb )
+{
+	for( unsigned int i=0; i<nameAndNumb.size(); i++ ){
+		if( triggerEvent->path(nameAndNumb[i]) ){
+			if ( triggerEvent->path(nameAndNumb[i])->wasAccept() ) {
+				h1->Fill(i);
 			}
 		}
 	}
+}
 
-	// ------------ method called when starting to processes a run  ------------
+// ------------ method called when starting to processes a run  ------------
 	void 
-		CutFlowAnalyzer::beginRun(edm::Run const&, edm::EventSetup const&)
-		{
-		}
+CutFlowAnalyzer::beginRun(edm::Run const&, edm::EventSetup const&)
+{
+}
 
-	// ------------ method called when ending the processing of a run  ------------
+// ------------ method called when ending the processing of a run  ------------
 	void 
-		CutFlowAnalyzer::endRun(edm::Run const&, edm::EventSetup const&)
-		{
-		}
+CutFlowAnalyzer::endRun(edm::Run const&, edm::EventSetup const&)
+{
+}
 
-	// ------------ method called when starting to processes a luminosity block  ------------
+// ------------ method called when starting to processes a luminosity block  ------------
 	void 
-		CutFlowAnalyzer::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
-		{
-		}
+CutFlowAnalyzer::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+{
+}
 
-	// ------------ method called when ending the processing of a luminosity block  ------------
+// ------------ method called when ending the processing of a luminosity block  ------------
 	void 
-		CutFlowAnalyzer::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
-		{
-		}
+CutFlowAnalyzer::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+{
+}
 
-	// ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
-	void
-		CutFlowAnalyzer::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
-			//The following says we do not know what parameters are allowed so do no validation
-			// Please change this to state exactly what you do use, even if it is no parameters
-			edm::ParameterSetDescription desc;
-			desc.setUnknown();
-			descriptions.addDefault(desc);
-		}
-	//Indentation change
-	//define this as a plug-in
-	DEFINE_FWK_MODULE(CutFlowAnalyzer);
+// ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
+void
+CutFlowAnalyzer::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+	//The following says we do not know what parameters are allowed so do no validation
+	// Please change this to state exactly what you do use, even if it is no parameters
+	edm::ParameterSetDescription desc;
+	desc.setUnknown();
+	descriptions.addDefault(desc);
+}
+//Indentation change
+//define this as a plug-in
+DEFINE_FWK_MODULE(CutFlowAnalyzer);
