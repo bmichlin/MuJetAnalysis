@@ -24,7 +24,7 @@ process.options = cms.untracked.PSet(
 
 # Other statements
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data', '')
 
 ### Track refitter specific stuff
 from RecoTracker.TkNavigation.NavigationSchoolESProducer_cff import *
