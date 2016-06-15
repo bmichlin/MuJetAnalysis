@@ -66,7 +66,7 @@ process.patTriggerEvent.processName = cms.string( "*" )
 process.load("MuJetAnalysis.MuJetProducer.MuJetProducer_cff")
 process.load("MuJetAnalysis.CutFlowAnalyzer.CutFlowAnalyzer_cff")
 
-process.Path = cms.Path(process.patifyMC * process.MuJetProducers  * process.cutFlowAnalyzers)
+process.Path = cms.Path(process.patifyData * process.MuJetProducers  * process.cutFlowAnalyzers)
 # customisation of the process.
 
 process.TFileService = cms.Service("TFileService", fileName = cms.string("out_ana.root") )
