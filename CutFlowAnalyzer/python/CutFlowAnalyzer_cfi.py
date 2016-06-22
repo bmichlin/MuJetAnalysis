@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 cutFlowAnalyzer = cms.EDAnalyzer('CutFlowAnalyzer',
     analyzerDebug = cms.int32(0),
-    fillGenLevel = cms.bool(False),
+    fillGenLevel = cms.bool(True),
 #    muons = cms.InputTag("cleanPatTrackerMuonsTriggerMatch"),
 #    muJets = cms.InputTag("TrackerMuJetProducer05"),
     muons = cms.InputTag("cleanPatPFMuonsTriggerMatch"),
@@ -26,16 +26,16 @@ cutFlowAnalyzer = cms.EDAnalyzer('CutFlowAnalyzer',
     MeasurementTracker = cms.string(''),
     MeasurementTrackerEvent = cms.InputTag('MeasurementTrackerEvent'),
     Propagator = cms.string("RungeKuttaTrackerPropagator"),
-    runBBestimation = cms.untracked.bool(True),
+    runBBestimation = cms.bool(False),
+    skimOutput = cms.bool(False),
     signalHltPaths = cms.vstring(
-        'HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx_v1',
         'HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx_v2',
     ),
     backupHltPaths = cms.vstring(
-        'HLT_TrkMu17_DoubleTrkMu8NoFiltersNoVtx_v1',
         'HLT_TrkMu17_DoubleTrkMu8NoFiltersNoVtx_v2',
     ),
     otherMuHltPaths = cms.vstring(
+        'HLT_DoubleMu18NoFiltersNoVtx_v2',
         'HLT_DoubleMu23NoFiltersNoVtxDisplaced_v2',
         'HLT_DoubleMu28NoFiltersNoVtxDisplaced_v2',
         'HLT_DoubleMu33NoFiltersNoVtx_v2',
