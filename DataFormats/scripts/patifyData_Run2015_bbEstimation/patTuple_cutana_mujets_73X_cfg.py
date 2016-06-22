@@ -24,7 +24,7 @@ process.options = cms.untracked.PSet(
 
 # Other statements
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data', '')
 
 ### Track refitter specific stuff
 from RecoTracker.TkNavigation.NavigationSchoolESProducer_cff import *
@@ -61,9 +61,12 @@ process.patTriggerEvent.processName = cms.string( "*" )
 ############## Analysis Modules ###################################
 process.load("MuJetAnalysis.MuJetProducer.MuJetProducer_cff")
 process.load("MuJetAnalysis.CutFlowAnalyzer.CutFlowAnalyzer_cff")
+process.cutFlowAnalyzers.runBBestimation cms.bool(True)
+process.cutFlowAnalyzers.skimOutput = cms.bool(True)
 #process.Path = cms.Path(process.patifyMC * process.MuJetProducers  * process.cutFlowAnalyzers)
 #process.Path = cms.Path(process.patifyData * process.MuJetProducers  * process.cutFlowAnalyzers)
 process.Path = cms.Path(process.patifyData * process.MuJetProducers  * process.cutFlowAnalyzers)
+process.outpath.remove(process.out) #Avoid to store PAT
 # customisation of the process.
 
 process.TFileService = cms.Service("TFileService", fileName = cms.string("out_ana.root") )
