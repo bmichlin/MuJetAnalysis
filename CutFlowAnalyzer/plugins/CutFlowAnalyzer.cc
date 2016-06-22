@@ -143,6 +143,8 @@ public:
   
   static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
   void FillTrigInfo( TH1F *h1, edm::Handle<pat::TriggerEvent> triggerEvent, std::map<int,std::string> nameAndNumb );
+  float GetId( float pt, float eta );
+  float GetIso( float pt, float eta ); 
   TH1F* triggerComposition;
   TH1F* triggerComposition_bb;
 private:
@@ -419,6 +421,8 @@ private:
   // Reco branches in ROOT tree (they all start with b_)
   Int_t b_nRecoMu;
   
+  Float_t b_ScaleF_ID;
+  Float_t b_ScaleF_ISO;
   Float_t b_selMu0_px;
   Float_t b_selMu1_px;
   Float_t b_selMu2_px;
@@ -1543,6 +1547,8 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
   
   b_nRecoMu = selMuons.size();
 
+  b_ScaleF_ID = -100;
+  b_ScaleF_ISO = -100;
   if ( selMuons.size() > 0 ) {
     b_selMu0_px  = selMuons[0]->px();
     b_selMu0_py  = selMuons[0]->py();
@@ -1603,7 +1609,10 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
     b_selMu3_eta = -100.0;
     b_selMu3_phi = -100.0;
   }
-
+  if(b_selMu0_eta>-90 && b_selMu1_eta>-90 && b_selMu2_eta>-90 && b_selMu3_eta>-90 ){
+    b_ScaleF_ID = GetId(b_selMu0_pT,b_selMu0_eta) * GetId(b_selMu1_pT,b_selMu1_eta) * GetId(b_selMu2_pT,b_selMu2_eta) * GetId(b_selMu3_pT,b_selMu3_eta);
+    b_ScaleF_ISO = GetIso(b_selMu0_pT,b_selMu0_eta) * GetIso(b_selMu1_pT,b_selMu1_eta) * GetIso(b_selMu2_pT,b_selMu2_eta) * GetIso(b_selMu3_pT,b_selMu3_eta);
+  }
   if ( m_debug > 10 ) std::cout << m_events << " Count selected RECO muons" << std::endl;
 
   b_is1SelMu17 = false;
@@ -3111,6 +3120,8 @@ CutFlowAnalyzer::beginJob() {
   // Reco Muons
   m_ttree->Branch("nRecoMu",  &b_nRecoMu,  "nRecoMu/I");
 
+  m_ttree->Branch("ScaleF_ID",  &b_ScaleF_ID,  "ScaleF_ID/F");
+  m_ttree->Branch("ScaleF_ISO", &b_ScaleF_ISO,  "ScaleF_ISO/F");
   m_ttree->Branch("selMu0_px",  &b_selMu0_px,  "selMu0_px/F");
   m_ttree->Branch("selMu1_px",  &b_selMu1_px,  "selMu1_px/F");
   m_ttree->Branch("selMu2_px",  &b_selMu2_px,  "selMu2_px/F");
@@ -3542,6 +3553,180 @@ void CutFlowAnalyzer::FillTrigInfo( TH1F * h1, edm::Handle<pat::TriggerEvent> tr
 	if ( triggerEvent->path(nameAndNumb[i])->wasAccept() ) {
 	  h1->Fill(i);
       }
+    }
+  }
+}
+
+float CutFlowAnalyzer::GetId( float pt, float eta ){
+  if( pt<25 ){
+    if( fabs(eta)<0.9 ){
+	return 0.9862;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 0.9970;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 0.9980;
+    }
+    else{
+	return 0.9934;
+    }
+  }
+  else if(pt<30 ){
+    if( fabs(eta)<0.9 ){
+	return 0.9934;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 0.9901;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 0.9973;
+    }
+    else{
+	return 0.9924;
+    }
+  }
+  else if(pt<40 ){
+    if( fabs(eta)<0.9 ){
+	return 0.9979;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 0.9975;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 0.999;
+    }
+    else{
+	return 0.996;
+    }
+  }
+  else if(pt<50 ){
+    if( fabs(eta)<0.9 ){
+	return 0.998;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 0.9979;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 0.999;
+    }
+    else{
+	return 0.995;
+    }
+  }
+  else if(pt<60 ){
+    if( fabs(eta)<0.9 ){
+	return 0.9967;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 0.9964;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 0.9968;
+    }
+    else{
+	return 0.9932;
+    }
+  }
+  else{
+    if( fabs(eta)<0.9 ){
+	return 0.9976;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 0.99756;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 0.998;
+    }
+    else{
+	return 0.9906;
+    }
+  }
+}
+
+float CutFlowAnalyzer::GetIso( float pt, float eta ){
+  if( pt<25 ){
+    if( fabs(eta)<0.9 ){
+	return 1.0042;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 1.0051;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 1.;
+    }
+    else{
+	return 1.006;
+    }
+  }
+  else if(pt<30 ){
+    if( fabs(eta)<0.9 ){
+	return 0.9979;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 0.9997;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 1.0023;
+    }
+    else{
+	return 0.9988;
+    }
+  }
+  else if(pt<40 ){
+    if( fabs(eta)<0.9 ){
+	return 1.001;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 1.001;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 1.002;
+    }
+    else{
+	return 0.9994;
+    }
+  }
+  else if(pt<50 ){
+    if( fabs(eta)<0.9 ){
+	return 0.9996;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 0.9992;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 0.9999;
+    }
+    else{
+	return 0.99949;
+    }
+  }
+  else if(pt<60 ){
+    if( fabs(eta)<0.9 ){
+	return 1.003;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 0.9997;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 0.9999;
+    }
+    else{
+	return 1.0002;
+    }
+  }
+  else{
+    if( fabs(eta)<0.9 ){
+	return 0.9993;
+    }
+    else if( fabs(eta)<1.2 ){
+	return 1.;
+    }
+    else if( fabs(eta)<2.1 ){
+	return 1.0005;
+    }
+    else{
+	return 1.001;
     }
   }
 }
