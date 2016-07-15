@@ -29,17 +29,20 @@
 #include <sstream>
 #include <fstream>
 
-float GetId( float pt, float eta );
-float GetIso( float pt, float eta );
+std::vector<float>  GetId( TH2F* h_ID, float pt, float eta );
 
 void AddBranch() {
+   //Get SF
+   TFile *f_ID  = new TFile("/afs/cern.ch/work/l/lpernie/H2a4Mu/DisplacedMuonJetAnalysis_2015/CMSSW_7_6_3_patch2/src/MuonID_Z_RunCD_Reco76X_Feb15.root","open");
+   TH2F *h_ID   = (TH2F*) f_ID->Get("MC_NUM_LooseID_DEN_genTracks_PAR_pt_spliteta_bin1/abseta_pt_ratio");
+   //Signal
    TFile *f = new TFile("out_ana_1.root","update");
    TTree *T = (TTree*)f->Get("cutFlowAnalyzer/Events");
    float pt0, pt1, pt2, pt3;
    float eta0, eta1, eta2, eta3;
-   float ScaleF_ID, ScaleF_ISO;
+   float ScaleF_ID, ScaleF_IDerr;
    TBranch *bScaleF_ID  = T->Branch("ScaleF_ID",&ScaleF_ID,"ScaleF_ID/F");
-   TBranch *bScaleF_ISO = T->Branch("ScaleF_ISO",&ScaleF_ISO,"ScaleF_ISO/F");
+   TBranch *bScaleF_ISO = T->Branch("ScaleF_IDerr",&ScaleF_IDerr,"ScaleF_IDerr/F");
    T->SetBranchAddress("selMu0_pT",&pt0);
    T->SetBranchAddress("selMu1_pT",&pt1);
    T->SetBranchAddress("selMu2_pT",&pt2);
@@ -51,187 +54,150 @@ void AddBranch() {
    Long64_t nentries = T->GetEntries();
    for (Long64_t i=0;i<nentries;i++) {
       T->GetEntry(i);
-      ScaleF_ID = GetId(pt0,eta0) * GetId(pt1,eta1) * GetId(pt2,eta2) * GetId(pt3,eta3);
-      ScaleF_ISO = GetIso(pt0,eta0) * GetIso(pt1,eta1) * GetIso(pt2,eta2) * GetIso(pt3,eta3);
+      ScaleF_ID     = GetId(h_ID,pt0,eta0)[0] * GetId(h_ID,pt1,eta1)[0] * GetId(h_ID,pt2,eta2)[0] * GetId(h_ID,pt3,eta3)[0];
+      bScaleF_IDerr = GetId(h_ID,pt0,eta0)[1] * GetId(h_ID,pt1,eta1)[1] * GetId(h_ID,pt2,eta2)[1] * GetId(h_ID,pt3,eta3)[1];
       bScaleF_ID->Fill();
-      bScaleF_ISO->Fill();
+      bScaleF_IDerr->Fill();
    }
    T->Print();
    f->cd("cutFlowAnalyzer");
    T->Write();
    delete f;
+   delete f_ID;
 }
 
-float GetId( float pt, float eta ){
+std::vector<float> GetId( TH2F* h_ID, float pt, float eta ){
+  std::vector<float> result; result.clear();
   if( pt<25 ){
     if( fabs(eta)<0.9 ){
-	return 0.9862;
+	result.push_back( h_ID->GetBinContent(1,1) );
+	result.push_back( h_ID->GetBinError(1,1) );
+	return result;
     }
     else if( fabs(eta)<1.2 ){
-	return 0.9970;
+	result.push_back( h_ID->GetBinContent(2,1) );
+	result.push_back( h_ID->GetBinError(2,1) );
+	return result;
     }
     else if( fabs(eta)<2.1 ){
-	return 0.9980;
+	result.push_back( h_ID->GetBinContent(3,1) );
+	result.push_back( h_ID->GetBinError(3,1) );
+	return result;
     }
     else{
-	return 0.9934;
+	result.push_back( h_ID->GetBinContent(4,1) );
+	result.push_back( h_ID->GetBinError(4,1) );
+	return result;
     }
   }
   else if(pt<30 ){
     if( fabs(eta)<0.9 ){
-	return 0.9934;
+	result.push_back( h_ID->GetBinContent(1,2) );
+	result.push_back( h_ID->GetBinError(1,2) );
+	return result;
     }
     else if( fabs(eta)<1.2 ){
-	return 0.9901;
+	result.push_back( h_ID->GetBinContent(2,2) );
+	result.push_back( h_ID->GetBinError(2,2) );
+	return result;
     }
     else if( fabs(eta)<2.1 ){
-	return 0.9973;
+	result.push_back( h_ID->GetBinContent(3,2) );
+	result.push_back( h_ID->GetBinError(3,2) );
+	return result;
     }
     else{
-	return 0.9924;
+	result.push_back( h_ID->GetBinContent(4,2) );
+	result.push_back( h_ID->GetBinError(4,2) );
+	return result;
     }
   }
   else if(pt<40 ){
     if( fabs(eta)<0.9 ){
-	return 0.9979;
+	result.push_back( h_ID->GetBinContent(1,3) );
+	result.push_back( h_ID->GetBinError(1,3) );
+	return result;
     }
     else if( fabs(eta)<1.2 ){
-	return 0.9975;
+	result.push_back( h_ID->GetBinContent(2,3) );
+	result.push_back( h_ID->GetBinError(2,3) );
+	return result;
     }
     else if( fabs(eta)<2.1 ){
-	return 0.999;
+	result.push_back( h_ID->GetBinContent(3,3) );
+	result.push_back( h_ID->GetBinError(3,3) );
+	return result;
     }
     else{
-	return 0.996;
+	result.push_back( h_ID->GetBinContent(4,3) );
+	result.push_back( h_ID->GetBinError(4,3) );
+	return result;
     }
   }
   else if(pt<50 ){
     if( fabs(eta)<0.9 ){
-	return 0.998;
+	result.push_back( h_ID->GetBinContent(1,4) );
+	result.push_back( h_ID->GetBinError(1,4) );
+	return result;
     }
     else if( fabs(eta)<1.2 ){
-	return 0.9979;
+	result.push_back( h_ID->GetBinContent(2,4) );
+	result.push_back( h_ID->GetBinError(2,4) );
+	return result;
     }
     else if( fabs(eta)<2.1 ){
-	return 0.999;
+	result.push_back( h_ID->GetBinContent(3,4) );
+	result.push_back( h_ID->GetBinError(3,4) );
+	return result;
     }
     else{
-	return 0.995;
+	result.push_back( h_ID->GetBinContent(4,4) );
+	result.push_back( h_ID->GetBinError(4,4) );
+	return result;
     }
   }
   else if(pt<60 ){
     if( fabs(eta)<0.9 ){
-	return 0.9967;
+	result.push_back( h_ID->GetBinContent(1,5) );
+	result.push_back( h_ID->GetBinError(1,5) );
+	return result;
     }
     else if( fabs(eta)<1.2 ){
-	return 0.9964;
+	result.push_back( h_ID->GetBinContent(2,5) );
+	result.push_back( h_ID->GetBinError(2,5) );
+	return result;
     }
     else if( fabs(eta)<2.1 ){
-	return 0.9968;
+	result.push_back( h_ID->GetBinContent(3,5) );
+	result.push_back( h_ID->GetBinError(3,5) );
+	return result;
     }
     else{
-	return 0.9932;
+	result.push_back( h_ID->GetBinContent(4,5) );
+	result.push_back( h_ID->GetBinError(4,5) );
+	return result;
     }
   }
   else{
     if( fabs(eta)<0.9 ){
-	return 0.9976;
+	result.push_back( h_ID->GetBinContent(1,6) );
+	result.push_back( h_ID->GetBinError(1,6) );
+	return result;
     }
     else if( fabs(eta)<1.2 ){
-	return 0.99756;
+	result.push_back( h_ID->GetBinContent(2,6) );
+	result.push_back( h_ID->GetBinError(2,6) );
+	return result;
     }
     else if( fabs(eta)<2.1 ){
-	return 0.998;
+	result.push_back( h_ID->GetBinContent(3,6) );
+	result.push_back( h_ID->GetBinError(3,6) );
+	return result;
     }
     else{
-	return 0.9906;
-    }
-  }
-}
-
-float GetIso( float pt, float eta ){
-  if( pt<25 ){
-    if( fabs(eta)<0.9 ){
-	return 1.0042;
-    }
-    else if( fabs(eta)<1.2 ){
-	return 1.0051;
-    }
-    else if( fabs(eta)<2.1 ){
-	return 1.;
-    }
-    else{
-	return 1.006;
-    }
-  }
-  else if(pt<30 ){
-    if( fabs(eta)<0.9 ){
-	return 0.9979;
-    }
-    else if( fabs(eta)<1.2 ){
-	return 0.9997;
-    }
-    else if( fabs(eta)<2.1 ){
-	return 1.0023;
-    }
-    else{
-	return 0.9988;
-    }
-  }
-  else if(pt<40 ){
-    if( fabs(eta)<0.9 ){
-	return 1.001;
-    }
-    else if( fabs(eta)<1.2 ){
-	return 1.001;
-    }
-    else if( fabs(eta)<2.1 ){
-	return 1.002;
-    }
-    else{
-	return 0.9994;
-    }
-  }
-  else if(pt<50 ){
-    if( fabs(eta)<0.9 ){
-	return 0.9996;
-    }
-    else if( fabs(eta)<1.2 ){
-	return 0.9992;
-    }
-    else if( fabs(eta)<2.1 ){
-	return 0.9999;
-    }
-    else{
-	return 0.99949;
-    }
-  }
-  else if(pt<60 ){
-    if( fabs(eta)<0.9 ){
-	return 1.003;
-    }
-    else if( fabs(eta)<1.2 ){
-	return 0.9997;
-    }
-    else if( fabs(eta)<2.1 ){
-	return 0.9999;
-    }
-    else{
-	return 1.0002;
-    }
-  }
-  else{
-    if( fabs(eta)<0.9 ){
-	return 0.9993;
-    }
-    else if( fabs(eta)<1.2 ){
-	return 1.;
-    }
-    else if( fabs(eta)<2.1 ){
-	return 1.0005;
-    }
-    else{
-	return 1.001;
+	result.push_back( h_ID->GetBinContent(4,6) );
+	result.push_back( h_ID->GetBinError(4,6) );
+	return result;
     }
   }
 }
