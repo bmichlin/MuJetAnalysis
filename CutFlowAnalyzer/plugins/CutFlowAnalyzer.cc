@@ -2842,14 +2842,14 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 	  const pat::TriggerObjectStandAlone *mu01  = muon->triggerObjectMatchByPath("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx_v1");
 	  const pat::TriggerObjectStandAlone *mu02  = muon->triggerObjectMatchByPath("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx_v2");
 	  const pat::TriggerObjectStandAlone *mu03  = muon->triggerObjectMatchByPath("HLT_TrkMu17_DoubleTrkMu5NoFiltersNoVtx_v2");
-	  if((mu01 != NULL && mu01->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu01->pt() > m_trigpt)  ||
-	     (mu02 != NULL && mu02->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu02->pt() > m_trigpt)  ||
-	     (mu03 != NULL && mu03->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu03->pt() > m_trigpt)){
+	  if((mu01 != NULL && mu01->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu01->pt() > m_trigpt)  ||
+	     (mu02 != NULL && mu02->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu02->pt() > m_trigpt)  ||
+	     (mu03 != NULL && mu03->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu03->pt() > m_trigpt)){
 	    hightrigmuons.push_back(muon);
 	  }
 	}
-const pat::TriggerObjectStandAlone *mu01  = muon->triggerObjectMatchByPath("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx_v1");
-const pat::TriggerObjectStandAlone *mu02  = muon->triggerObjectMatchByPath("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx_v2");
+      const pat::TriggerObjectStandAlone *mu01  = muon->triggerObjectMatchByPath("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx_v1");
+      const pat::TriggerObjectStandAlone *mu02  = muon->triggerObjectMatchByPath("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx_v2");
       const pat::TriggerObjectStandAlone *mu03  = muon->triggerObjectMatchByPath("HLT_TrkMu17_DoubleTrkMu5NoFiltersNoVtx_v2");
       if(  mu01 != NULL || mu02 != NULL || mu03 != NULL)                                                       m_orphan_FiredTrig      = true;
       if( (mu01 != NULL || mu02 != NULL || mu03 != NULL) && muon->pt() > m_trigpt   )                          m_orphan_FiredTrigPt    = true;
@@ -2857,19 +2857,19 @@ const pat::TriggerObjectStandAlone *mu02  = muon->triggerObjectMatchByPath("HLT_
       if(  (mu01 != NULL && mu01->pt() > m_trigpt ) || (mu02 != NULL && mu02->pt() > m_trigpt ) || (mu03 != NULL && mu03->pt() > m_trigpt ) )                                                      m_orphan_FiredTrig_pt = true;
       if( ((mu01 != NULL && mu01->pt() > m_trigpt ) || (mu02 != NULL && mu02->pt() > m_trigpt ) || (mu03 != NULL && mu03->pt() > m_trigpt )) && muon->pt() > m_trigpt )                            m_orphan_FiredTrigPt_pt = true;
       if( ((mu01 != NULL && mu01->pt() > m_trigpt ) || (mu02 != NULL && mu02->pt() > m_trigpt ) || (mu03 != NULL && mu03->pt() > m_trigpt )) && muon->pt() > m_trigpt && fabs(muon->eta()) < 0.9 ) m_orphan_FiredTrigPtEta_pt = true;
-      if((mu01 != NULL && mu01->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu01->pt() > m_trigpt)  ||
-         (mu02 != NULL && mu02->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu02->pt() > m_trigpt)  ||
-         (mu03 != NULL && mu03->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu03->pt() > m_trigpt)){
+      if((mu01 != NULL && mu01->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu01->pt() > m_trigpt)  ||
+         (mu02 != NULL && mu02->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu02->pt() > m_trigpt)  ||
+         (mu03 != NULL && mu03->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu03->pt() > m_trigpt)){
          m_orphan_FiredTrig_ptColl = true;
       }
-      if(((mu01 != NULL && mu01->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu01->pt() > m_trigpt) ||
-         (mu02 != NULL && mu02->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu02->pt() > m_trigpt)  ||
-         (mu03 != NULL && mu03->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu03->pt() > m_trigpt)) && muon->pt() > m_trigpt ){
+      if(((mu01 != NULL && mu01->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu01->pt() > m_trigpt) ||
+         (mu02 != NULL && mu02->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu02->pt() > m_trigpt)  ||
+         (mu03 != NULL && mu03->collection() == std::string("hltGlbTrkMuonCandsNoVtx:HLT") && mu03->pt() > m_trigpt)) && muon->pt() > m_trigpt ){
          m_orphan_FiredTrigPt_ptColl = true;
       }
-      if(((mu01 != NULL && mu01->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu01->pt() > m_trigpt) ||
-         (mu02 != NULL && mu02->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu02->pt() > m_trigpt)  ||
-         (mu03 != NULL && mu03->collection() == std::string("hltL3NoFiltersNoVtxMuonCandidates::HLT") && mu03->pt() > m_trigpt)) && muon->pt() > m_trigpt && fabs(muon->eta()) < 0.9){
+      if(((mu01 != NULL && mu01->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu01->pt() > m_trigpt) ||
+         (mu02 != NULL && mu02->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu02->pt() > m_trigpt)  ||
+         (mu03 != NULL && mu03->collection() == std::string("hltGlbTrkMuonCandsNoVtx::HLT") && mu03->pt() > m_trigpt)) && muon->pt() > m_trigpt && fabs(muon->eta()) < 0.9){
          m_orphan_FiredTrigPtEta_ptColl = true;
       }
     }

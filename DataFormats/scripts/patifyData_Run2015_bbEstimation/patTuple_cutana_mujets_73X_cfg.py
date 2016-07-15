@@ -61,10 +61,7 @@ process.patTriggerEvent.processName = cms.string( "*" )
 ############## Analysis Modules ###################################
 process.load("MuJetAnalysis.MuJetProducer.MuJetProducer_cff")
 process.load("MuJetAnalysis.CutFlowAnalyzer.CutFlowAnalyzer_cff")
-process.cutFlowAnalyzers.runBBestimation cms.bool(True)
-process.cutFlowAnalyzers.skimOutput = cms.bool(True)
-#process.Path = cms.Path(process.patifyMC * process.MuJetProducers  * process.cutFlowAnalyzers)
-#process.Path = cms.Path(process.patifyData * process.MuJetProducers  * process.cutFlowAnalyzers)
+
 process.Path = cms.Path(process.patifyData * process.MuJetProducers  * process.cutFlowAnalyzers)
 process.outpath.remove(process.out) #Avoid to store PAT
 # customisation of the process.
