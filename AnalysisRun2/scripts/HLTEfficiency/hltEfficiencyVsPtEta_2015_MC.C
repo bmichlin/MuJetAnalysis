@@ -89,10 +89,17 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   Float_t selMu2_py;
   Float_t selMu3_py;
 
+  Float_t selMu0_pT;
+
   Float_t selMu0_eta;
   Float_t selMu1_eta;
   Float_t selMu2_eta;
   Float_t selMu3_eta;
+
+  Float_t selMu0_phi;
+  Float_t selMu1_phi;
+  Float_t selMu2_phi;
+  Float_t selMu3_phi;
 
   Bool_t is1SelMu17;
   Bool_t is2SelMu8;
@@ -200,6 +207,8 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
     t->SetBranchAddress("genMu3_phi",    &genMu3_phi);
 
     // RECO Level Selectors
+    t->SetBranchAddress("selMu0_pT",    &selMu0_pT);
+
     t->SetBranchAddress("selMu0_px",    &selMu0_px);
     t->SetBranchAddress("selMu1_px",    &selMu1_px);
     t->SetBranchAddress("selMu2_px",    &selMu2_px);
@@ -214,6 +223,11 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
     t->SetBranchAddress("selMu1_eta",    &selMu1_eta);
     t->SetBranchAddress("selMu2_eta",    &selMu2_eta);
     t->SetBranchAddress("selMu3_eta",    &selMu3_eta);
+
+    t->SetBranchAddress("selMu0_phi",    &selMu0_phi);
+    t->SetBranchAddress("selMu1_phi",    &selMu1_phi);
+    t->SetBranchAddress("selMu2_phi",    &selMu2_phi);
+    t->SetBranchAddress("selMu3_phi",    &selMu3_phi);
 
     t->SetBranchAddress("is1SelMu17",                     &is1SelMu17);
     t->SetBranchAddress("is2SelMu8",                      &is2SelMu8);
@@ -254,68 +268,18 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
     
     for(int k=0; k<t->GetEntries(); k++) {
       t->GetEntry(k);
+      //cout << "Processing event " << k << endl;
 
       // cout << "number of paths " << hltPaths->size() << endl;
       // for (auto i: *hltPaths)
       // 	std::cout << i << ' ';
 
-      const bool firstPixelLayer((diMuonC_m1_FittedVtx_hitpix==1 || 
-				  diMuonC_m2_FittedVtx_hitpix==1) && 
-				 (diMuonF_m1_FittedVtx_hitpix==1 || 
-				  diMuonF_m2_FittedVtx_hitpix==1));
-      const bool secondPixelLayer((diMuonC_m1_FittedVtx_hitpix_l2inc==1 || 
-       				   diMuonC_m2_FittedVtx_hitpix_l2inc==1) && 
-       				  (diMuonF_m1_FittedVtx_hitpix_l2inc==1 || 
-       				   diMuonF_m2_FittedVtx_hitpix_l2inc==1));
-      const bool thirdPixelLayer((diMuonC_m1_FittedVtx_hitpix_l3inc==1 || 
-       				  diMuonC_m2_FittedVtx_hitpix_l3inc==1) && 
-       				 (diMuonF_m1_FittedVtx_hitpix_l3inc==1 || 
-       				  diMuonF_m2_FittedVtx_hitpix_l3inc==1));
-      
-      const double firstPixelLayerRadius(4.4);
-      const double secondPixelLayerRadius(7.3);
-      const double thirdPixelLayerRadius(10.2);
-      
-      bool pixelLayer;
-      double pixelLayerRadius;
-      
-      if (layers==1) {
-	pixelLayer = firstPixelLayer;
-	pixelLayerRadius = firstPixelLayerRadius;
-      }
-      else if (layers==2) {
-       	pixelLayer = secondPixelLayer;
-       	pixelLayerRadius = secondPixelLayerRadius;
-      }
-      else if (layers==3) {
-       	pixelLayer = thirdPixelLayer;
-       	pixelLayerRadius = thirdPixelLayerRadius;
-      }
-      
       ev_all++;
 
       if(is1SelMu17) c1recm++;
       if(is2SelMu8)  c2recm++;
       if(is3SelMu8)  c3recm++;
       if(is4SelMu8)  c4recm++;
-
-      //  ===========   GEN LEVEL information  ==============//
-      // if(//is4GenMu8 and 
-      // 	 fabs(genA0_Lxy)< pixelLayerRadius and 
-      // 	 fabs(genA1_Lxy)< pixelLayerRadius and 
-      // 	 fabs(genA0_Lz)<34.5 and 
-      // 	 fabs(genA1_Lz)<34.5){
-	
-      // 	leading_pt_fid->Fill(genMu0_pT);
-      // 	leading_eta_fid->Fill(genMu0_eta);
-      // 	leading_phi_fid->Fill(genMu0_phi);
-	
-      // 	if (isDiMuonHLTFired){
-      // 	  hlt_leading_pt_fid->Fill(genMu0_pT);
-      // 	  hlt_leading_eta_fid->Fill(genMu0_eta);
-      // 	  hlt_leading_phi_fid->Fill(genMu0_phi);
-      // 	}
-      // }
       
       // check for 4 reco muons 
       Int_t nMu = 0;
@@ -330,21 +294,21 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
 	Float_t selMu2_pT = TMath::Sqrt(selMu2_px*selMu2_px + selMu2_py*selMu2_py);
 	Float_t selMu3_pT = TMath::Sqrt(selMu3_px*selMu3_px + selMu3_py*selMu3_py);
 	
-	Int_t nMuPt8 = 0;
-	Int_t nMuPt17 = 0;
+	Int_t nSelMuPt8 = 0;
+	Int_t nSelMuPt17 = 0;
 	Int_t nGenMuPt8 = 0;
 	Int_t nGenMuPt17 = 0;
 	
-	if (selMu0_pT>=8) nMuPt8++;
-	if (selMu1_pT>=8) nMuPt8++;
-	if (selMu2_pT>=8) nMuPt8++;
-	if (selMu3_pT>=8) nMuPt8++;
+	if (selMu0_pT>=8) nSelMuPt8++;
+	if (selMu1_pT>=8) nSelMuPt8++;
+	if (selMu2_pT>=8) nSelMuPt8++;
+	if (selMu3_pT>=8) nSelMuPt8++;
 	
-	if (selMu0_pT>=17) nMuPt17++;
-	if (selMu1_pT>=17) nMuPt17++;
-	if (selMu2_pT>=17) nMuPt17++;
-	if (selMu3_pT>=17) nMuPt17++;
-
+	if (selMu0_pT>=17 and std::abs(selMu0_eta)<=0.9) nSelMuPt17++;
+	if (selMu1_pT>=17 and std::abs(selMu1_eta)<=0.9) nSelMuPt17++;
+	if (selMu2_pT>=17 and std::abs(selMu2_eta)<=0.9) nSelMuPt17++;
+	if (selMu3_pT>=17 and std::abs(selMu3_eta)<=0.9) nSelMuPt17++;
+      
 	if (genMu0_pT>=8 and std::abs(genMu0_eta)<=2.4) nGenMuPt8++;
 	if (genMu1_pT>=8 and std::abs(genMu1_eta)<=2.4) nGenMuPt8++;
 	if (genMu2_pT>=8 and std::abs(genMu2_eta)<=2.4) nGenMuPt8++;
@@ -355,29 +319,22 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
 	if (genMu2_pT>=17 and std::abs(genMu2_eta)<=0.9) nGenMuPt17++;
 	if (genMu3_pT>=17 and std::abs(genMu3_eta)<=0.9) nGenMuPt17++;
 
-	if (nGenMuPt8>=4 and nGenMuPt17>=1){
-	  RECO_leading_pt_fid->Fill(genMu0_pT);
-	  RECO_leading_eta_fid->Fill(genMu0_eta);
-	  //	RECO_leading_phi_fid->Fill(selMu0_phi);
-	  if (isDiMuonHLTFired){
-	    hlt_RECO_leading_pt_fid->Fill(genMu0_pT);
-	    hlt_RECO_leading_eta_fid->Fill(genMu0_eta);
-	    //	  hlt_RECO_leading_phi_fid->Fill(selMu0_phi);
-	  }
-	}
+	if (nSelMuPt8>=4 and nSelMuPt17>=1){
+	  RECO_leading_pt_fid->Fill(selMu0_pT);
+	  RECO_leading_eta_fid->Fill(selMu0_eta);
+	  RECO_leading_phi_fid->Fill(selMu0_phi);
+	  /*
+	  cout << "number of paths " << hltPaths->size() << endl;
+	  for (auto i: *hltPaths)
+	    std::cout << i << ' ';
+	  */
 
-	/*
-	if (nGenMuPt8>=4 and nGenMuPt17>=1){
-	  RECO_leading_pt_fid->Fill(genMu0_pT);
-	  RECO_leading_eta_fid->Fill(genMu0_eta);
-	  //	RECO_leading_phi_fid->Fill(selMu0_phi);
 	  if (isDiMuonHLTFired){
-	    hlt_RECO_leading_pt_fid->Fill(genMu0_pT);
-	    hlt_RECO_leading_eta_fid->Fill(genMu0_eta);
-	    //	  hlt_RECO_leading_phi_fid->Fill(selMu0_phi);
+	    hlt_RECO_leading_pt_fid->Fill(selMu0_pT);
+	    hlt_RECO_leading_eta_fid->Fill(selMu0_eta);
+	    hlt_RECO_leading_phi_fid->Fill(selMu0_phi);
 	  }
 	}
-	*/
       }
     } // closing for loop
     myfile->Close();
@@ -398,11 +355,13 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   {
     static void plot(enum Variable v, TEfficiency* eff, TString cTitle) { 
 
-      TCanvas *c = new TCanvas("c","c",700,500);
+      TCanvas *c = new TCanvas("c","c",700,700);
       gStyle->SetOptStat(0);
-      
-      double xMin;
-      double xMax;
+      gPad->SetTickx(1);
+      gPad->SetTicky(1);
+      gPad->SetLeftMargin(0.15);
+
+      double xMin, xMax, yMin, yMax;
       int xBin = 50;
       TString xTitle;
       TString yTitle = "HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency";
@@ -417,6 +376,8 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
       else if (v==Variable::Eta){
 	xMin = -2.5;
 	xMax = 2.5;
+	yMin = 0.6;
+	yMax = 1.0;
 	xTitle ="Leading muon #eta";
 	title = "leading muon #eta";
       }
@@ -431,12 +392,14 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
       TH1F *base = new TH1F("","Trigger efficiency versus " + title, xBin, xMin, xMax);
       base->GetXaxis()->SetTitle(xTitle);
       base->GetYaxis()->SetTitle(yTitle);
+      base->SetMinimum(yMin);
+      base->SetMaximum(yMax);
       base->Draw();
-      
+
       eff->SetLineWidth(1);
       eff->SetMarkerSize(5);
-      eff->SetLineColor(kBlue);
-      eff->SetMarkerColor(kBlue);
+      eff->SetLineColor(kRed);
+      eff->SetMarkerColor(kRed);
       eff->SetMarkerStyle(7);
       eff->Draw("same");
 
@@ -447,20 +410,16 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
       leg->AddEntry(eff,"m_{#gamma D}= " + mass_strings[mass_string] +  " GeV, " + "c#tau_{#gamma D}= " + cT_strings2[cT_string] + " mm", "PL");      
       leg->Draw("same");
 
-      c->SaveAs(TString("trigger_efficiency_plots_pt_eta_phi/" + cTitle + "_" + fileName + ".png"),"recreate");
+      c->SaveAs(TString("trigger_efficiency_2015_MC_pt_eta_phi_withEtaCutBarrel/" + cTitle + "_" + fileName + ".png"),"recreate");
       c->Clear();
     }
   };
-
-  // MyEfficiencyPlot::plot(Variable::Pt,  eff_hlt_leading_pt_fid, "eff_hlt_vs_leading_pT_L" + std::to_string(layers));
-  // MyEfficiencyPlot::plot(Variable::Eta, eff_hlt_leading_eta_fid, "eff_hlt_vs_leading_eta_L" + std::to_string(layers));
-  // MyEfficiencyPlot::plot(Variable::Phi, eff_hlt_leading_phi_fid, "eff_hlt_vs_leading_phi_L" + std::to_string(layers));
   MyEfficiencyPlot::plot(Variable::Pt,  eff_hlt_RECO_leading_pt_fid, "eff_hlt_RECO_vs_leading_pT");
   MyEfficiencyPlot::plot(Variable::Eta, eff_hlt_RECO_leading_eta_fid, "eff_hlt_RECO_vs_leading_eta");
-  // MyEfficiencyPlot::plot(Variable::Phi, eff_hlt_RECO_leading_phi_fid, "eff_hlt_RECO_vs_leading_phi_L" + std::to_string(layers));
+  MyEfficiencyPlot::plot(Variable::Phi, eff_hlt_RECO_leading_phi_fid, "eff_hlt_RECO_vs_leading_phi");
 }
 
-void hltEfficiencyVsPtEta()
+void hltEfficiencyVsPtEta_2015_MC()
 {
   std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;
   readTextFileWithSamples(DarkSUSY_mH_125_mGammaD_v);
