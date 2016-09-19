@@ -48,7 +48,23 @@ void addfilesMany(TChain *ch, const std::vector<string>& v, const TString ext=".
   }
 }
 
-void decodeFileName(const TString& fileName, TString& mass_string, TString& cT_string)
+void decodeDarkSUSYFileName(const TString& fileName, TString& mass_string, TString& cT_string)
+{  
+  TString str1 = "DarkSUSY_mH_125_mGammaD_";
+  Ssiz_t loc1 = fileName.Index(str1);
+  TString substr(fileName(loc1, 500)); //from loc1 till the end of the string
+  TString str2 = "_cT_";
+  Ssiz_t loc2 = substr.Index(str2);
+  TString str3 = "_Evt_";
+  Ssiz_t loc3 = substr.Index(str3);
+  mass_string = substr( str1.Length(), loc2 - str1.Length() );
+  cT_string = substr(loc2 + str2.Length(), loc3 - ( loc2 + str2.Length() ));
+
+  bool verbose(false);
+  if (verbose) cout << "mass_string " << mass_string << " cT_string " << cT_string << endl;
+}
+
+void decodeNMSSMFileName(const TString& fileName, TString& mass_string, TString& cT_string)
 {  
   ///Get the sample mass
   TString str = fileName;
@@ -63,7 +79,14 @@ void decodeFileName(const TString& fileName, TString& mass_string, TString& cT_s
   if (verbose) cout << "mass_string " << mass_string << " cT_string " << cT_string << endl;
 }
 
-void decodeFileNameMany(const std::vector<string>& v, TString& mass_string, TString& cT_string)
+void decodeFileDarkSUSYNameMany(const std::vector<string>& v, TString& mass_string, TString& cT_string)
+{  
+  decodeDarkSUSYFileName(v[0], mass_string, cT_string);
+  bool verbose(false);
+  if (verbose) cout << "mass_string " << mass_string << " cT_string " << cT_string << endl;
+}
+
+void decodeFileNMSSMNameMany(const std::vector<string>& v, TString& mass_string, TString& cT_string)
 {  
   ///Get the sample mass
   TString str(v[0]);

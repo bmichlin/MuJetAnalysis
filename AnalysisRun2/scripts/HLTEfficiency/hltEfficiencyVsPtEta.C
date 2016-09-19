@@ -14,42 +14,70 @@ std::map<TString, TString > mass_strings = {
 };
 std::map<TString, double > cT_strings = {
   {"000_",0.0}, {"005_", 0.05}, {"010_", 0.10}, {"020_", 0.20}, {"050_", 0.50}, {"100_", 1.00}, 
-  {"200_", 2.00}, {"300_", 3.00}, {"500_", 5.00}, {"1000", 10.0}, {"2000", 20.0}, {"8500", 85.0}
+  {"200_", 2.00}, {"300_", 3.00}, {"500_", 5.00}, {"1000", 10.0}, {"2000", 20.0},
+  {"5000", 50.0}, {"10000", 100.0}
 };
 std::map<TString, TString > cT_strings2 = {
   {"000_","0.0"}, {"005_", "0.05"}, {"010_", "0.10"}, {"020_", "0.20"}, {"050_", "0.50"}, {"100_", "1.00"}, 
-  {"200_", "2.00"}, {"300_", "3.00"}, {"500_", "5.00"}, {"1000", "10.0"}, {"2000", "20.0"}, {"8500", "85.0"}
+  {"200_", "2.00"}, {"300_", "3.00"}, {"500_", "5.00"}, {"1000", "10.0"}, {"2000", "20.0"},
+  {"5000", "50.0"}, {"10000", "100.0"}
 };
 std::map<TString, int > mass_colors = {
   {"0250", kRed}, {"0275", kOrange}, {"0300", kSpring}, {"0400", kGreen+2}, {"0700", kAzure+9}, 
   {"1000", kBlue}, {"1500", kViolet+6}, {"2000", kMagenta}, {"8500", kBlack}
 };
 
+int get_mass_index(const TString& massStr)
+{
+  int index = 0;
+  for (auto& p: mass_strings) {
+    index++;
+    if (p.first == massStr){
+      break;
+    }
+  }
+  return index;
+}
+
+int get_cT_index(const TString& cTStr)
+{
+  int index = 0;
+  for (auto& p: cT_strings) {
+    index++;
+    if (p.first == cTStr){
+      break;
+    }
+  }
+  return index;
+}
+
 void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1)
 {
-  bool verbose(false);
+  bool verbose(true);
   TChain* chain = new TChain("dummy");
   TString ext("out_ana_");
 
-  decodeFileNameMany(dirNames, mass_string, cT_string);
+  decodeFileDarkSUSYNameMany(dirNames, mass_string, cT_string);
   fileName = "DarkSUSY_mH_125_mGammaD_" + mass_string + "_cT_" + cT_string;
   cout << "Tag name " << fileName << endl;
 
+  if (mass_string != "8500") return;
+
   cout << "Preparing histograms" << endl;
-  TH1D* leading_pt_fid = new TH1D("leading_pt_fid" + fileName,"",50,0.,50.);
-  TH1D* RECO_leading_pt_fid = new TH1D("RECO_leading_pt_fid" + fileName,"",50,0.,50.);
-  TH1D* hlt_leading_pt_fid = new TH1D("hlt_leading_pt_fid" + fileName,"",50,0.,50.);
-  TH1D* hlt_RECO_leading_pt_fid = new TH1D("hlt_RECO_leading_pt_fid" + fileName,"",50,0.,50.);
+  TH1D* leading_pt_fid = new TH1D(fileName + "leading_pt_fid","",50,0.,50.);
+  TH1D* RECO_leading_pt_fid = new TH1D(fileName + "RECO_leading_pt_fid","",50,0.,50.);
+  TH1D* hlt_leading_pt_fid = new TH1D(fileName + "hlt_leading_pt_fid","",50,0.,50.);
+  TH1D* hlt_RECO_leading_pt_fid = new TH1D(fileName + "hlt_RECO_leading_pt_fid","",50,0.,50.);
 
-  TH1D* leading_eta_fid = new TH1D("leading_eta_fid" + fileName,"",50,-2.5,2.5);
-  TH1D* RECO_leading_eta_fid = new TH1D("RECO_leading_eta_fid" + fileName,"",50,-2.5,2.5);
-  TH1D* hlt_leading_eta_fid = new TH1D("hlt_leading_eta_fid" + fileName,"",50,-2.5,2.5);
-  TH1D* hlt_RECO_leading_eta_fid = new TH1D("hlt_RECO_leading_eta_fid" + fileName,"",50,-2.5,2.5);
+  TH1D* leading_eta_fid = new TH1D(fileName + "leading_eta_fid","",50,-2.5,2.5);
+  TH1D* RECO_leading_eta_fid = new TH1D(fileName + "RECO_leading_eta_fid","",50,-2.5,2.5);
+  TH1D* hlt_leading_eta_fid = new TH1D(fileName + "hlt_leading_eta_fid","",50,-2.5,2.5);
+  TH1D* hlt_RECO_leading_eta_fid = new TH1D(fileName + "hlt_RECO_leading_eta_fid","",50,-2.5,2.5);
 
-  TH1D* leading_phi_fid = new TH1D("leading_phi_fid" + fileName,"",60,-TMath::Pi(),TMath::Pi());
-  TH1D* RECO_leading_phi_fid = new TH1D("RECO_leading_phi_fid" + fileName,"",60,-TMath::Pi(),TMath::Pi());
-  TH1D* hlt_leading_phi_fid = new TH1D("hlt_leading_phi_fid" + fileName,"",60,-TMath::Pi(),TMath::Pi());
-  TH1D* hlt_RECO_leading_phi_fid = new TH1D("hlt_RECO_leading_phi_fid" + fileName,"",60,-TMath::Pi(),TMath::Pi());
+  TH1D* leading_phi_fid = new TH1D(fileName + "leading_phi_fid","",60,-TMath::Pi(),TMath::Pi());
+  TH1D* RECO_leading_phi_fid = new TH1D(fileName + "RECO_leading_phi_fid","",60,-TMath::Pi(),TMath::Pi());
+  TH1D* hlt_leading_phi_fid = new TH1D(fileName + "hlt_leading_phi_fid","",60,-TMath::Pi(),TMath::Pi());
+  TH1D* hlt_RECO_leading_phi_fid = new TH1D(fileName + "hlt_RECO_leading_phi_fid","",60,-TMath::Pi(),TMath::Pi());
 
   // add files to the chain
   addfilesMany(chain, dirNames, ext);
@@ -221,10 +249,10 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
     t->SetBranchAddress("is2MuJets",                      &is2MuJets);
     t->SetBranchAddress("is2DiMuons",                     &is2DiMuons);
     t->SetBranchAddress("is2DiMuonsFittedVtxOK",          &is2DiMuonsFittedVtxOK);
-    t->SetBranchAddress("is2DiMuonsDzOK_FittedVtx",       &is2DiMuonsDzOK_FittedVtx);
+    // t->SetBranchAddress("is2DiMuonsDzOK_FittedVtx",       &is2DiMuonsDzOK_FittedVtx);
     t->SetBranchAddress("isDiMuonHLTFired",               &isDiMuonHLTFired);
     t->SetBranchAddress("is2DiMuonsMassOK_FittedVtx",     &is2DiMuonsMassOK_FittedVtx);
-    t->SetBranchAddress("is2DiMuonsIsoTkOK_FittedVtx",    &is2DiMuonsIsoTkOK_FittedVtx);
+    // t->SetBranchAddress("is2DiMuonsIsoTkOK_FittedVtx",    &is2DiMuonsIsoTkOK_FittedVtx);
     t->SetBranchAddress("isVertexOK",                     &isVertexOK);
     t->SetBranchAddress("isDiMuonHLTFired",              &isDiMuonHLTFired);
 
@@ -291,24 +319,6 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
       if(is3SelMu8)  c3recm++;
       if(is4SelMu8)  c4recm++;
 
-      //  ===========   GEN LEVEL information  ==============//
-      // if(//is4GenMu8 and 
-      // 	 fabs(genA0_Lxy)< pixelLayerRadius and 
-      // 	 fabs(genA1_Lxy)< pixelLayerRadius and 
-      // 	 fabs(genA0_Lz)<34.5 and 
-      // 	 fabs(genA1_Lz)<34.5){
-	
-      // 	leading_pt_fid->Fill(genMu0_pT);
-      // 	leading_eta_fid->Fill(genMu0_eta);
-      // 	leading_phi_fid->Fill(genMu0_phi);
-	
-      // 	if (isDiMuonHLTFired){
-      // 	  hlt_leading_pt_fid->Fill(genMu0_pT);
-      // 	  hlt_leading_eta_fid->Fill(genMu0_eta);
-      // 	  hlt_leading_phi_fid->Fill(genMu0_phi);
-      // 	}
-      // }
-      
       // check for 4 reco muons 
       Int_t nMu = 0;
       if (selMu0_px!=-100 and selMu0_py!=-100) nMu++;
@@ -414,7 +424,9 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
       leg->AddEntry(eff,"m_{#gamma D}= " + mass_strings[mass_string] +  " GeV, " + "c#tau_{#gamma D}= " + cT_strings2[cT_string] + " mm", "PL");      
       leg->Draw("same");
 
-      c->SaveAs(TString("trigger_efficiency_plots_pt_eta_phi/" + cTitle + "_" + fileName + ".png"),"recreate");
+      c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".png"),"recreate");
+      c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".C"),"recreate");
+      eff->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".root"),"recreate");
       c->Clear();
     }
   };
@@ -427,14 +439,99 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   // MyEfficiencyPlot::plot(Variable::Phi, eff_hlt_RECO_leading_phi_fid, "eff_hlt_RECO_vs_leading_phi_L" + std::to_string(layers));
 }
 
+void hltEfficiencyVsGammaDMassAndCtau()
+{
+  // TH1F *base = new TH1F("","Trigger efficiency versus " + title, xBin, xMin, xMax);
+  // base->GetXaxis()->SetTitle(xTitle);
+  // base->GetYaxis()->SetTitle(yTitle);
+  // base->Draw();
+  return;
+}
+
+double getAverageEfficiency(TEfficiency* myEff)
+{
+  return myEff->GetPassedHistogram()->GetEntries() / myEff->GetTotalHistogram()->GetEntries();
+}
+
+void hltEfficiency2D()
+{
+  TString location = "trigger_efficiency_plots_DarkSUSY_pt_eta_phi/";
+
+  std::string darkSUSYSamples("/fdata/hepx/store/user/bmichlin/FullSampleList_InclHighCT.txt");
+  std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;
+  readTextFileWithSamples(darkSUSYSamples, DarkSUSY_mH_125_mGammaD_v);
+  
+  TCanvas *c = new TCanvas("c","c",700,500);
+  gStyle->SetOptStat(0);
+  gStyle->SetPalette(55);
+  
+  double xMin;
+  double xMax;
+  int xBin = 50;
+  TString xTitle;
+  TString yTitle; 
+  TString title = "HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency";
+  
+  TH2F *base = new TH2F("","Trigger efficiency versus " + title, 9, 1, 10, 14, 1, 15);
+  base->GetXaxis()->SetTitle("");
+  base->GetYaxis()->SetTitle("");
+  base->GetZaxis()->SetRangeUser(0.7,1.0);
+
+  int mass_index, cT_index;
+  
+  for(auto v: DarkSUSY_mH_125_mGammaD_v) {
+    decodeFileDarkSUSYNameMany(v, mass_string, cT_string);
+    fileName = "DarkSUSY_mH_125_mGammaD_" + mass_string + "_cT_" + cT_string;
+    cout << "Tag name " << fileName << endl;
+    cout << "open File " << location + fileName + "eff_hlt_RECO_vs_leading_eta_.root" << endl;
+
+    mass_index = get_mass_index(mass_string);
+    cT_index = get_cT_index(cT_string);
+
+    TFile *f = new TFile(location + fileName + "eff_hlt_RECO_vs_leading_eta_.root");
+    TEfficiency* myEff = (TEfficiency*) f->Get(fileName + "RECO_leading_eta_fid_clone");
+    cout << "overal efficiency " << fileName << ": " << getAverageEfficiency(myEff) << " " << mass_index << " " << cT_index << endl;
+    base->SetBinContent( cT_index , mass_index, getAverageEfficiency(myEff));
+    base->GetXaxis()->SetBinLabel(mass_index, mass_strings[mass_string].Data());
+    base->GetYaxis()->SetBinLabel(cT_index, cT_strings2[cT_string].Data());
+  }
+  
+  base->Draw("COLZ TEXT");
+  
+  // TLegend *leg = new TLegend(0.15,0.15,0.85,0.45);
+  // leg->SetBorderSize(0);
+  // leg->SetFillColor(0);
+  // leg->SetTextSize(0.045);
+  // //leg->AddEntry(eff,"m_{#gamma D}= " + mass_strings[mass_string] +  " GeV, " + "c#tau_{#gamma D}= " + cT_strings2[cT_string] + " mm", "PL");      
+  // leg->Draw("same");
+  
+  c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/OverallEfficiency.png"),"recreate");
+  c->Clear();  
+}
+
 void hltEfficiencyVsPtEta()
 {
-  std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;
-  readTextFileWithSamples("ANASamplesSven2.txt", DarkSUSY_mH_125_mGammaD_v);
-  // printFileNames(DarkSUSY_mH_125_mGammaD_v);
-
-  for(auto v: DarkSUSY_mH_125_mGammaD_v) efficiency_trigger(v);
-  // for(auto v: DarkSUSY_mH_125_mGammaD_v) efficiency_trigger(v, 2);
-  // for(auto v: DarkSUSY_mH_125_mGammaD_v) efficiency_trigger(v, 3);
+  bool makeEfficiencyPlotsDarkSUSY = true;
+  bool makeEfficiencyPlotsNMSSM = false;
+  bool makeEfficiencyPlotsData = false;
+  
+  std::string dataSamples("/fdata/hepx/store/user/lpernie/DoubleMuon/2015Dv1_ExtMass2.root");
+  std::string darkSUSYSamples("/fdata/hepx/store/user/bmichlin/FullSampleList_InclHighCT.txt");
+  std::string nmssmSamples("/fdata/hepx/store/user/bmichlin/NMSSM_PATANA_Location.txt");
+  
+  //hltEfficiency2D();
+  //return; 
+  
+  if (makeEfficiencyPlotsDarkSUSY){
+    std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;
+    readTextFileWithSamples(darkSUSYSamples, DarkSUSY_mH_125_mGammaD_v);
+    for(auto v: DarkSUSY_mH_125_mGammaD_v) efficiency_trigger(v);
+  }
+  
+  // if (makeEfficiencyPlotsNMSSM){
+  //   std::vector< std::vector<string> > NMSSM_mGammaD_v;
+  //   readTextFileWithSamples(nmssmSamples, NMSSM_mGammaD_v);
+  //   for(auto v: NMSSM_mGammaD_v) efficiency_trigger(v);
+  // }
 }
 
