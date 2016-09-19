@@ -474,8 +474,8 @@ void hltEfficiency2D()
   TString yTitle; 
 
   TH2F *base = new TH2F("","HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency", 9, 1, 10, 13, 1, 14);
-  base->GetXaxis()->SetTitle("");
-  base->GetYaxis()->SetTitle("");
+  base->GetXaxis()->SetTitle("m_{#gamma D} [Gev]");
+  base->GetYaxis()->SetTitle("c#tau_{#gamma D} [mm]");
   base->GetZaxis()->SetRangeUser(0.7,1.0);
 
   int mass_index, cT_index;
