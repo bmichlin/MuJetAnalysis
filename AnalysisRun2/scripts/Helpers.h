@@ -48,17 +48,39 @@ void addfilesMany(TChain *ch, const std::vector<string>& v, const TString ext=".
   }
 }
 
+struct tokens: std::ctype<char> 
+{
+ tokens(): std::ctype<char>(get_table()) {}
+
+  static std::ctype_base::mask const* get_table()
+  {
+    typedef std::ctype<char> cctype;
+    static const cctype::mask *const_rc= cctype::classic_table();
+
+    static cctype::mask rc[cctype::table_size];
+    std::memcpy(rc, const_rc, cctype::table_size * sizeof(cctype::mask));
+
+    rc['_'] = std::ctype_base::space; 
+    //rc[' '] = std::ctype_base::space; 
+    return &rc[0];
+  }
+};
+
 void decodeDarkSUSYFileName(const TString& fileName, TString& mass_string, TString& cT_string)
 {  
+  // template: DarkSUSY_mH_125_mGammaD_XXXX_cT_YYYY_
   TString str1 = "DarkSUSY_mH_125_mGammaD_";
   Ssiz_t loc1 = fileName.Index(str1);
-  TString substr(fileName(loc1, 500)); //from loc1 till the end of the string
-  TString str2 = "_cT_";
-  Ssiz_t loc2 = substr.Index(str2);
-  TString str3 = "_Evt_";
-  Ssiz_t loc3 = substr.Index(str3);
-  mass_string = substr( str1.Length(), loc2 - str1.Length() );
-  cT_string = substr(loc2 + str2.Length(), loc3 - ( loc2 + str2.Length() ));
+  TString substr(fileName(loc1, 100)); 
+
+  std::stringstream ss(std::string(substr.Data()));
+  ss.imbue(std::locale(std::locale(), new tokens()));
+  std::istream_iterator<std::string> begin(ss);
+  std::istream_iterator<std::string> end;
+  std::vector<std::string> vstrings(begin, end);
+  
+  mass_string = vstrings[4];
+  cT_string = vstrings[6];
 
   bool verbose(false);
   if (verbose) cout << "mass_string " << mass_string << " cT_string " << cT_string << endl;

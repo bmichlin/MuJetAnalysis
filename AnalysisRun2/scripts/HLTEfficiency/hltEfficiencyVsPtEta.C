@@ -13,13 +13,18 @@ std::map<TString, TString > mass_strings = {
   {"1000", "1.0"}, {"1500", "1.5"}, {"2000", "2.0"}, {"8500", "8.5"}
 };
 std::map<TString, double > cT_strings = {
-  {"000_",0.0}, {"005_", 0.05}, {"010_", 0.10}, {"020_", 0.20}, {"050_", 0.50}, {"100_", 1.00}, 
-  {"200_", 2.00}, {"300_", 3.00}, {"500_", 5.00}, {"1000", 10.0}, {"2000", 20.0},
+  {"000",0.0}, {"005", 0.05}, {"010", 0.10}, {"020", 0.20}, {"050", 0.50}, {"100", 1.00}, 
+  {"200", 2.00}, {"300", 3.00}, {"500", 5.00}, {"1000", 10.0}, {"2000", 20.0},
   {"5000", 50.0}, {"10000", 100.0}
 };
+std::map<TString, int > cT_indices = {
+  {"000",0}, {"005", 1}, {"010", 2}, {"020", 3}, {"050", 4}, {"100", 5}, 
+  {"200", 6}, {"300", 7}, {"500", 8}, {"1000", 9}, {"2000", 10},
+  {"5000", 11}, {"10000", 12}
+};
 std::map<TString, TString > cT_strings2 = {
-  {"000_","0.0"}, {"005_", "0.05"}, {"010_", "0.10"}, {"020_", "0.20"}, {"050_", "0.50"}, {"100_", "1.00"}, 
-  {"200_", "2.00"}, {"300_", "3.00"}, {"500_", "5.00"}, {"1000", "10.0"}, {"2000", "20.0"},
+  {"000","0.0"}, {"005", "0.05"}, {"010", "0.10"}, {"020", "0.20"}, {"050", "0.50"}, {"100", "1.00"}, 
+  {"200", "2.00"}, {"300", "3.00"}, {"500", "5.00"}, {"1000", "10.0"}, {"2000", "20.0"},
   {"5000", "50.0"}, {"10000", "100.0"}
 };
 std::map<TString, int > mass_colors = {
@@ -29,7 +34,7 @@ std::map<TString, int > mass_colors = {
 
 int get_mass_index(const TString& massStr)
 {
-  int index = 0;
+  int index = -1;
   for (auto& p: mass_strings) {
     index++;
     if (p.first == massStr){
@@ -41,14 +46,7 @@ int get_mass_index(const TString& massStr)
 
 int get_cT_index(const TString& cTStr)
 {
-  int index = 0;
-  for (auto& p: cT_strings) {
-    index++;
-    if (p.first == cTStr){
-      break;
-    }
-  }
-  return index;
+  return cT_indices[cTStr];
 }
 
 void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1)
@@ -57,11 +55,14 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   TChain* chain = new TChain("dummy");
   TString ext("out_ana_");
 
+  mass_string = "";
+  cT_string = "";
+  
   decodeFileDarkSUSYNameMany(dirNames, mass_string, cT_string);
   fileName = "DarkSUSY_mH_125_mGammaD_" + mass_string + "_cT_" + cT_string;
   cout << "Tag name " << fileName << endl;
 
-  if (mass_string != "8500") return;
+  if (mass_string != "2000") return;
 
   cout << "Preparing histograms" << endl;
   TH1D* leading_pt_fid = new TH1D(fileName + "leading_pt_fid","",50,0.,50.);
@@ -417,11 +418,12 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
       eff->SetMarkerStyle(7);
       eff->Draw("same");
 
+      TString ctstr = cT_strings[cT_string];
       TLegend *leg = new TLegend(0.15,0.15,0.85,0.45);
       leg->SetBorderSize(0);
       leg->SetFillColor(0);
       leg->SetTextSize(0.045);
-      leg->AddEntry(eff,"m_{#gamma D}= " + mass_strings[mass_string] +  " GeV, " + "c#tau_{#gamma D}= " + cT_strings2[cT_string] + " mm", "PL");      
+      leg->AddEntry(eff,"m_{#gamma D}= " + mass_strings[mass_string] +  " GeV, " + "c#tau_{#gamma D}= " + ctstr + " mm", "PL");      
       leg->Draw("same");
 
       c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".png"),"recreate");
@@ -472,7 +474,7 @@ void hltEfficiency2D()
   TString yTitle; 
   TString title = "HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency";
   
-  TH2F *base = new TH2F("","Trigger efficiency versus " + title, 9, 1, 10, 14, 1, 15);
+  TH2F *base = new TH2F("","Trigger efficiency versus " + title, 10, 1, 10, 15, 1, 15);
   base->GetXaxis()->SetTitle("");
   base->GetYaxis()->SetTitle("");
   base->GetZaxis()->SetRangeUser(0.7,1.0);
@@ -482,16 +484,16 @@ void hltEfficiency2D()
   for(auto v: DarkSUSY_mH_125_mGammaD_v) {
     decodeFileDarkSUSYNameMany(v, mass_string, cT_string);
     fileName = "DarkSUSY_mH_125_mGammaD_" + mass_string + "_cT_" + cT_string;
-    cout << "Tag name " << fileName << endl;
-    cout << "open File " << location + fileName + "eff_hlt_RECO_vs_leading_eta_.root" << endl;
+    //cout << "Tag name " << fileName << endl;
+    //cout << "open File " << location + fileName + "_eff_hlt_RECO_vs_leading_eta.root" << endl;
 
-    mass_index = get_mass_index(mass_string);
-    cT_index = get_cT_index(cT_string);
+    mass_index = get_mass_index(mass_string) + 1;
+    cT_index = get_cT_index(cT_string) + 1;
 
-    TFile *f = new TFile(location + fileName + "eff_hlt_RECO_vs_leading_eta_.root");
+    TFile *f = new TFile(location + fileName + "_eff_hlt_RECO_vs_leading_eta.root");
     TEfficiency* myEff = (TEfficiency*) f->Get(fileName + "RECO_leading_eta_fid_clone");
-    cout << "overal efficiency " << fileName << ": " << getAverageEfficiency(myEff) << " " << mass_index << " " << cT_index << endl;
-    base->SetBinContent( cT_index , mass_index, getAverageEfficiency(myEff));
+    cout << "overal efficiency " << fileName << ": " << getAverageEfficiency(myEff) << " " << mass_index << " " << cT_index << endl<<endl;
+    base->SetBinContent( mass_index , cT_index, getAverageEfficiency(myEff));
     base->GetXaxis()->SetBinLabel(mass_index, mass_strings[mass_string].Data());
     base->GetYaxis()->SetBinLabel(cT_index, cT_strings2[cT_string].Data());
   }
@@ -519,8 +521,8 @@ void hltEfficiencyVsPtEta()
   std::string darkSUSYSamples("/fdata/hepx/store/user/bmichlin/FullSampleList_InclHighCT.txt");
   std::string nmssmSamples("/fdata/hepx/store/user/bmichlin/NMSSM_PATANA_Location.txt");
   
-  //hltEfficiency2D();
-  //return; 
+  hltEfficiency2D();
+  return; 
   
   if (makeEfficiencyPlotsDarkSUSY){
     std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;
