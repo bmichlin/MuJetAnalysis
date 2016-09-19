@@ -376,7 +376,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   {
     static void plot(enum Variable v, TEfficiency* eff, TString cTitle) { 
 
-      TCanvas *c = new TCanvas("c","c",700,500);
+      TCanvas *c = new TCanvas("c","c",800,600);
       gStyle->SetOptStat(0);
       
       double xMin;
@@ -463,7 +463,7 @@ void hltEfficiency2D()
   std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;
   readTextFileWithSamples(darkSUSYSamples, DarkSUSY_mH_125_mGammaD_v);
   
-  TCanvas *c = new TCanvas("c","c",700,500);
+  TCanvas *c = new TCanvas("c","c",800,600);
   gStyle->SetOptStat(0);
   gStyle->SetPalette(55);
   
@@ -472,9 +472,8 @@ void hltEfficiency2D()
   int xBin = 50;
   TString xTitle;
   TString yTitle; 
-  TString title = "HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency";
-  
-  TH2F *base = new TH2F("","Trigger efficiency versus " + title, 10, 1, 10, 15, 1, 15);
+
+  TH2F *base = new TH2F("","HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency", 9, 1, 10, 13, 1, 14);
   base->GetXaxis()->SetTitle("");
   base->GetYaxis()->SetTitle("");
   base->GetZaxis()->SetRangeUser(0.7,1.0);
@@ -493,6 +492,7 @@ void hltEfficiency2D()
     TFile *f = new TFile(location + fileName + "_eff_hlt_RECO_vs_leading_eta.root");
     TEfficiency* myEff = (TEfficiency*) f->Get(fileName + "RECO_leading_eta_fid_clone");
     cout << "overal efficiency " << fileName << ": " << getAverageEfficiency(myEff) << " " << mass_index << " " << cT_index << endl<<endl;
+    
     base->SetBinContent( mass_index , cT_index, getAverageEfficiency(myEff));
     base->GetXaxis()->SetBinLabel(mass_index, mass_strings[mass_string].Data());
     base->GetYaxis()->SetBinLabel(cT_index, cT_strings2[cT_string].Data());
