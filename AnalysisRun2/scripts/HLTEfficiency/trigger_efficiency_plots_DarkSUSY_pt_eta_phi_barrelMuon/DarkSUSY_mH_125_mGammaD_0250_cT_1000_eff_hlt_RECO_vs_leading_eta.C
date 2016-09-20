@@ -1,7 +1,7 @@
 void DarkSUSY_mH_125_mGammaD_0250_cT_1000_eff_hlt_RECO_vs_leading_eta()
 {
 //=========Macro generated from canvas: c/c
-//=========  (Mon Sep 19 17:49:57 2016) by ROOT version6.02/05
+//=========  (Mon Sep 19 21:41:04 2016) by ROOT version6.02/05
    TCanvas *c = new TCanvas("c", "c",0,0,800,600);
    gStyle->SetOptStat(0);
    c->Range(-3.125,-0.13125,3.125,1.18125);
@@ -166,8 +166,7 @@ void DarkSUSY_mH_125_mGammaD_0250_cT_1000_eff_hlt_RECO_vs_leading_eta()
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(1001);
-   TLegendEntry *entry=leg->AddEntry("DarkSUSY_mH_125_mGammaD_0250_cT_1000RECO_leading_eta_fid_clone","m_{#gamma D}= 0.25 GeV, c#tau_{#gamma D}= 
- mm","PL");
+   TLegendEntry *entry=leg->AddEntry("DarkSUSY_mH_125_mGammaD_0250_cT_1000RECO_leading_eta_fid_clone","m_{#gamma D}= 0.25 GeV, c#tau_{#gamma D}= 10.0 mm","PL");
 
    ci = TColor::GetColor("#0000ff");
    entry->SetLineColor(ci);

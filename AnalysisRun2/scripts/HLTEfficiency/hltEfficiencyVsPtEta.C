@@ -62,7 +62,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
   fileName = "DarkSUSY_mH_125_mGammaD_" + mass_string + "_cT_" + cT_string;
   cout << "Tag name " << fileName << endl;
 
-  if (mass_string != "8500") return;
+  if (mass_string != "1500") return;
 
   cout << "Preparing histograms" << endl;
   TH1D* leading_pt_fid = new TH1D(fileName + "leading_pt_fid","",50,0.,50.);
@@ -336,33 +336,44 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
 	
 	Int_t nMuPt8 = 0;
 	Int_t nMuPt17 = 0;
+	Int_t nMuPt17Barrel = 0;
 	
 	if (selMu0_pT>=8) nMuPt8++;
 	if (selMu1_pT>=8) nMuPt8++;
 	if (selMu2_pT>=8) nMuPt8++;
 	if (selMu3_pT>=8) nMuPt8++;
 	
-	if (doBarrel){
-	  if (selMu0_pT>=17 and abs(selMu0_eta)<0.9) nMuPt17++;
-	  if (selMu1_pT>=17 and abs(selMu1_eta)<0.9) nMuPt17++;
-	  if (selMu2_pT>=17 and abs(selMu2_eta)<0.9) nMuPt17++;
-	  if (selMu3_pT>=17 and abs(selMu3_eta)<0.9) nMuPt17++;
-	}
-	else{
-	  if (selMu0_pT>=17) nMuPt17++;
-	  if (selMu1_pT>=17) nMuPt17++;
-	  if (selMu2_pT>=17) nMuPt17++;
-	  if (selMu3_pT>=17) nMuPt17++;
-	}
+	if (selMu0_pT>=17) nMuPt17++;
+	if (selMu1_pT>=17) nMuPt17++;
+	if (selMu2_pT>=17) nMuPt17++;
+	if (selMu3_pT>=17) nMuPt17++;
 
-	if (nMuPt8>=4 and nMuPt17>=1){
-	  RECO_leading_pt_fid->Fill(selMu0_pT);
-	  RECO_leading_eta_fid->Fill(selMu0_eta);
-	  //	RECO_leading_phi_fid->Fill(selMu0_phi);
-	  if (isDiMuonHLTFired){
-	    hlt_RECO_leading_pt_fid->Fill(selMu0_pT);
-	    hlt_RECO_leading_eta_fid->Fill(selMu0_eta);
-	    //	  hlt_RECO_leading_phi_fid->Fill(selMu0_phi);
+	if (selMu0_pT>=17 and abs(selMu0_eta)<=0.9) nMuPt17Barrel++;
+	if (selMu1_pT>=17 and abs(selMu1_eta)<=0.9) nMuPt17Barrel++;
+	if (selMu2_pT>=17 and abs(selMu2_eta)<=0.9) nMuPt17Barrel++;
+	if (selMu3_pT>=17 and abs(selMu3_eta)<=0.9) nMuPt17Barrel++;
+	
+	if (doBarrel){
+	  if (nMuPt8>=4 and nMuPt17Barrel>=1){
+	    RECO_leading_pt_fid->Fill(selMu0_pT);
+	    RECO_leading_eta_fid->Fill(selMu0_eta);
+	    //	RECO_leading_phi_fid->Fill(selMu0_phi);
+	    if (isDiMuonHLTFired){
+	      hlt_RECO_leading_pt_fid->Fill(selMu0_pT);
+	      hlt_RECO_leading_eta_fid->Fill(selMu0_eta);
+	      //	  hlt_RECO_leading_phi_fid->Fill(selMu0_phi);
+	    }
+	  }
+	} else {
+	  if (nMuPt8>=4 and nMuPt17>=1){
+	    RECO_leading_pt_fid->Fill(selMu0_pT);
+	    RECO_leading_eta_fid->Fill(selMu0_eta);
+	    //	RECO_leading_phi_fid->Fill(selMu0_phi);
+	    if (isDiMuonHLTFired){
+	      hlt_RECO_leading_pt_fid->Fill(selMu0_pT);
+	      hlt_RECO_leading_eta_fid->Fill(selMu0_eta);
+	      //	  hlt_RECO_leading_phi_fid->Fill(selMu0_phi);
+	    }
 	  }
 	}
       }
@@ -383,7 +394,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
   // Plots
   struct MyEfficiencyPlot
   {
-    static void plot(enum Variable v, TEfficiency* eff, TString cTitle) { 
+    static void plot(enum Variable v, TEfficiency* eff, TString cTitle, bool doBarrel) { 
 
       TCanvas *c = new TCanvas("c","c",800,600);
       gStyle->SetOptStat(0);
@@ -427,12 +438,11 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
       eff->SetMarkerStyle(7);
       eff->Draw("same");
 
-      TString ctstr = cT_strings[cT_string];
       TLegend *leg = new TLegend(0.15,0.15,0.85,0.45);
       leg->SetBorderSize(0);
       leg->SetFillColor(0);
       leg->SetTextSize(0.045);
-      leg->AddEntry(eff,"m_{#gamma D}= " + mass_strings[mass_string] +  " GeV, " + "c#tau_{#gamma D}= " + ctstr + " mm", "PL");      
+      leg->AddEntry(eff,"m_{#gamma D}= " + mass_strings[mass_string] +  " GeV, " + "c#tau_{#gamma D}= " + cT_strings2[cT_string] + " mm", "PL");      
       leg->Draw("same");
 
       if (doBarrel){    
@@ -453,7 +463,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
   // MyEfficiencyPlot::plot(Variable::Eta, eff_hlt_leading_eta_fid, "eff_hlt_vs_leading_eta_L" + std::to_string(layers));
   // MyEfficiencyPlot::plot(Variable::Phi, eff_hlt_leading_phi_fid, "eff_hlt_vs_leading_phi_L" + std::to_string(layers));
   // MyEfficiencyPlot::plot(Variable::Pt,  eff_hlt_RECO_leading_pt_fid, "eff_hlt_RECO_vs_leading_pT_L" + std::to_string(layers));
-  MyEfficiencyPlot::plot(Variable::Eta, eff_hlt_RECO_leading_eta_fid, "eff_hlt_RECO_vs_leading_eta");
+  MyEfficiencyPlot::plot(Variable::Eta, eff_hlt_RECO_leading_eta_fid, "eff_hlt_RECO_vs_leading_eta", doBarrel);
   // MyEfficiencyPlot::plot(Variable::Phi, eff_hlt_RECO_leading_phi_fid, "eff_hlt_RECO_vs_leading_phi_L" + std::to_string(layers));
 }
 
@@ -543,7 +553,7 @@ void hltEfficiencyVsPtEta()
   if (makeEfficiencyPlotsDarkSUSY){
     std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;
     readTextFileWithSamples(darkSUSYSamples, DarkSUSY_mH_125_mGammaD_v);
-    for(auto v: DarkSUSY_mH_125_mGammaD_v) efficiency_trigger(v);
+    for(auto v: DarkSUSY_mH_125_mGammaD_v) efficiency_trigger(v, true);
   }
   
   // if (makeEfficiencyPlotsNMSSM){
