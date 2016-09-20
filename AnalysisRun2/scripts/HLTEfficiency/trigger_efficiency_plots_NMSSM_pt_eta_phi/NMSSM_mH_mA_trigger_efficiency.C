@@ -1,7 +1,7 @@
 void NMSSM_mH_mA_trigger_efficiency()
 {
 //=========Macro generated from canvas: c/c
-//=========  (Tue Sep 20 01:03:15 2016) by ROOT version6.02/05
+//=========  (Tue Sep 20 02:16:44 2016) by ROOT version6.02/05
    TCanvas *c = new TCanvas("c", "c",0,0,800,600);
    gStyle->SetOptStat(0);
    c->Range(0.375,0.2499999,6.625,7.75);
