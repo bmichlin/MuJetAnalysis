@@ -62,7 +62,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
   fileName = "DarkSUSY_mH_125_mGammaD_" + mass_string + "_cT_" + cT_string;
   cout << "Tag name " << fileName << endl;
 
-  if (mass_string != "1500") return;
+  //  if (mass_string != "2000") return;
 
   cout << "Preparing histograms" << endl;
   TH1D* leading_pt_fid = new TH1D(fileName + "leading_pt_fid","",50,0.,50.);
@@ -446,12 +446,12 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
       leg->Draw("same");
 
       if (doBarrel){    
-	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".png"),"recreate");
+	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".pdf"),"recreate");
 	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".C"),"recreate");
 	eff->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".root"),"recreate");
       }
       else{
-	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".png"),"recreate");
+	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".pdf"),"recreate");
 	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".C"),"recreate");
 	eff->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".root"),"recreate");
       }
@@ -526,40 +526,39 @@ void hltEfficiency2D(bool doBarrel = false)
     base->SetBinContent( mass_index , cT_index, getAverageEfficiency(myEff));
     base->GetXaxis()->SetBinLabel(mass_index, mass_strings[mass_string].Data());
     base->GetYaxis()->SetBinLabel(cT_index, cT_strings2[cT_string].Data());
+    base->GetXaxis()->SetLabelSize(0.05);
+    base->GetYaxis()->SetLabelSize(0.05);
+    base->GetXaxis()->SetTitleSize(0.05);
+    base->GetYaxis()->SetTitleSize(0.05);
   }
   
   base->Draw("COLZ TEXT");
-  if (doBarrel)
-    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/OverallEfficiency.png"),"recreate");
-  else
-    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/OverallEfficiency.png"),"recreate");
-
+  if (doBarrel){
+    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/DarkSUSY_GammaD_cT_trigger_efficiency_barrelMuon.pdf"),"recreate");
+    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/DarkSUSY_GammaD_cT_trigger_efficiency_barrelMuon.C"),"recreate");
+    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/DarkSUSY_GammaD_cT_trigger_efficiency_barrelMuon.root"),"recreate");
+  }else{
+    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/DarkSUSY_GammaD_cT_trigger_efficiency.pdf"),"recreate");
+    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/DarkSUSY_GammaD_cT_trigger_efficiency.C"),"recreate");
+    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/DarkSUSY_GammaD_cT_trigger_efficiency.root"),"recreate");
+  }
   c->Clear();  
 }
 
-void hltEfficiencyVsPtEta()
+void hltEfficiencyVsPtEta_DarkSUSY()
 {
   bool makeEfficiencyPlotsDarkSUSY = true;
-  bool makeEfficiencyPlotsNMSSM = false;
-  bool makeEfficiencyPlotsData = false;
   
   std::string dataSamples("/fdata/hepx/store/user/lpernie/DoubleMuon/2015Dv1_ExtMass2.root");
   std::string darkSUSYSamples("/fdata/hepx/store/user/bmichlin/FullSampleList_InclHighCT.txt");
-  std::string nmssmSamples("/fdata/hepx/store/user/bmichlin/NMSSM_PATANA_Location.txt");
-  
-  //hltEfficiency2D();
-  //return; 
   
   if (makeEfficiencyPlotsDarkSUSY){
     std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;
     readTextFileWithSamples(darkSUSYSamples, DarkSUSY_mH_125_mGammaD_v);
-    for(auto v: DarkSUSY_mH_125_mGammaD_v) efficiency_trigger(v, true);
+    for(auto v: DarkSUSY_mH_125_mGammaD_v) efficiency_trigger(v, false);
   }
-  
-  // if (makeEfficiencyPlotsNMSSM){
-  //   std::vector< std::vector<string> > NMSSM_mGammaD_v;
-  //   readTextFileWithSamples(nmssmSamples, NMSSM_mGammaD_v);
-  //   for(auto v: NMSSM_mGammaD_v) efficiency_trigger(v);
-  // }
+  return;
+  hltEfficiency2D(true);
+  hltEfficiency2D(false);
 }
 
