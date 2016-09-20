@@ -49,7 +49,7 @@ int get_cT_index(const TString& cTStr)
   return cT_indices[cTStr];
 }
 
-void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1)
+void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel = false)
 {
   bool verbose(true);
   TChain* chain = new TChain("dummy");
@@ -62,7 +62,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
   fileName = "DarkSUSY_mH_125_mGammaD_" + mass_string + "_cT_" + cT_string;
   cout << "Tag name " << fileName << endl;
 
-  if (mass_string != "2000") return;
+  if (mass_string != "8500") return;
 
   cout << "Preparing histograms" << endl;
   TH1D* leading_pt_fid = new TH1D(fileName + "leading_pt_fid","",50,0.,50.);
@@ -300,6 +300,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
       bool pixelLayer;
       double pixelLayerRadius;
       
+      int layers = 1;
       if (layers==1) {
 	pixelLayer = firstPixelLayer;
 	pixelLayerRadius = firstPixelLayerRadius;
@@ -341,10 +342,18 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
 	if (selMu2_pT>=8) nMuPt8++;
 	if (selMu3_pT>=8) nMuPt8++;
 	
-	if (selMu0_pT>=17) nMuPt17++;
-	if (selMu1_pT>=17) nMuPt17++;
-	if (selMu2_pT>=17) nMuPt17++;
-	if (selMu3_pT>=17) nMuPt17++;
+	if (doBarrel){
+	  if (selMu0_pT>=17 and abs(selMu0_eta)<0.9) nMuPt17++;
+	  if (selMu1_pT>=17 and abs(selMu1_eta)<0.9) nMuPt17++;
+	  if (selMu2_pT>=17 and abs(selMu2_eta)<0.9) nMuPt17++;
+	  if (selMu3_pT>=17 and abs(selMu3_eta)<0.9) nMuPt17++;
+	}
+	else{
+	  if (selMu0_pT>=17) nMuPt17++;
+	  if (selMu1_pT>=17) nMuPt17++;
+	  if (selMu2_pT>=17) nMuPt17++;
+	  if (selMu3_pT>=17) nMuPt17++;
+	}
 
 	if (nMuPt8>=4 and nMuPt17>=1){
 	  RECO_leading_pt_fid->Fill(selMu0_pT);
@@ -426,9 +435,16 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, int layers = 1
       leg->AddEntry(eff,"m_{#gamma D}= " + mass_strings[mass_string] +  " GeV, " + "c#tau_{#gamma D}= " + ctstr + " mm", "PL");      
       leg->Draw("same");
 
-      c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".png"),"recreate");
-      c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".C"),"recreate");
-      eff->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".root"),"recreate");
+      if (doBarrel){    
+	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".png"),"recreate");
+	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".C"),"recreate");
+	eff->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".root"),"recreate");
+      }
+      else{
+	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".png"),"recreate");
+	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".C"),"recreate");
+	eff->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".root"),"recreate");
+      }
       c->Clear();
     }
   };
@@ -455,9 +471,13 @@ double getAverageEfficiency(TEfficiency* myEff)
   return myEff->GetPassedHistogram()->GetEntries() / myEff->GetTotalHistogram()->GetEntries();
 }
 
-void hltEfficiency2D()
+void hltEfficiency2D(bool doBarrel = false)
 {
-  TString location = "trigger_efficiency_plots_DarkSUSY_pt_eta_phi/";
+  TString location;
+  if (doBarrel)
+    location = "trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/";
+  else
+    location = "trigger_efficiency_plots_DarkSUSY_pt_eta_phi/";
 
   std::string darkSUSYSamples("/fdata/hepx/store/user/bmichlin/FullSampleList_InclHighCT.txt");
   std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;
@@ -499,15 +519,11 @@ void hltEfficiency2D()
   }
   
   base->Draw("COLZ TEXT");
-  
-  // TLegend *leg = new TLegend(0.15,0.15,0.85,0.45);
-  // leg->SetBorderSize(0);
-  // leg->SetFillColor(0);
-  // leg->SetTextSize(0.045);
-  // //leg->AddEntry(eff,"m_{#gamma D}= " + mass_strings[mass_string] +  " GeV, " + "c#tau_{#gamma D}= " + cT_strings2[cT_string] + " mm", "PL");      
-  // leg->Draw("same");
-  
-  c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/OverallEfficiency.png"),"recreate");
+  if (doBarrel)
+    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/OverallEfficiency.png"),"recreate");
+  else
+    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/OverallEfficiency.png"),"recreate");
+
   c->Clear();  
 }
 
@@ -521,8 +537,8 @@ void hltEfficiencyVsPtEta()
   std::string darkSUSYSamples("/fdata/hepx/store/user/bmichlin/FullSampleList_InclHighCT.txt");
   std::string nmssmSamples("/fdata/hepx/store/user/bmichlin/NMSSM_PATANA_Location.txt");
   
-  hltEfficiency2D();
-  return; 
+  //hltEfficiency2D();
+  //return; 
   
   if (makeEfficiencyPlotsDarkSUSY){
     std::vector< std::vector<string> > DarkSUSY_mH_125_mGammaD_v;

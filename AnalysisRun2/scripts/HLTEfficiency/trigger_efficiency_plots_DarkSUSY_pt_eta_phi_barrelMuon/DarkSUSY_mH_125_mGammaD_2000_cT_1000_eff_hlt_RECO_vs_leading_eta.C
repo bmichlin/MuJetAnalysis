@@ -1,0 +1,195 @@
+void DarkSUSY_mH_125_mGammaD_2000_cT_1000_eff_hlt_RECO_vs_leading_eta()
+{
+//=========Macro generated from canvas: c/c
+//=========  (Mon Sep 19 19:08:25 2016) by ROOT version6.02/05
+   TCanvas *c = new TCanvas("c", "c",0,0,800,600);
+   gStyle->SetOptStat(0);
+   c->Range(-3.125,-0.13125,3.125,1.18125);
+   c->SetFillColor(0);
+   c->SetBorderMode(0);
+   c->SetBorderSize(2);
+   c->SetFrameBorderMode(0);
+   c->SetFrameBorderMode(0);
+   
+   TH1F *10 = new TH1F("10","Trigger efficiency versus leading muon #eta",50,-2.5,2.5);
+   10->SetStats(0);
+
+   Int_t ci;      // for color index setting
+   TColor *color; // for color definition with alpha
+   ci = TColor::GetColor("#000099");
+   10->SetLineColor(ci);
+   10->GetXaxis()->SetTitle("Leading muon #eta");
+   10->GetXaxis()->SetLabelFont(42);
+   10->GetXaxis()->SetLabelSize(0.035);
+   10->GetXaxis()->SetTitleSize(0.035);
+   10->GetXaxis()->SetTitleFont(42);
+   10->GetYaxis()->SetTitle("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency");
+   10->GetYaxis()->SetLabelFont(42);
+   10->GetYaxis()->SetLabelSize(0.035);
+   10->GetYaxis()->SetTitleSize(0.035);
+   10->GetYaxis()->SetTitleFont(42);
+   10->GetZaxis()->SetLabelFont(42);
+   10->GetZaxis()->SetLabelSize(0.035);
+   10->GetZaxis()->SetTitleSize(0.035);
+   10->GetZaxis()->SetTitleFont(42);
+   10->Draw("");
+   
+   TEfficiency * DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10 = new TEfficiency("DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone","",50,-2.5,2.5);
+   
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetConfidenceLevel(0.6826895);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetBetaAlpha(1);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetBetaBeta(1);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetWeight(1);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetStatisticOption(0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPosteriorMode(0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetShortestInterval(0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(0,0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(0,0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(1,0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(1,0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(2,18);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(2,16);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(3,25);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(3,24);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(4,46);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(4,41);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(5,59);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(5,54);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(6,69);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(6,59);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(7,81);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(7,68);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(8,127);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(8,107);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(9,140);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(9,129);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(10,149);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(10,137);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(11,174);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(11,164);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(12,186);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(12,178);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(13,213);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(13,196);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(14,218);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(14,194);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(15,266);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(15,237);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(16,297);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(16,272);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(17,928);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(17,811);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(18,984);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(18,918);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(19,1037);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(19,990);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(20,1015);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(20,953);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(21,982);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(21,941);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(22,1021);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(22,954);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(23,982);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(23,884);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(24,1000);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(24,926);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(25,1088);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(25,1044);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(26,1086);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(26,1040);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(27,993);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(27,937);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(28,974);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(28,878);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(29,1000);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(29,936);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(30,1110);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(30,1061);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(31,1028);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(31,979);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(32,1027);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(32,981);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(33,1023);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(33,966);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(34,839);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(34,759);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(35,330);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(35,298);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(36,279);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(36,249);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(37,218);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(37,190);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(38,191);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(38,172);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(39,186);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(39,173);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(40,193);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(40,184);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(41,166);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(41,152);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(42,135);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(42,124);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(43,102);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(43,87);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(44,102);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(44,88);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(45,87);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(45,74);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(46,44);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(46,42);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(47,40);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(47,32);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(48,32);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(48,26);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(49,16);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(49,13);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(50,0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(50,0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetTotalEvents(51,0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetPassedEvents(51,0);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetFillColor(19);
+
+   ci = TColor::GetColor("#0000ff");
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetLineColor(ci);
+
+   ci = TColor::GetColor("#0000ff");
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetMarkerColor(ci);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetMarkerStyle(7);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->SetMarkerSize(5);
+   DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone10->Draw("samep");
+   
+   TLegend *leg = new TLegend(0.15,0.15,0.85,0.45,NULL,"brNDC");
+   leg->SetBorderSize(0);
+   leg->SetTextSize(0.045);
+   leg->SetLineColor(1);
+   leg->SetLineStyle(1);
+   leg->SetLineWidth(1);
+   leg->SetFillColor(0);
+   leg->SetFillStyle(1001);
+   TLegendEntry *entry=leg->AddEntry("DarkSUSY_mH_125_mGammaD_2000_cT_1000RECO_leading_eta_fid_clone","m_{#gamma D}= 2.0 GeV, c#tau_{#gamma D}= 
+ mm","PL");
+
+   ci = TColor::GetColor("#0000ff");
+   entry->SetLineColor(ci);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+
+   ci = TColor::GetColor("#0000ff");
+   entry->SetMarkerColor(ci);
+   entry->SetMarkerStyle(7);
+   entry->SetMarkerSize(5);
+   entry->SetTextFont(42);
+   leg->Draw();
+   
+   TPaveText *pt = new TPaveText(0.15,0.9341608,0.85,0.995,"blNDC");
+   pt->SetName("title");
+   pt->SetBorderSize(0);
+   pt->SetFillColor(0);
+   pt->SetFillStyle(0);
+   pt->SetTextFont(42);
+   TText *AText = pt->AddText("Trigger efficiency versus leading muon #eta");
+   pt->Draw();
+   c->Modified();
+   c->cd();
+   c->SetSelected(c);
+}
