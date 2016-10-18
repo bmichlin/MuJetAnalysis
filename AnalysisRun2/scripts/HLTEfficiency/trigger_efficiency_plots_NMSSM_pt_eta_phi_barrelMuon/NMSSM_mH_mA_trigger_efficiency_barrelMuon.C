@@ -1,17 +1,21 @@
 void NMSSM_mH_mA_trigger_efficiency_barrelMuon()
 {
 //=========Macro generated from canvas: c/c
-//=========  (Tue Sep 20 02:16:44 2016) by ROOT version6.02/05
+//=========  (Tue Oct 18 11:14:03 2016) by ROOT version6.02/05
    TCanvas *c = new TCanvas("c", "c",0,0,800,600);
    gStyle->SetOptStat(0);
-   c->Range(0.375,0.2499999,6.625,7.75);
+   c->Range(0.2446043,0.03703708,6.239808,7.444444);
    c->SetFillColor(0);
    c->SetBorderMode(0);
    c->SetBorderSize(2);
+   c->SetLeftMargin(0.126);
+   c->SetRightMargin(0.04);
+   c->SetTopMargin(0.06);
+   c->SetBottomMargin(0.13);
    c->SetFrameBorderMode(0);
    c->SetFrameBorderMode(0);
    
-   TH2F *unnamed = new TH2F("unnamed","HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency",5,1,6,6,1,7);
+   TH2F *unnamed = new TH2F("unnamed","           #scale[1.4]{#font[61]{CMS}} #font[52]{Simulation preliminary}                                                           13 TeV",5,1,6,6,1,7);
    unnamed->SetBinContent(8,0.9766864);
    unnamed->SetBinContent(10,0.9727502);
    unnamed->SetBinContent(11,0.9702859);
@@ -67,7 +71,7 @@ void NMSSM_mH_mA_trigger_efficiency_barrelMuon()
    unnamed->SetContourLevel(18,0.99);
    unnamed->SetContourLevel(19,0.995);
    
-   TPaletteAxis *palette = new TPaletteAxis(6.03125,1,6.3125,7,);
+   TPaletteAxis *palette = new TPaletteAxis(6.029976,1,6.236811,7,);
 palette->SetLabelColor(1);
 palette->SetLabelFont(42);
 palette->SetLabelOffset(0.005);
@@ -84,7 +88,7 @@ palette->SetTitleSize(0.035);
 
    ci = TColor::GetColor("#000099");
    unnamed->SetLineColor(ci);
-   unnamed->GetXaxis()->SetTitle("m_{H} [Gev]");
+   unnamed->GetXaxis()->SetTitle("m_{h} [Gev]");
    unnamed->GetXaxis()->SetBinLabel(1,"90");
    unnamed->GetXaxis()->SetBinLabel(2,"100");
    unnamed->GetXaxis()->SetBinLabel(3,"110");
@@ -93,8 +97,9 @@ palette->SetTitleSize(0.035);
    unnamed->GetXaxis()->SetLabelFont(42);
    unnamed->GetXaxis()->SetLabelSize(0.05);
    unnamed->GetXaxis()->SetTitleSize(0.05);
+   unnamed->GetXaxis()->SetTitleOffset(1.2);
    unnamed->GetXaxis()->SetTitleFont(42);
-   unnamed->GetYaxis()->SetTitle("m_{A} [GeV]");
+   unnamed->GetYaxis()->SetTitle("m_{a_{1}} [GeV]");
    unnamed->GetYaxis()->SetBinLabel(1,"0.5");
    unnamed->GetYaxis()->SetBinLabel(2,"0.75");
    unnamed->GetYaxis()->SetBinLabel(3,"1.0");
@@ -104,6 +109,7 @@ palette->SetTitleSize(0.035);
    unnamed->GetYaxis()->SetLabelFont(42);
    unnamed->GetYaxis()->SetLabelSize(0.05);
    unnamed->GetYaxis()->SetTitleSize(0.05);
+   unnamed->GetYaxis()->SetTitleOffset(1.2);
    unnamed->GetYaxis()->SetTitleFont(42);
    unnamed->GetZaxis()->SetLabelFont(42);
    unnamed->GetZaxis()->SetLabelSize(0.035);
@@ -111,13 +117,13 @@ palette->SetTitleSize(0.035);
    unnamed->GetZaxis()->SetTitleFont(42);
    unnamed->Draw("COLZ TEXT");
    
-   TPaveText *pt = new TPaveText(0.15,0.9341608,0.85,0.995,"blNDC");
+   TPaveText *pt = new TPaveText(0,0.942,1,1,"blNDC");
    pt->SetName("title");
    pt->SetBorderSize(0);
    pt->SetFillColor(0);
    pt->SetFillStyle(0);
    pt->SetTextFont(42);
-   TText *AText = pt->AddText("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency");
+   TText *AText = pt->AddText("           #scale[1.4]{#font[61]{CMS}} #font[52]{Simulation preliminary}                                                           13 TeV");
    pt->Draw();
    c->Modified();
    c->cd();
