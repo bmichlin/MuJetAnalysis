@@ -1,17 +1,21 @@
 void DarkSUSY_GammaD_cT_trigger_efficiency()
 {
 //=========Macro generated from canvas: c/c
-//=========  (Tue Sep 20 00:28:16 2016) by ROOT version6.02/05
+//=========  (Fri Oct 21 17:11:04 2016) by ROOT version6.02/05
    TCanvas *c = new TCanvas("c", "c",0,0,800,600);
    gStyle->SetOptStat(0);
-   c->Range(-0.1250001,-0.6250001,11.125,15.625);
+   c->Range(-0.3597123,-1.08642,10.43165,14.96296);
    c->SetFillColor(0);
    c->SetBorderMode(0);
    c->SetBorderSize(2);
+   c->SetLeftMargin(0.126);
+   c->SetRightMargin(0.04);
+   c->SetTopMargin(0.06);
+   c->SetBottomMargin(0.13);
    c->SetFrameBorderMode(0);
    c->SetFrameBorderMode(0);
    
-   TH2F *unnamed = new TH2F("unnamed","HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency",9,1,10,13,1,14);
+   TH2F *unnamed = new TH2F("unnamed","           #scale[1.4]{#font[61]{CMS}} #font[52]{Simulation preliminary}                                                           13 TeV",9,1,10,13,1,14);
    unnamed->SetBinContent(12,0.9198183);
    unnamed->SetBinContent(13,0.9277925);
    unnamed->SetBinContent(14,0.9284849);
@@ -96,9 +100,9 @@ void DarkSUSY_GammaD_cT_trigger_efficiency()
    unnamed->SetBinContent(118,0.8772124);
    unnamed->SetBinContent(122,0.8122827);
    unnamed->SetBinContent(129,0.8539799);
-   unnamed->SetBinContent(133,0.8207024);
-   unnamed->SetBinContent(144,0.7486339);
-   unnamed->SetBinContent(151,0.8133302);
+   unnamed->SetBinContent(133,-nan);
+   unnamed->SetBinContent(144,-nan);
+   unnamed->SetBinContent(151,-nan);
    unnamed->SetMinimum(0.7);
    unnamed->SetMaximum(1);
    unnamed->SetEntries(87);
@@ -125,7 +129,7 @@ void DarkSUSY_GammaD_cT_trigger_efficiency()
    unnamed->SetContourLevel(18,0.97);
    unnamed->SetContourLevel(19,0.985);
    
-   TPaletteAxis *palette = new TPaletteAxis(10.05625,1,10.5625,14,);
+   TPaletteAxis *palette = new TPaletteAxis(10.05396,1,10.42626,14,);
 palette->SetLabelColor(1);
 palette->SetLabelFont(42);
 palette->SetLabelOffset(0.005);
@@ -142,7 +146,7 @@ palette->SetTitleSize(0.035);
 
    ci = TColor::GetColor("#000099");
    unnamed->SetLineColor(ci);
-   unnamed->GetXaxis()->SetTitle("m_{#gamma D} [Gev]");
+   unnamed->GetXaxis()->SetTitle("m_{#gamma_{D}} [Gev]");
    unnamed->GetXaxis()->SetBinLabel(1,"0.25");
    unnamed->GetXaxis()->SetBinLabel(2,"0.275");
    unnamed->GetXaxis()->SetBinLabel(3,"0.3");
@@ -155,8 +159,9 @@ palette->SetTitleSize(0.035);
    unnamed->GetXaxis()->SetLabelFont(42);
    unnamed->GetXaxis()->SetLabelSize(0.05);
    unnamed->GetXaxis()->SetTitleSize(0.05);
+   unnamed->GetXaxis()->SetTitleOffset(1.2);
    unnamed->GetXaxis()->SetTitleFont(42);
-   unnamed->GetYaxis()->SetTitle("c#tau_{#gamma D} [mm]");
+   unnamed->GetYaxis()->SetTitle("c#tau_{#gamma_{D}} [mm]");
    unnamed->GetYaxis()->SetBinLabel(1,"0.0");
    unnamed->GetYaxis()->SetBinLabel(2,"0.05");
    unnamed->GetYaxis()->SetBinLabel(3,"0.10");
@@ -173,20 +178,21 @@ palette->SetTitleSize(0.035);
    unnamed->GetYaxis()->SetLabelFont(42);
    unnamed->GetYaxis()->SetLabelSize(0.05);
    unnamed->GetYaxis()->SetTitleSize(0.05);
+   unnamed->GetYaxis()->SetTitleOffset(1.2);
    unnamed->GetYaxis()->SetTitleFont(42);
    unnamed->GetZaxis()->SetLabelFont(42);
    unnamed->GetZaxis()->SetLabelSize(0.035);
    unnamed->GetZaxis()->SetTitleSize(0.035);
    unnamed->GetZaxis()->SetTitleFont(42);
-   unnamed->Draw("COLZ TEXT");
+   unnamed->Draw("prof colz");
    
-   TPaveText *pt = new TPaveText(0.15,0.9341608,0.85,0.995,"blNDC");
+   TPaveText *pt = new TPaveText(0,0.942,1,1,"blNDC");
    pt->SetName("title");
    pt->SetBorderSize(0);
    pt->SetFillColor(0);
    pt->SetFillStyle(0);
    pt->SetTextFont(42);
-   TText *AText = pt->AddText("HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx efficiency");
+   TText *AText = pt->AddText("           #scale[1.4]{#font[61]{CMS}} #font[52]{Simulation preliminary}                                                           13 TeV");
    pt->Draw();
    c->Modified();
    c->cd();

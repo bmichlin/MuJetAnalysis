@@ -1,8 +1,8 @@
 void DarkSUSY_mH_125_mGammaD_1000_cT_050_eff_hlt_RECO_vs_leading_eta()
 {
 //=========Macro generated from canvas: c/c
-//=========  (Mon Sep 19 14:14:46 2016) by ROOT version6.02/05
-   TCanvas *c = new TCanvas("c", "c",0,0,700,500);
+//=========  (Tue Sep 20 02:20:44 2016) by ROOT version6.02/05
+   TCanvas *c = new TCanvas("c", "c",0,0,800,600);
    gStyle->SetOptStat(0);
    c->Range(-3.125,-0.13125,3.125,1.18125);
    c->SetFillColor(0);
@@ -166,7 +166,7 @@ void DarkSUSY_mH_125_mGammaD_1000_cT_050_eff_hlt_RECO_vs_leading_eta()
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(1001);
-   TLegendEntry *entry=leg->AddEntry("DarkSUSY_mH_125_mGammaD_1000_cT_050RECO_leading_eta_fid_clone","m_{#gamma D}= 1.0 GeV, c#tau_{#gamma D}=  mm","PL");
+   TLegendEntry *entry=leg->AddEntry("DarkSUSY_mH_125_mGammaD_1000_cT_050RECO_leading_eta_fid_clone","m_{#gamma D}= 1.0 GeV, c#tau_{#gamma D}= 0.50 mm","PL");
 
    ci = TColor::GetColor("#0000ff");
    entry->SetLineColor(ci);
@@ -180,7 +180,7 @@ void DarkSUSY_mH_125_mGammaD_1000_cT_050_eff_hlt_RECO_vs_leading_eta()
    entry->SetTextFont(42);
    leg->Draw();
    
-   TPaveText *pt = new TPaveText(0.1523563,0.9339831,0.8476437,0.995,"blNDC");
+   TPaveText *pt = new TPaveText(0.15,0.9341608,0.85,0.995,"blNDC");
    pt->SetName("title");
    pt->SetBorderSize(0);
    pt->SetFillColor(0);

@@ -1,7 +1,7 @@
 void NMSSM_HToAATo4Mu_mH_150_mA_1_eff_hlt_RECO_vs_muon_eta()
 {
 //=========Macro generated from canvas: c/c
-//=========  (Tue Oct 18 11:13:46 2016) by ROOT version6.02/05
+//=========  (Fri Oct 21 13:35:01 2016) by ROOT version6.02/05
    TCanvas *c = new TCanvas("c", "c",0,0,800,600);
    gStyle->SetOptStat(0);
    c->Range(-3.255396,-0.1685185,2.739808,1.127778);
@@ -30,7 +30,7 @@ void NMSSM_HToAATo4Mu_mH_150_mA_1_eff_hlt_RECO_vs_muon_eta()
    55->GetXaxis()->SetTitleSize(0.05);
    55->GetXaxis()->SetTitleOffset(1.2);
    55->GetXaxis()->SetTitleFont(42);
-   55->GetYaxis()->SetTitle("Trigger efficiency");
+   55->GetYaxis()->SetTitle("Trigger path efficiency");
    55->GetYaxis()->SetLabelFont(42);
    55->GetYaxis()->SetLabelSize(0.05);
    55->GetYaxis()->SetTitleSize(0.05);

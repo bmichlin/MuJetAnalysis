@@ -406,7 +406,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
       double xMax;
       int xBin = 50;
       TString xTitle;
-      TString yTitle = "Trigger efficiency"; //HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx
+      TString yTitle = "Trigger path efficiency"; //HLT_TrkMu15_DoubleTrkMu5NoFiltersNoVtx
       TString title;
 
       if (v==Variable::Pt){
@@ -477,7 +477,7 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
 
 void hltEfficiencyVsGammaDMassAndCtau()
 {
-  // TH1F *base = new TH1F("","Trigger efficiency versus " + title, xBin, xMin, xMax);
+  // TH1F *base = new TH1F("","Trigger path efficiency versus " + title, xBin, xMin, xMax);
   // base->GetXaxis()->SetTitle(xTitle);
   // base->GetYaxis()->SetTitle(yTitle);
   // base->Draw();
