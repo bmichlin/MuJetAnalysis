@@ -587,7 +587,7 @@ void hltEfficiency2D(bool doBarrel = false)
     // base->GetYaxis()->SetTitleSize(0.05);
   }
   
-  base->Draw("prof colz");
+  base->Draw("COLZ TEXT");
   if (doBarrel){
     c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/DarkSUSY_GammaD_cT_trigger_efficiency_barrelMuon.pdf"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/DarkSUSY_GammaD_cT_trigger_efficiency_barrelMuon.C"),"recreate");

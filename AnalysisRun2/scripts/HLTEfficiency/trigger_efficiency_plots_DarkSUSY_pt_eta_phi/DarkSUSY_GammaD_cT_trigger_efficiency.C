@@ -1,7 +1,7 @@
 void DarkSUSY_GammaD_cT_trigger_efficiency()
 {
 //=========Macro generated from canvas: c/c
-//=========  (Fri Oct 21 17:11:04 2016) by ROOT version6.02/05
+//=========  (Fri Oct 21 17:30:55 2016) by ROOT version6.02/05
    TCanvas *c = new TCanvas("c", "c",0,0,800,600);
    gStyle->SetOptStat(0);
    c->Range(-0.3597123,-1.08642,10.43165,14.96296);
@@ -184,7 +184,7 @@ palette->SetTitleSize(0.035);
    unnamed->GetZaxis()->SetLabelSize(0.035);
    unnamed->GetZaxis()->SetTitleSize(0.035);
    unnamed->GetZaxis()->SetTitleFont(42);
-   unnamed->Draw("prof colz");
+   unnamed->Draw("COLZ TEXT");
    
    TPaveText *pt = new TPaveText(0,0.942,1,1,"blNDC");
    pt->SetName("title");
