@@ -454,11 +454,13 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
       leg->Draw("same");
 
       if (doBarrel){    
+	c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".png"),"recreate");
 	c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".pdf"),"recreate");
 	c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".C"),"recreate");
 	eff->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".root"),"recreate");
       }
       else{
+	c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi/" + fileName + "_" + cTitle + ".png"),"recreate");
 	c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi/" + fileName + "_" + cTitle + ".pdf"),"recreate");
 	c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi/" + fileName + "_" + cTitle + ".C"),"recreate");
 	eff->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi/" + fileName + "_" + cTitle + ".root"),"recreate");
@@ -575,10 +577,12 @@ void hltEfficiency2D(bool doBarrel = false)
   
   base->Draw("COLZ TEXT");
   if (doBarrel){
+    c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi_barrelMuon/NMSSM_mH_mA_trigger_efficiency_barrelMuon.png"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi_barrelMuon/NMSSM_mH_mA_trigger_efficiency_barrelMuon.pdf"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi_barrelMuon/NMSSM_mH_mA_trigger_efficiency_barrelMuon.C"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi_barrelMuon/NMSSM_mH_mA_trigger_efficiency_barrelMuon.root"),"recreate");
   } else {
+    c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi/NMSSM_mH_mA_trigger_efficiency.png"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi/NMSSM_mH_mA_trigger_efficiency.pdf"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi/NMSSM_mH_mA_trigger_efficiency.C"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_NMSSM_pt_eta_phi/NMSSM_mH_mA_trigger_efficiency.root"),"recreate");

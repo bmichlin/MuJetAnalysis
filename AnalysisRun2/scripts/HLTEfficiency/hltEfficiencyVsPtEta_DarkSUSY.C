@@ -472,9 +472,11 @@ void efficiency_trigger(const std::vector<std::string>& dirNames, bool doBarrel 
       if (doBarrel){    
 	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".pdf"),"recreate");
 	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".C"),"recreate");
+	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".png"),"recreate");
 	eff->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/" + fileName + "_" + cTitle + ".root"),"recreate");
       }
       else{
+	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".png"),"recreate");
 	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".pdf"),"recreate");
 	c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".C"),"recreate");
 	eff->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/" + fileName + "_" + cTitle + ".root"),"recreate");
@@ -589,10 +591,12 @@ void hltEfficiency2D(bool doBarrel = false)
   
   base->Draw("COLZ TEXT");
   if (doBarrel){
+    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/DarkSUSY_GammaD_cT_trigger_efficiency_barrelMuon.png"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/DarkSUSY_GammaD_cT_trigger_efficiency_barrelMuon.pdf"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/DarkSUSY_GammaD_cT_trigger_efficiency_barrelMuon.C"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi_barrelMuon/DarkSUSY_GammaD_cT_trigger_efficiency_barrelMuon.root"),"recreate");
   }else{
+    c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/DarkSUSY_GammaD_cT_trigger_efficiency.png"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/DarkSUSY_GammaD_cT_trigger_efficiency.pdf"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/DarkSUSY_GammaD_cT_trigger_efficiency.C"),"recreate");
     c->SaveAs(TString("trigger_efficiency_plots_DarkSUSY_pt_eta_phi/DarkSUSY_GammaD_cT_trigger_efficiency.root"),"recreate");
@@ -602,7 +606,7 @@ void hltEfficiency2D(bool doBarrel = false)
 
 void hltEfficiencyVsPtEta_DarkSUSY()
 {
-  bool makeEfficiencyPlotsDarkSUSY = false;
+  bool makeEfficiencyPlotsDarkSUSY = true;
   
   std::string dataSamples("/fdata/hepx/store/user/lpernie/DoubleMuon/2015Dv1_ExtMass2.root");
   std::string darkSUSYSamples("/fdata/hepx/store/user/bmichlin/FullSampleList_InclHighCT.txt");
