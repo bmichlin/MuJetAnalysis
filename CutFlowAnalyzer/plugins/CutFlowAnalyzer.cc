@@ -67,6 +67,8 @@
 #include <DataFormats/SiPixelDetId/interface/PXFDetId.h>
 
 #include "MuJetAnalysis/DataFormats/interface/MultiMuon.h"
+#include "DataFormats/JetReco/interface/PFJet.h"
+#include "DataFormats/PatCandidates/interface/Jet.h"
 #include "MuJetAnalysis/AnalysisTools/interface/ConsistentVertexesCalculator.h"
 #include "MuJetAnalysis/AnalysisTools/interface/DisplacedVertexFinder.h"
 #include "MuJetAnalysis/AnalysisTools/interface/Helpers.h"
@@ -75,6 +77,8 @@
 #include "TTree.h"
 #include "TRandom3.h"
 #include "TMath.h"
+#include "TVector2.h"
+#include "TLorentzVector.h"
 
 #include "DataFormats/Candidate/interface/CandMatchMap.h"
 #include "DataFormats/Candidate/interface/Particle.h"
@@ -362,6 +366,8 @@ private:
   edm::EDGetTokenT<reco::TrackCollection> m_trackRef;
   edm::EDGetTokenT< std::vector<Trajectory> > m_traj;
   edm::EDGetTokenT<reco::VertexCollection> m_primaryVertices;
+  edm::EDGetTokenT<std::vector<pat::Jet> > m_PATJet;
+
   Int_t         m_nThrowsConsistentVertexesCalculator;
   Int_t         m_barrelPixelLayer;
   Int_t         m_endcapPixelLayer;
@@ -550,9 +556,15 @@ private:
   bool runPixelHitRecovery_;
   bool skimOutput_; //fill only events with 2 good dimuons
 
+  Int_t b_NPATJet;
+  Float_t b_PAT_jet_pt[100];
+  Float_t b_PAT_jet_eta[100];
+  Float_t b_PAT_jet_phi[100];
+  Float_t b_PAT_jet_Btag1[100];
+  Float_t b_PAT_jet_Btag2[100];
+  Float_t b_PAT_jet_Btag3[100];
+
   //PixelHitRecovery
-
-
   Int_t b_ntracks;
   
   Float_t b_track_pt[1000];
@@ -727,7 +739,10 @@ private:
   Float_t m_orphan_z;
   Float_t m_orphan_dimu_z;
   Float_t m_orphan_isoTk;
+  Float_t m_orphan_isoTk_nodz;
+  Float_t m_orphan_isoTk_no05;
   Float_t m_orphan_dimu_isoTk;
+  Float_t m_orphan_dimu_isoTk_nodz;
   Bool_t  m_orphan_passOffLineSel;
   Bool_t  m_orphan_passOffLineSelPt;
   Bool_t  m_orphan_passOffLineSelPtEta;
@@ -744,10 +759,17 @@ private:
   Bool_t  m_orphan_FiredTrigPtEta_ptColl;
   Float_t  m_orphan_PtOrph;
   Float_t  m_orphan_EtaOrph;
+  Float_t  m_orphan_PhiOrph;
   Float_t  m_orphan_PtMu0;
   Float_t  m_orphan_EtaMu0;
+  Float_t  m_orphan_PhiMu0;
   Float_t  m_orphan_PtMu1;
   Float_t  m_orphan_EtaMu1;
+  Float_t  m_orphan_PhiMu1;
+  Float_t  m_orphan_PtMu01;
+  Float_t  m_orphan_EtaMu01;
+  Float_t  m_orphan_PhiMu01;
+  Float_t  m_orphan_DRdiMuOrph;
 };
 
 //
@@ -829,6 +851,7 @@ CutFlowAnalyzer::CutFlowAnalyzer(const edm::ParameterSet& iConfig)
   m_trackRef        = consumes<reco::TrackCollection>(iConfig.getParameter<edm::InputTag>("TrackRefitter"));
   m_traj            = consumes< std::vector<Trajectory> >(iConfig.getParameter<edm::InputTag>("Traj"));
   m_primaryVertices = consumes<reco::VertexCollection>(iConfig.getParameter<edm::InputTag>("primaryVertices"));
+  m_PATJet          = consumes<std::vector<pat::Jet> >(iConfig.getParameter<edm::InputTag>("PATJet"));
   m_nThrowsConsistentVertexesCalculator = iConfig.getParameter<int>("nThrowsConsistentVertexesCalculator");
   m_barrelPixelLayer = iConfig.getParameter<int>("barrelPixelLayer");
   m_endcapPixelLayer = iConfig.getParameter<int>("endcapPixelLayer");
@@ -1012,6 +1035,16 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
   b_mutrack_charge_mu1JetF=-100000;
   b_mutrack_charge_mu2JetF=-100000;
 
+  b_NPATJet=-10000;
+  for(int k=0;k<100;k++){
+    b_PAT_jet_pt[k]=-999.;
+    b_PAT_jet_eta[k]=-999.;
+    b_PAT_jet_phi[k]=-999.;
+    b_PAT_jet_Btag1[k]=-999.;
+    b_PAT_jet_Btag2[k]=-999.;
+    b_PAT_jet_Btag3[k]=-999.;
+  }
+
   b_ntracks=-10000;
 
   b_innerlayers_mu1_muJetC=-10000;
@@ -1087,14 +1120,6 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       b_pixelhit_mu2_muJetF_errposy[k][j]=-10000;
     }
   }
-   
-
-   
-   
-  // //BB estimation
-  // Bool_t runBBestimation_;
-
-
 
   //****************************************************************************
   //                          EVENT LEVEL                                       
@@ -2134,9 +2159,8 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 
 
     //====== MATCHING selected muons to refitted tracks 
-	
     for(uint32_t k=0;k<2;k++){
-	  
+
       mtrack_pt[k] = muJetC->muon(k)->innerTrack()->pt();
       mtrack_charge[k] = muJetC->muon(k)->innerTrack()->charge();
 
@@ -2810,8 +2834,7 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 
   }
 
-    
-
+   
   if(runBBestimation_){
     FillTrigInfo(triggerComposition, triggerEvent, NameAndNumb );
     m_orphan_passOffLineSel = false;
@@ -2830,10 +2853,36 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
     m_orphan_FiredTrigPtEta_ptColl = false;
     m_orphan_PtOrph  = -99.;
     m_orphan_EtaOrph = -99.;
+    m_orphan_PhiOrph = -99.;
     m_orphan_PtMu0   = -99.;
     m_orphan_EtaMu0  = -99.;
+    m_orphan_PhiMu0  = -99.;
     m_orphan_PtMu1   = -99.;
     m_orphan_EtaMu1  = -99.;
+    m_orphan_PhiMu1  = -99.;
+    m_orphan_PtMu01   = -99.;
+    m_orphan_EtaMu01  = -99.;
+    m_orphan_PhiMu01  = -99.;
+    m_orphan_DRdiMuOrph  = -99.;
+    // B-Jets
+    int NPATJet=0;
+    edm::Handle<std::vector<pat::Jet> > PATJet;
+    iEvent.getByToken(m_PATJet, PATJet);
+    for( auto Myjet = PATJet->begin(); Myjet != PATJet->end(); ++Myjet ){
+      if( fabs(Myjet->eta())<2.4 && Myjet->pt()>5. ){
+        // Kind of B-tags:
+        //'pfTrackCountingHighEffBJetTags', 'pfTtrackCountingHighPurBJetTags', 'pfJetProbabilityBJetTags', 'pfJetBProbabilityBJetTags', 'pfSimpleSecondaryVertexHighEffBJetTags',
+        //'pfSimpleSecondaryVertexHighPurBJetTags', 'pfCombinedSecondaryVertexV2BJetTags', 'pfCombinedInclusiveSecondaryVertexV2BJetTags', 'pfCombinedMVAV2BJetTags'
+        b_PAT_jet_pt[NPATJet]    = Myjet->pt();
+        b_PAT_jet_eta[NPATJet]   = Myjet->eta();
+        b_PAT_jet_phi[NPATJet]   = Myjet->phi();
+        b_PAT_jet_Btag1[NPATJet] = Myjet->bDiscriminator("pfCombinedSecondaryVertexV2BJetTags");
+        b_PAT_jet_Btag2[NPATJet] = Myjet->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags");
+        b_PAT_jet_Btag3[NPATJet] = Myjet->bDiscriminator("pfCombinedMVAV2BJetTags");
+        NPATJet++;
+      }
+    }
+    if(NPATJet>0) b_NPATJet=NPATJet;
     // Trimuons
     double m_trigpt = 17.;
     std::vector<pat::MuonCollection::const_iterator> hightrigmuons;
@@ -2878,7 +2927,10 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
     m_orphan_dimu_mass = -999.;
     m_orphan_mass = -999.;
     m_orphan_isoTk = -999.;
+    m_orphan_isoTk_nodz = -999.;
+    m_orphan_isoTk_no05 = -999.;
     m_orphan_dimu_isoTk = -999.;
+    m_orphan_dimu_isoTk_nodz = -999.;
     m_orphan_z = -999.;
     m_orphan_dimu_z = -999.;
     m_dimuorphan_containstrig = 0;
@@ -2894,10 +2946,20 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       if((muJet->muon(0)->pt() > m_trigpt && fabs(muJet->muon(0)->eta())<0.9) || (muJet->muon(1)->pt() > m_trigpt && fabs(muJet->muon(1)->eta())<0.9) || (orphan->pt() > m_trigpt && fabs(orphan->eta())<0.9)) m_orphan_passOffLineSelPtEta = true;
       m_orphan_PtOrph  = orphan->pt();
       m_orphan_EtaOrph = orphan->eta();
+      m_orphan_PhiOrph = orphan->phi();
       m_orphan_PtMu0   = muJet->muon(0)->pt();
       m_orphan_EtaMu0  = muJet->muon(0)->eta();
+      m_orphan_PhiMu0  = muJet->muon(0)->phi();
       m_orphan_PtMu1   = muJet->muon(1)->pt();
       m_orphan_EtaMu1  = muJet->muon(1)->eta();
+      m_orphan_PhiMu1  = muJet->muon(1)->phi();
+      TLorentzVector mymu0, mymu1;
+      mymu0.SetPtEtaPhiM(m_orphan_PtMu0,m_orphan_EtaMu0,m_orphan_PhiMu0,0);
+      mymu1.SetPtEtaPhiM(m_orphan_PtMu1,m_orphan_EtaMu1,m_orphan_PhiMu1,0);
+      m_orphan_PtMu01   = (mymu0+mymu1).Pt();
+      m_orphan_EtaMu01  = (mymu0+mymu1).Eta();
+      m_orphan_PhiMu01  = (mymu0+mymu1).Phi();
+      m_orphan_DRdiMuOrph  = sqrt( pow(m_orphan_EtaMu01-m_orphan_EtaOrph,2) + pow(TVector2::Phi_mpi_pi(m_orphan_PhiMu01-m_orphan_PhiOrph),2) );
       double triPt[3]  = {muJet->muon(0)->pt(), muJet->muon(1)->pt(), orphan->pt()};
       double triEta[3] = {fabs(muJet->muon(0)->eta()), fabs(muJet->muon(1)->eta()), fabs(orphan->eta())};
       int Index17=-1;
@@ -2931,7 +2993,10 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
       //iso orphan
       double iso_track_pt_treshold = 0.5;
       m_orphan_isoTk = 0.;
+      m_orphan_isoTk_nodz = 0.;
+      m_orphan_isoTk_no05 = 0.;
       m_orphan_dimu_isoTk = 0.;
+      m_orphan_dimu_isoTk_nodz = 0.;
       for (reco::TrackCollection::const_iterator track = tracks->begin(); track != tracks->end(); ++track) {
         if (!muJet->sameTrack(&*track,&*(orphan->innerTrack()))) {
           double dphi = orphan->innerTrack()->phi() - track->phi();
@@ -2939,9 +3004,11 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
           if (dphi < -M_PI) dphi += 2.*M_PI;
           double deta = orphan->innerTrack()->eta() - track->eta();
           double dR = sqrt(pow(dphi, 2) + pow(deta, 2));
+          double dz = fabs(track->dz(beamSpot->position())-orphan->innerTrack()->dz(beamSpot->position()));
+          if (dz < 0.1 && dR < 0.4) m_orphan_isoTk_no05 += track->pt();
           if (dR < 0.4 && track->pt() > iso_track_pt_treshold) {
-            double dz = fabs(track->dz(beamSpot->position())-orphan->innerTrack()->dz(beamSpot->position()));
             if (dz < 0.1){ m_orphan_isoTk += track->pt(); }
+            m_orphan_isoTk_nodz += track->pt();
           }
         }
       }
@@ -2958,6 +3025,7 @@ CutFlowAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
            if (dR < 0.4 && track->pt() > iso_track_pt_treshold) {
              double dz = fabs(track->dz(beamSpot->position())-muJet->vertexDz(beamSpot->position()));
              if (dz < 0.1){ m_orphan_dimu_isoTk += track->pt(); }
+             m_orphan_dimu_isoTk_nodz += track->pt();
            }
          }    
        }
@@ -3461,7 +3529,10 @@ CutFlowAnalyzer::beginJob() {
     m_ttree_orphan->Branch("orph_z", &m_orphan_z, "orph_z/F");
     m_ttree_orphan->Branch("orph_dimu_z", &m_orphan_dimu_z, "orph_dimu_z/F");
     m_ttree_orphan->Branch("orph_isoTk", &m_orphan_isoTk, "orph_isoTk/F");
+    m_ttree_orphan->Branch("orph_isoTk_nodz", &m_orphan_isoTk_nodz, "orph_isoTk_nodz/F");
+    m_ttree_orphan->Branch("orph_isoTk_no05", &m_orphan_isoTk_no05, "orph_isoTk_no05/F");
     m_ttree_orphan->Branch("orph_dimu_isoTk", &m_orphan_dimu_isoTk, "orph_dimu_isoTk/F");
+    m_ttree_orphan->Branch("orph_dimu_isoTk_nodz", &m_orphan_dimu_isoTk_nodz, "orph_dimu_isoTk_nodz/F");
     m_ttree_orphan->Branch("orph_passOffLineSel", &m_orphan_passOffLineSel, "orph_passOffLineSel/O");
     m_ttree_orphan->Branch("orph_passOffLineSelPt", &m_orphan_passOffLineSelPt, "orph_passOffLineSelPt/O");
     m_ttree_orphan->Branch("orph_passOffLineSelPtEta", &m_orphan_passOffLineSelPtEta, "orph_passOffLineSelPtEta/O");
@@ -3478,10 +3549,24 @@ CutFlowAnalyzer::beginJob() {
     m_ttree_orphan->Branch("orph_FiredTrigPtEta_ptColl", &m_orphan_FiredTrigPtEta_ptColl, "orph_FiredTrigPtEta_ptColl/O");
     m_ttree_orphan->Branch("orph_PtOrph", &m_orphan_PtOrph, "orph_PtOrph/F");
     m_ttree_orphan->Branch("orph_EtaOrph", &m_orphan_EtaOrph, "orph_EtaOrph/F");
+    m_ttree_orphan->Branch("orph_PhiOrph", &m_orphan_PhiOrph, "orph_PhiOrph/F");
     m_ttree_orphan->Branch("orph_PtMu0", &m_orphan_PtMu0, "orph_PtMu0/F");
     m_ttree_orphan->Branch("orph_EtaMu0", &m_orphan_EtaMu0, "orph_EtaMu0/F");
+    m_ttree_orphan->Branch("orph_PhiMu0", &m_orphan_PhiMu0, "orph_PhiMu0/F");
     m_ttree_orphan->Branch("orph_PtMu1", &m_orphan_PtMu1, "orph_PtMu1/F");
     m_ttree_orphan->Branch("orph_EtaMu1", &m_orphan_EtaMu1, "orph_EtaMu1/F");
+    m_ttree_orphan->Branch("orph_PhiMu1", &m_orphan_PhiMu1, "orph_PhiMu1/F");
+    m_ttree_orphan->Branch("orph_PtMu01", &m_orphan_PtMu01, "orph_PtMu01/F");
+    m_ttree_orphan->Branch("orph_EtaMu01", &m_orphan_EtaMu01, "orph_EtaMu01/F");
+    m_ttree_orphan->Branch("orph_PhiMu01", &m_orphan_PhiMu01, "orph_PhiMu01/F");
+    m_ttree_orphan->Branch("orph_DRdiMuOrph", &m_orphan_DRdiMuOrph, "orph_DRdiMuOrph/F");
+    m_ttree_orphan->Branch("NPATJet",&b_NPATJet,"NPATJet/I");
+    m_ttree_orphan->Branch("PAT_jet_pt", &b_PAT_jet_pt,"PAT_jet_pt[NPATJet]/F");
+    m_ttree_orphan->Branch("PAT_jet_eta", &b_PAT_jet_eta,"PAT_jet_eta[NPATJet]/F");
+    m_ttree_orphan->Branch("PAT_jet_phi", &b_PAT_jet_phi,"PAT_jet_phi[NPATJet]/F");
+    m_ttree_orphan->Branch("PAT_jet_Btag1", &b_PAT_jet_Btag1,"PAT_jet_Btag1[NPATJet]/F");
+    m_ttree_orphan->Branch("PAT_jet_Btag2", &b_PAT_jet_Btag2,"PAT_jet_Btag2[NPATJet]/F");
+    m_ttree_orphan->Branch("PAT_jet_Btag3", &b_PAT_jet_Btag3,"PAT_jet_Btag3[NPATJet]/F");
   }
 }
 

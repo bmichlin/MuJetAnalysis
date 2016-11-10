@@ -2,7 +2,7 @@ from CRABClient.UserUtilities import config
 config = config()
 
 config.section_("General")
-config.General.requestName = 'DoubleMuon_2015Dv1noPrompt_AOD_260373_260534_7412p4_p1_patTuple_cutana_mujets_Ups_noL3_1'
+config.General.requestName = 'DoubleMuon_2015Dv1noPrompt_AOD_260373_260534_7412p4_p1_patTuple_cutana_mujets_Btag_1'
 config.General.workArea = 'crab_projects'
 config.General.transferLogs = True
 
@@ -22,7 +22,7 @@ config.Data.lumiMask = 'Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JS
 #config.Data.outLFNDirBase = '/store/group/lpcdarksusy/'
 config.Data.outLFNDirBase = '/store/user/lpernie/'
 config.Data.publication = True
-config.Data.outputDatasetTag = 'DoubleMuon_2015Dv1noPrompt_AOD_260373_260534_7412p4_p1_patTuple_cutana_mujets_Ups_noL3_1'
+config.Data.outputDatasetTag = 'DoubleMuon_2015Dv1noPrompt_AOD_260373_260534_7412p4_p1_patTuple_cutana_mujets_Btag_1'
 
 config.section_("Site")
 #config.Site.storageSite = 'T2_CH_CERN'

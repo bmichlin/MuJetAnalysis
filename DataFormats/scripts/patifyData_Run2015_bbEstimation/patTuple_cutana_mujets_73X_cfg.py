@@ -32,20 +32,12 @@ process.load("RecoTracker.TrackProducer.TrackRefitter_cfi")
 process.TrackRefitter.NavigationSchool = ''
 
 ################## RECO Input #############################
-
 process.source = cms.Source ("PoolSource",
-                             fileNames=cms.untracked.vstring(
-							 'file:002C811B-80A7-E511-8C4D-0CC47A4D7644.root'
-							 ),
+                             fileNames = cms.untracked.vstring('file:002DAE91-77A7-E511-B61B-00266CFAEA48.root'),
                              skipEvents=cms.untracked.uint32(0)
                             )
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(100))
 
-
-process.Path = cms.Path(process.TrackRefitter*process.MeasurementTrackerEvent)
-
-# End of customisation functions
-#do not add changes to your config after this point (unless you know what you are doing)
 from FWCore.ParameterSet.Utilities import convertToUnscheduled
 process=convertToUnscheduled(process)
 
@@ -64,8 +56,5 @@ process.load("MuJetAnalysis.CutFlowAnalyzer.CutFlowAnalyzer_cff")
 
 process.Path = cms.Path(process.patifyData * process.MuJetProducers  * process.cutFlowAnalyzers)
 process.outpath.remove(process.out) #Avoid to store PAT
-# customisation of the process.
 
 process.TFileService = cms.Service("TFileService", fileName = cms.string("out_ana.root") )
-
-# End of customisation functions
